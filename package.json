@@ -27,8 +27,6 @@
     "preinstall": "npx only-allow pnpm"
   },
   "private": true,
-  "dependencies": {
-  },
   "devDependencies": {
     "@nrwl/cli": "11.5.2",
     "@nrwl/devkit": "11.5.2",
@@ -39,18 +37,18 @@
     "@nrwl/nx-plugin": "^11.5.2",
     "@nrwl/tao": "11.5.2",
     "@nrwl/workspace": "11.5.2",
-    "@types/jest": "26.0.8",
-    "@types/node": "14.14.33",
-    "@typescript-eslint/eslint-plugin": "4.3.0",
-    "@typescript-eslint/parser": "4.3.0",
+    "@types/jest": "26.0.22",
+    "@types/node": "14.14.36",
+    "@typescript-eslint/eslint-plugin": "4.19.0",
+    "@typescript-eslint/parser": "4.19.0",
     "dotenv": "8.2.0",
-    "eslint": "7.10.0",
+    "eslint": "7.22.0",
     "eslint-config-prettier": "8.1.0",
-    "jest": "26.2.2",
+    "jest": "26.6.3",
     "prettier": "2.2.1",
-    "ts-jest": "26.4.0",
+    "ts-jest": "26.5.4",
     "ts-node": "~9.1.1",
     "tslib": "^2.0.0",
-    "typescript": "~4.0.3"
+    "typescript": "~4.2.3"
   }
 }
