@@ -1,26 +1,53 @@
-devDependencies:
-  '@nrwl/cli': 11.5.2
-  '@nrwl/devkit': 11.5.2
-  '@nrwl/eslint-plugin-nx': 11.5.2_18cf72097dde932010254a6eb7cfd0ce
-  '@nrwl/jest': 11.5.2
-  '@nrwl/linter': 11.5.2
-  '@nrwl/node': 11.5.2_typescript@4.2.3
-  '@nrwl/nx-plugin': 11.5.2_typescript@4.2.3
-  '@nrwl/tao': 11.5.2
-  '@nrwl/workspace': 11.5.2_prettier@2.2.1
-  '@types/jest': 26.0.22
-  '@types/node': 14.14.36
-  '@typescript-eslint/eslint-plugin': 4.19.0_f26dcf5ec38a04241b14c26bc931244e
-  '@typescript-eslint/parser': 4.19.0_eslint@7.22.0+typescript@4.2.3
-  dotenv: 8.2.0
-  eslint: 7.22.0
-  eslint-config-prettier: 8.1.0_eslint@7.22.0
-  jest: 26.6.3_ts-node@9.1.1
-  prettier: 2.2.1
-  ts-jest: 26.5.4_jest@26.6.3+typescript@4.2.3
-  ts-node: 9.1.1_typescript@4.2.3
-  tslib: 2.1.0
-  typescript: 4.2.3
+importers:
+  .:
+    devDependencies:
+      '@angular-devkit/core': 11.2.6
+      '@nrwl/cli': 11.5.2
+      '@nrwl/devkit': 11.5.2
+      '@nrwl/eslint-plugin-nx': 11.5.2_18cf72097dde932010254a6eb7cfd0ce
+      '@nrwl/jest': 11.5.2
+      '@nrwl/linter': 11.5.2
+      '@nrwl/node': 11.5.2_typescript@4.2.3
+      '@nrwl/nx-plugin': 11.5.2_typescript@4.2.3
+      '@nrwl/tao': 11.5.2
+      '@nrwl/workspace': 11.5.2_prettier@2.2.1
+      '@types/jest': 26.0.22
+      '@types/node': 14.14.36
+      '@typescript-eslint/eslint-plugin': 4.19.0_f26dcf5ec38a04241b14c26bc931244e
+      '@typescript-eslint/parser': 4.19.0_eslint@7.22.0+typescript@4.2.3
+      dotenv: 8.2.0
+      eslint: 7.22.0
+      eslint-config-prettier: 8.1.0_eslint@7.22.0
+      jest: 26.6.3_ts-node@9.1.1
+      prettier: 2.2.1
+      ts-jest: 26.5.4_jest@26.6.3+typescript@4.2.3
+      ts-node: 9.1.1_typescript@4.2.3
+      tslib: 2.1.0
+      typescript: 4.2.3
+    specifiers:
+      '@angular-devkit/core': ^11.2.6
+      '@nrwl/cli': 11.5.2
+      '@nrwl/devkit': 11.5.2
+      '@nrwl/eslint-plugin-nx': 11.5.2
+      '@nrwl/jest': 11.5.2
+      '@nrwl/linter': 11.5.2
+      '@nrwl/node': 11.5.2
+      '@nrwl/nx-plugin': ^11.5.2
+      '@nrwl/tao': 11.5.2
+      '@nrwl/workspace': 11.5.2
+      '@types/jest': 26.0.22
+      '@types/node': 14.14.36
+      '@typescript-eslint/eslint-plugin': 4.19.0
+      '@typescript-eslint/parser': 4.19.0
+      dotenv: 8.2.0
+      eslint: 7.22.0
+      eslint-config-prettier: 8.1.0
+      jest: 26.6.3
+      prettier: 2.2.1
+      ts-jest: 26.5.4
+      ts-node: ~9.1.1
+      tslib: ^2.0.0
+      typescript: ~4.2.3
 lockfileVersion: 5.2
 packages:
   /@angular-devkit/architect/0.1102.6:
@@ -8331,26 +8358,3 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
-specifiers:
-  '@nrwl/cli': 11.5.2
-  '@nrwl/devkit': 11.5.2
-  '@nrwl/eslint-plugin-nx': 11.5.2
-  '@nrwl/jest': 11.5.2
-  '@nrwl/linter': 11.5.2
-  '@nrwl/node': 11.5.2
-  '@nrwl/nx-plugin': ^11.5.2
-  '@nrwl/tao': 11.5.2
-  '@nrwl/workspace': 11.5.2
-  '@types/jest': 26.0.22
-  '@types/node': 14.14.36
-  '@typescript-eslint/eslint-plugin': 4.19.0
-  '@typescript-eslint/parser': 4.19.0
-  dotenv: 8.2.0
-  eslint: 7.22.0
-  eslint-config-prettier: 8.1.0
-  jest: 26.6.3
-  prettier: 2.2.1
-  ts-jest: 26.5.4
-  ts-node: ~9.1.1
-  tslib: ^2.0.0
-  typescript: ~4.2.3

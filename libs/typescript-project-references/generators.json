@@ -1,12 +1,12 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "name": "typescript-project-references",
+  "name": "migrate",
   "version": "0.0.1",
   "generators": {
-    "typescript-project-references": {
-      "factory": "./src/generators/typescript-project-references/generator",
-      "schema": "./src/generators/typescript-project-references/schema.json",
-      "description": "typescript-project-references generator"
+    "migrate": {
+      "factory": "./src/generators/migrate/generator",
+      "schema": "./src/generators/migrate/schema.json",
+      "description": "migrate generator"
     }
   }
 }
