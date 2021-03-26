@@ -14,8 +14,11 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
+    "strict": true,
     "paths": {
-
+      "@wanews/typescript-project-references": [
+        "libs/typescript-project-references/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -16,5 +16,10 @@
     }
   },
   "projects": {
+    "typescript-project-references": { "tags": [] },
+    "typescript-project-references-e2e": {
+      "tags": [],
+      "implicitDependencies": ["typescript-project-references"]
+    }
   }
 }

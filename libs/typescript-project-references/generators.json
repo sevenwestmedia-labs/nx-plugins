@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "typescript-project-references",
+  "version": "0.0.1",
+  "generators": {
+    "typescript-project-references": {
+      "factory": "./src/generators/typescript-project-references/generator",
+      "schema": "./src/generators/typescript-project-references/schema.json",
+      "description": "typescript-project-references generator"
+    }
+  }
+}
