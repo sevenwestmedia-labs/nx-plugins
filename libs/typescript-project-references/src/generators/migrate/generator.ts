@@ -46,6 +46,24 @@ coverageDirectory: '../../coverage/${project.root}',
 }`,
     )
 
+    host.write(
+        'jest.preset.js',
+        `const { compilerOptions } = require('./tsconfig.base');
+const { pathsToModuleNameMapper } = require('ts-jest/utils');
+
+module.exports = {
+    testMatch: ['**/+(*.)+(spec|test).+(ts|js)?(x)'],
+    moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'html'],
+    coverageReporters: ['html'],
+    transform: {
+        '^.+\\.(tsx?|jsx?|html)$': 'esbuild-jest',
+    },
+    testPathIgnorePatterns: ['/node_modules/', '/dist/'],
+    modulePathIgnorePatterns: ['/dist/'],
+    moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: __dirname } )
+};`,
+    )
+
     updateJson(host, `${project.root}/.eslintrc.json`, (eslint) => {
         // Type checking in linting is super slow
         delete eslint.overrides[0].parserOptions
@@ -60,13 +78,21 @@ coverageDirectory: '../../coverage/${project.root}',
     if (project.projectType === 'application') {
         host.delete(`${project.root}/tsconfig.app.json`)
     }
+    // NOTE This means we cannot use @nrwl/jest resolver, we have to use typescript -> jest path mapping instead
+    host.delete(`${project.root}/tsconfig.spec.json`)
     createTypeScriptConfig(host, project)
+    createOrUpdateLibProjectPackageJson(host, project, name)
 
     // Add into root typescript project references config
     updateJson(host, `./tsconfig.json`, (tsconfig) => {
-        tsconfig.references.push({
-            path: project.root,
-        })
+        if (
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            !tsconfig.references.some((ref: any) => ref.path === project.root)
+        ) {
+            tsconfig.references.push({
+                path: project.root,
+            })
+        }
 
         return tsconfig
     })
@@ -79,23 +105,11 @@ function createTypeScriptConfig(
     writeJson(host, `./${project.root}/tsconfig.json`, {
         extends: '../../tsconfig.settings.json',
         compilerOptions: {
-            outDir: './dist/esm',
+            outDir: './dist',
             rootDir: './src',
             types: ['jest', 'node'],
         },
-        include: ['src/**/*.ts', 'src/**/*.spec.ts'],
-        references: [
-            {
-                path: './tsconfig.cjs.json',
-            },
-        ],
-    })
-    writeJson(host, `${project.root}/tsconfig.cjs.json`, {
-        extends: './tsconfig.json',
-        compilerOptions: {
-            outDir: './dist/cjs',
-            module: 'CommonJS',
-        },
+        include: ['src/**/*.ts', 'src/**/*.tsx'],
     })
 }
 
@@ -106,8 +120,7 @@ function createOrUpdateLibProjectPackageJson(
 ) {
     if (host.exists(`${project.root}/package.json`)) {
         updateJson(host, `${project.root}/package.json`, (value) => {
-            value.main = 'dist/cjs/index.js'
-            value.module = 'dist/esm/index.js'
+            value.main = 'dist/index.js'
 
             return value
         })
@@ -115,8 +128,7 @@ function createOrUpdateLibProjectPackageJson(
         writeJson(host, `${project.root}/package.json`, {
             name: `${name}`,
             version: '0.0.1',
-            main: 'dist/cjs/index.js',
-            module: 'dist/esm/index.js',
+            main: 'dist/index.js',
             peerDependencies: {
                 tslib: '^2.1.0',
             },
