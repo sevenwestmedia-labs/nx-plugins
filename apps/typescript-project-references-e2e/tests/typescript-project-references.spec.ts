@@ -13,8 +13,8 @@ jest.setTimeout(200000)
 describe('typescript-project-references e2e', () => {
     it('should create typescript-project-references', async () => {
         const libName = uniq('lib')
-        // TODO create second library and make lib 1 reference lib 2.
         // This will flush out issues like https://github.com/aleclarson/vite-tsconfig-paths/issues/12
+        const lib2Name = uniq('lib')
         const appName = uniq('app')
         ensureNxProject(
             '@wanews/nx-typescript-project-references',
@@ -23,6 +23,9 @@ describe('typescript-project-references e2e', () => {
 
         await runNxCommandAsync(
             `generate @nrwl/workspace:library --name=${libName} --no-interactive`,
+        )
+        await runNxCommandAsync(
+            `generate @nrwl/workspace:library --name=${lib2Name} --no-interactive`,
         )
         await runNxCommandAsync(
             `generate @nrwl/node:application --name=${appName} --babelJest`,
@@ -52,34 +55,57 @@ it('it looks at source, not built', () => {
 })`,
         )
 
-        updateFile(
+        // Update TS Project references so app -> lib
+        addTsConfigReference(
             `./apps/${appName}/tsconfig.json`,
-            readFile(`./apps/${appName}/tsconfig.json`).replace(
-                '"include":',
-                `"references": [{ "path": "../../libs/${libName}" }],
-  "include":`,
-            ),
+            `../../libs/${libName}`,
+        )
+        // Update TS Project references so lib -> lib2
+        addTsConfigReference(
+            `./libs/${libName}/tsconfig.json`,
+            `../../libs/${lib2Name}`,
         )
 
         // Ensure it can all build
         await runCommandAsyncHandlingError('tsc -b')
 
-        // Update source
+        // Update source of lib to import from lib2
         updateFile(
             `./libs/${libName}/src/lib/${libName}.ts`,
-            `export function ${libName}(): string {
+            `import { ${lib2Name} } from '@proj/${lib2Name}'
+
+export function ${libName}(): string {
+    return ${lib2Name}();
+}`,
+        )
+
+        // Update source of lib to return 'updated' string literal
+        updateFile(
+            `./libs/${lib2Name}/src/lib/${lib2Name}.ts`,
+            `export function ${lib2Name}(): string {
     return 'updated';
 }`,
         )
 
         // Run the test in app which asserts against the latest library source.
         await runNxCommandAsyncHandlingError(`test ${appName}`)
+
+        // Ensure the jest VSCode plugin can run tests
+        await runCommandAsyncHandlingError(
+            `node './node_modules/.bin/jest' './apps/${appName}/src/main.spec.ts' -c './apps/${appName}/jest.config.js' -t 'it looks at source, not built'`,
+        )
     })
 
     beforeAll(() => {
         cleanup()
     })
 })
+
+function addTsConfigReference(tsConfigPath: string, target: string) {
+    const source = JSON.parse(readFile(tsConfigPath))
+    source.references = [...(source.references || []), { path: target }]
+    updateFile(tsConfigPath, JSON.stringify(source, undefined, 2))
+}
 
 async function runNxCommandAsyncHandlingError(command: string) {
     try {

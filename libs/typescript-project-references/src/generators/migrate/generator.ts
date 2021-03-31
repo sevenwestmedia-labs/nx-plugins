@@ -56,13 +56,24 @@ module.exports = {
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'html'],
     coverageReporters: ['html'],
     transform: {
-        '^.+\\.(tsx?|jsx?|html)$': 'esbuild-jest',
+        '^.+\\.(tsx?|jsx?|html)$': 'babel-jest',
     },
     testPathIgnorePatterns: ['/node_modules/', '/dist/'],
     modulePathIgnorePatterns: ['/dist/'],
     moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: __dirname } )
 };`,
     )
+
+    if (!host.exists('babel.config.json')) {
+        host.write(
+            'babel.config.json',
+            `{
+    "presets": ["@babel/preset-env", "@babel/preset-typescript"],
+    "babelrcRoots": ["*"]
+}
+`,
+        )
+    }
 
     updateJson(host, `${project.root}/.eslintrc.json`, (eslint) => {
         // Type checking in linting is super slow
@@ -80,6 +91,7 @@ module.exports = {
     }
     // NOTE This means we cannot use @nrwl/jest resolver, we have to use typescript -> jest path mapping instead
     host.delete(`${project.root}/tsconfig.spec.json`)
+    fixBabelrc(host, project)
     createTypeScriptConfig(host, project)
     createOrUpdateLibProjectPackageJson(host, project, name)
 
@@ -132,6 +144,30 @@ function createOrUpdateLibProjectPackageJson(
             peerDependencies: {
                 tslib: '^2.1.0',
             },
+        })
+    }
+}
+
+function fixBabelrc(
+    host: Tree,
+    project: ProjectConfiguration & NxJsonProjectConfiguration,
+) {
+    const babelRc = `${project.root}/.babelrc`
+    if (host.exists(babelRc)) {
+        updateJson(host, babelRc, (value) => {
+            // The @nrwl projects comes with too many assumptions, we need to
+            // drop back to basics
+            value.presets = value.presets.filter(
+                (preset: string) => preset !== '@nrwl/web/babel',
+            )
+            if (!value.presets.includes('@babel/preset-typescript')) {
+                value.presets.splice(0, 0, '@babel/preset-typescript')
+            }
+            if (!value.presets.includes('@babel/preset-env')) {
+                value.presets.splice(0, 0, '@babel/preset-env')
+            }
+
+            return value
         })
     }
 }
