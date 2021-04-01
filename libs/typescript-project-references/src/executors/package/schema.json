@@ -1,0 +1,37 @@
+{
+    "title": "TS Project Refs Library Package Target",
+    "description": "Packages a Node library using TypeScript Project References",
+    "type": "object",
+    "cli": "nx",
+    "properties": {
+        "main": {
+            "type": "string",
+            "description": "The name of the main entry-point file."
+        },
+        "tsConfig": {
+            "type": "string",
+            "description": "The name of the Typescript configuration file."
+        },
+        "sourceMap": {
+            "type": "boolean",
+            "description": "Output sourcemaps.",
+            "default": true
+        },
+        "updateBuildableProjectDepsInPackageJson": {
+            "type": "boolean",
+            "description": "Update buildable project dependencies in package.json",
+            "default": true
+        },
+        "buildableProjectDepsInPackageJsonType": {
+            "type": "string",
+            "description": "When updateBuildableProjectDepsInPackageJson is true, this adds dependencies to either `peerDependencies` or `dependencies`",
+            "enum": ["dependencies", "peerDependencies"],
+            "default": "dependencies"
+        },
+        "packageJson": {
+            "type": "string",
+            "description": "The name of the package.json file"
+        }
+    },
+    "required": ["tsConfig", "main"]
+}

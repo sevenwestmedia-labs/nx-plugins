@@ -6,6 +6,7 @@ import {
     cleanup,
     updateFile,
     readFile,
+    readJson,
 } from '@nrwl/nx-plugin/testing'
 
 jest.setTimeout(200000)
@@ -31,9 +32,7 @@ describe('typescript-project-references e2e', () => {
             `generate @nrwl/node:application --name=${appName} --babelJest`,
         )
 
-        await runCommandAsyncHandlingError(
-            'npm add tsconfig-paths-jest esbuild-jest esbuild --dev',
-        )
+        await runCommandAsyncHandlingError('npm add tsup esbuild --dev')
         // await runCommandAsyncHandlingError('npm remove ts-jest')
 
         await runNxCommandAsync(
@@ -94,6 +93,19 @@ export function ${libName}(): string {
         await runCommandAsyncHandlingError(
             `node './node_modules/.bin/jest' './apps/${appName}/src/main.spec.ts' -c './apps/${appName}/jest.config.js' -t 'it looks at source, not built'`,
         )
+
+        updateWorkspaceConfig((workspace) => {
+            workspace.projects[libName].targets.package = {
+                executor: '@wanews/nx-typescript-project-references:package',
+                options: {
+                    main: `libs/${libName}/src/index.ts`,
+                    tsConfig: `libs/${libName}/tsconfig.json`,
+                },
+            }
+            return workspace
+        })
+
+        await runNxCommandAsyncHandlingError(`run ${libName}:package`)
     })
 
     beforeAll(() => {
@@ -113,7 +125,7 @@ async function runNxCommandAsyncHandlingError(command: string) {
     } catch (err) {
         console.error(
             'Command failure',
-            await runCommandAsync(command, { silenceError: true }),
+            await runNxCommandAsync(command, { silenceError: true }),
         )
         throw err
     }
@@ -129,4 +141,13 @@ async function runCommandAsyncHandlingError(command: string) {
         )
         throw err
     }
+}
+
+export function updateWorkspaceConfig(
+    callback: (json: { [key: string]: any }) => Object,
+) {
+    updateFile(
+        'workspace.json',
+        JSON.stringify(callback(readJson('workspace.json')), null, 2),
+    )
 }
