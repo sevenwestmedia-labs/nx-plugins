@@ -73,7 +73,9 @@ export async function packageExecutor(
         )
     }
 
-    return {}
+    return {
+        success: true,
+    }
 }
 
 export default packageExecutor
