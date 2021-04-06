@@ -1,150 +1,140 @@
 {
-  "version": 2,
-  "projects": {
-    "typescript-project-references": {
-      "root": "libs/typescript-project-references",
-      "sourceRoot": "libs/typescript-project-references/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/typescript-project-references/**/*.ts"
-            ]
-          }
+    "version": 2,
+    "projects": {
+        "typescript-project-references": {
+            "root": "libs/typescript-project-references",
+            "sourceRoot": "libs/typescript-project-references/src",
+            "projectType": "library",
+            "targets": {
+                "lint": {
+                    "executor": "@nrwl/linter:eslint",
+                    "options": {
+                        "lintFilePatterns": [
+                            "libs/typescript-project-references/**/*.ts"
+                        ]
+                    }
+                },
+                "test": {
+                    "executor": "@nrwl/jest:jest",
+                    "outputs": ["coverage/libs/typescript-project-references"],
+                    "options": {
+                        "jestConfig": "libs/typescript-project-references/jest.config.js",
+                        "passWithNoTests": true
+                    }
+                },
+                "build": {
+                    "executor": "@nrwl/node:package",
+                    "outputs": ["{options.outputPath}"],
+                    "options": {
+                        "outputPath": "dist/libs/typescript-project-references",
+                        "tsConfig": "libs/typescript-project-references/tsconfig.lib.json",
+                        "packageJson": "libs/typescript-project-references/package.json",
+                        "main": "libs/typescript-project-references/src/index.ts",
+                        "assets": [
+                            "libs/typescript-project-references/*.md",
+                            {
+                                "input": "./libs/typescript-project-references/src",
+                                "glob": "**/*.!(ts)",
+                                "output": "./src"
+                            },
+                            {
+                                "input": "./libs/typescript-project-references",
+                                "glob": "generators.json",
+                                "output": "."
+                            },
+                            {
+                                "input": "./libs/typescript-project-references",
+                                "glob": "executors.json",
+                                "output": "."
+                            }
+                        ]
+                    }
+                }
+            }
         },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/typescript-project-references"
-          ],
-          "options": {
-            "jestConfig": "libs/typescript-project-references/jest.config.js",
-            "passWithNoTests": true
-          }
+        "typescript-project-references-e2e": {
+            "projectType": "application",
+            "root": "apps/typescript-project-references-e2e",
+            "sourceRoot": "apps/typescript-project-references-e2e/src",
+            "targets": {
+                "e2e": {
+                    "executor": "@nrwl/nx-plugin:e2e",
+                    "options": {
+                        "target": "typescript-project-references:build",
+                        "npmPackageName": "@wanews/nx-typescript-project-references",
+                        "pluginOutputPath": "dist/libs/typescript-project-references",
+                        "jestConfig": "apps/typescript-project-references-e2e/jest.config.js"
+                    }
+                }
+            }
         },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
-          "options": {
-            "outputPath": "dist/libs/typescript-project-references",
-            "tsConfig": "libs/typescript-project-references/tsconfig.lib.json",
-            "packageJson": "libs/typescript-project-references/package.json",
-            "main": "libs/typescript-project-references/src/index.ts",
-            "assets": [
-              "libs/typescript-project-references/*.md",
-              {
-                "input": "./libs/typescript-project-references/src",
-                "glob": "**/*.!(ts)",
-                "output": "./src"
-              },
-              {
-                "input": "./libs/typescript-project-references",
-                "glob": "generators.json",
-                "output": "."
-              },
-              {
-                "input": "./libs/typescript-project-references",
-                "glob": "executors.json",
-                "output": "."
-              }
-            ]
-          }
+        "nx-esbuild": {
+            "root": "libs/nx-esbuild",
+            "sourceRoot": "libs/nx-esbuild/src",
+            "projectType": "library",
+            "targets": {
+                "lint": {
+                    "executor": "@nrwl/linter:eslint",
+                    "options": {
+                        "lintFilePatterns": ["libs/nx-esbuild/**/*.ts"]
+                    }
+                },
+                "test": {
+                    "executor": "@nrwl/jest:jest",
+                    "outputs": ["coverage/libs/nx-esbuild"],
+                    "options": {
+                        "jestConfig": "libs/nx-esbuild/jest.config.js",
+                        "passWithNoTests": true
+                    }
+                },
+                "build": {
+                    "executor": "@nrwl/node:package",
+                    "outputs": ["{options.outputPath}"],
+                    "options": {
+                        "outputPath": "dist/libs/nx-esbuild",
+                        "tsConfig": "libs/nx-esbuild/tsconfig.lib.json",
+                        "packageJson": "libs/nx-esbuild/package.json",
+                        "main": "libs/nx-esbuild/src/index.ts",
+                        "assets": [
+                            "libs/nx-esbuild/*.md",
+                            {
+                                "input": "./libs/nx-esbuild/src",
+                                "glob": "**/*.!(ts)",
+                                "output": "./src"
+                            },
+                            {
+                                "input": "./libs/nx-esbuild",
+                                "glob": "generators.json",
+                                "output": "."
+                            },
+                            {
+                                "input": "./libs/nx-esbuild",
+                                "glob": "executors.json",
+                                "output": "."
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "nx-esbuild-e2e": {
+            "projectType": "application",
+            "root": "apps/nx-esbuild-e2e",
+            "sourceRoot": "apps/nx-esbuild-e2e/src",
+            "targets": {
+                "e2e": {
+                    "executor": "@nrwl/nx-plugin:e2e",
+                    "options": {
+                        "target": "nx-esbuild:build",
+                        "npmPackageName": "@wanews/nx-esbuild",
+                        "pluginOutputPath": "dist/libs/nx-esbuild",
+                        "jestConfig": "apps/nx-esbuild-e2e/jest.config.js"
+                    }
+                }
+            }
         }
-      }
     },
-    "typescript-project-references-e2e": {
-      "projectType": "application",
-      "root": "apps/typescript-project-references-e2e",
-      "sourceRoot": "apps/typescript-project-references-e2e/src",
-      "targets": {
-        "e2e": {
-          "executor": "@nrwl/nx-plugin:e2e",
-          "options": {
-            "target": "typescript-project-references:build",
-            "npmPackageName": "@wanews/nx-typescript-project-references",
-            "pluginOutputPath": "dist/libs/typescript-project-references",
-            "jestConfig": "apps/typescript-project-references-e2e/jest.config.js"
-          }
-        }
-      }
-    },
-    "nx-esbuild": {
-      "root": "libs/nx-esbuild",
-      "sourceRoot": "libs/nx-esbuild/src",
-      "projectType": "library",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/nx-esbuild/**/*.ts"
-            ]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/nx-esbuild"
-          ],
-          "options": {
-            "jestConfig": "libs/nx-esbuild/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
-        "build": {
-          "executor": "@nrwl/node:package",
-          "outputs": [
-            "{options.outputPath}"
-          ],
-          "options": {
-            "outputPath": "dist/libs/nx-esbuild",
-            "tsConfig": "libs/nx-esbuild/tsconfig.lib.json",
-            "packageJson": "libs/nx-esbuild/package.json",
-            "main": "libs/nx-esbuild/src/index.ts",
-            "assets": [
-              "libs/nx-esbuild/*.md",
-              {
-                "input": "./libs/nx-esbuild/src",
-                "glob": "**/*.!(ts)",
-                "output": "./src"
-              },
-              {
-                "input": "./libs/nx-esbuild",
-                "glob": "generators.json",
-                "output": "."
-              },
-              {
-                "input": "./libs/nx-esbuild",
-                "glob": "executors.json",
-                "output": "."
-              }
-            ]
-          }
-        }
-      }
-    },
-    "nx-esbuild-e2e": {
-      "projectType": "application",
-      "root": "apps/nx-esbuild-e2e",
-      "sourceRoot": "apps/nx-esbuild-e2e/src",
-      "targets": {
-        "e2e": {
-          "executor": "@nrwl/nx-plugin:e2e",
-          "options": {
-            "target": "nx-esbuild:build",
-            "npmPackageName": "@nx-generators/nx-esbuild",
-            "pluginOutputPath": "dist/libs/nx-esbuild",
-            "jestConfig": "apps/nx-esbuild-e2e/jest.config.js"
-          }
-        }
-      }
+    "cli": {
+        "defaultCollection": "@nrwl/workspace"
     }
-  },
-  "cli": {
-    "defaultCollection": "@nrwl/workspace"
-  }
 }
