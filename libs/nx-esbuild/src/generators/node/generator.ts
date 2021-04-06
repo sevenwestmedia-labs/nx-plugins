@@ -8,9 +8,9 @@ import {
     Tree,
 } from '@nrwl/devkit'
 import * as path from 'path'
-import { NxEsbuildGeneratorSchema } from './schema'
+import { NodeGeneratorSchema } from './schema'
 
-interface NormalizedSchema extends NxEsbuildGeneratorSchema {
+interface NormalizedSchema extends NodeGeneratorSchema {
     projectName: string
     projectRoot: string
     projectDirectory: string
@@ -19,7 +19,7 @@ interface NormalizedSchema extends NxEsbuildGeneratorSchema {
 
 function normalizeOptions(
     host: Tree,
-    options: NxEsbuildGeneratorSchema,
+    options: NodeGeneratorSchema,
 ): NormalizedSchema {
     const name = names(options.name).fileName
     const projectDirectory = options.directory
@@ -27,7 +27,7 @@ function normalizeOptions(
         : name
     const projectName = projectDirectory.replace(new RegExp('/', 'g'), '-')
     const projectRoot = `${
-        getWorkspaceLayout(host).libsDir
+        getWorkspaceLayout(host).appsDir
     }/${projectDirectory}`
     const parsedTags = options.tags
         ? options.tags.split(',').map((s) => s.trim())
@@ -57,7 +57,7 @@ function addFiles(host: Tree, options: NormalizedSchema) {
     )
 }
 
-export default async function (host: Tree, options: NxEsbuildGeneratorSchema) {
+export default async function (host: Tree, options: NodeGeneratorSchema) {
     const normalizedOptions = normalizeOptions(host, options)
     addProjectConfiguration(host, normalizedOptions.projectName, {
         root: normalizedOptions.projectRoot,
@@ -66,6 +66,9 @@ export default async function (host: Tree, options: NxEsbuildGeneratorSchema) {
         targets: {
             build: {
                 executor: '@wanews/nx-esbuild:build',
+            },
+            serve: {
+                executor: '@wanews/nx-esbuild:serve',
             },
         },
         tags: normalizedOptions.parsedTags,
