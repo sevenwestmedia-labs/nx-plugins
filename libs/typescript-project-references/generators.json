@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "name": "migrate",
+  "version": "0.0.1",
+  "generators": {
+    "migrate": {
+      "factory": "./src/generators/migrate/generator",
+      "schema": "./src/generators/migrate/schema.json",
+      "description": "migrate generator"
+    }
+  }
+}
