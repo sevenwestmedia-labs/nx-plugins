@@ -1,7 +1,8 @@
 import { BuildExecutorSchema } from './schema'
 import execa from 'execa'
-import { ExecutorContext } from '@nrwl/devkit'
+import { ExecutorContext, readJson } from '@nrwl/devkit'
 import { getEsbuildArgs } from '../../common/get-esbuild-args'
+import { FsTree } from '@nrwl/tao/src/shared/tree'
 
 export default async function runExecutor(
     options: BuildExecutorSchema,
@@ -10,9 +11,16 @@ export default async function runExecutor(
     if (!context.projectName) {
         throw new Error('No projectName')
     }
-    const libRoot = context.workspace.projects[context.projectName].root
+    const appRoot = context.workspace.projects[context.projectName].root
+    const tree = new FsTree(context.cwd, context.isVerbose)
 
-    const args = getEsbuildArgs(options, libRoot)
+    const packageJson = readJson(tree, `${appRoot}/package.json`)
+
+    const args = getEsbuildArgs(
+        options,
+        appRoot,
+        Object.keys(packageJson?.dependencies || {}),
+    )
 
     const esbuild = execa('esbuild', args)
     esbuild.stdout?.pipe(process.stdout)
