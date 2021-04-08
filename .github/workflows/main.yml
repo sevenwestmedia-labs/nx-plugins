@@ -3,7 +3,7 @@ name: Build & Test CI
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   version:
@@ -12,14 +12,14 @@ jobs:
       changes: ${{ steps.version.outputs.changes }} # map step output to job output
     steps:
       - name: Checkout
-        uses: actions/checkout@master
+        uses: actions/checkout@main
         with:
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
           token: ${{ secrets.SERVICE_ACCOUNT_PAT }}
 
       - name: Enable node
-        uses: actions/setup-node@master
+        uses: actions/setup-node@main
         with:
           node-version: 14.x
 
