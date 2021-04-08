@@ -26,7 +26,7 @@ jobs:
       - name: Version command
         id: version
         run: |
-          echo ::set-output name=changes::$(pnpx -p @changesets/cli changeset version 2>&1 | grep -q 'No unreleased changesets found' && echo 'false' || echo 'true')
+          echo ::set-output name=changes::$(npx -p @changesets/cli changeset version 2>&1 | grep -q 'No unreleased changesets found' && echo 'false' || echo 'true')
       - name: Push changes
         if: steps.version.outputs.changes == 'true'
         run: |
