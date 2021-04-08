@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "cli": "nx",
+    "title": "Serve executor",
+    "description": "",
+    "type": "object",
+    "properties": {
+        "externals": { "type": "array", "items": { "type": "string" } },
+        "platform": { "type": "string" },
+        "target": { "type": "string" },
+        "entry": { "type": "string" },
+        "outfile": { "type": "string" }
+    },
+    "required": []
+}

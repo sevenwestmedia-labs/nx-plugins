@@ -1,0 +1,12 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "name": "nx-esbuild",
+    "version": "0.0.1",
+    "generators": {
+        "node": {
+            "factory": "./src/generators/node/generator",
+            "schema": "./src/generators/node/schema.json",
+            "description": "Node application bundled by esbuild"
+        }
+    }
+}

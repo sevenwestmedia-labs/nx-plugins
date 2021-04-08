@@ -2,7 +2,6 @@ import { ExecutorContext } from '@nrwl/devkit'
 import { createProjectGraph } from '@nrwl/workspace/src/core/project-graph'
 import {
     calculateProjectDependencies,
-    checkDependentProjectsHaveBeenBuilt,
     updateBuildableProjectPackageJsonDependencies,
 } from '@nrwl/workspace/src/utilities/buildable-libs-utils'
 import { PackageExecutorSchema } from './schema'

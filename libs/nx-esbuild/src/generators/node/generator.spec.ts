@@ -2,11 +2,11 @@ import { createTreeWithEmptyWorkspace } from '@nrwl/devkit/testing'
 import { Tree, readProjectConfiguration } from '@nrwl/devkit'
 
 import generator from './generator'
-import { MigrateSchema } from './schema'
+import { NodeGeneratorSchema } from './schema'
 
-describe('typescript-project-references generator', () => {
+describe('node generator', () => {
     let appTree: Tree
-    const options: MigrateSchema = {}
+    const options: NodeGeneratorSchema = { name: 'test' }
 
     beforeEach(() => {
         appTree = createTreeWithEmptyWorkspace()
