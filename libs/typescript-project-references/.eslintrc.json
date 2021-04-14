@@ -4,11 +4,6 @@
     "overrides": [
         {
             "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
-            "parserOptions": {
-                "project": [
-                    "libs/typescript-project-references/tsconfig.*?.json"
-                ]
-            },
             "rules": {
                 "@typescript-eslint/no-empty-interface": "off",
                 "@typescript-eslint/no-unused-vars": "off"
