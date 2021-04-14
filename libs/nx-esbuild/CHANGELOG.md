@@ -1,5 +1,11 @@
 # @wanews/nx-esbuild
 
+## 0.1.2
+
+### Patch Changes
+
+- 399d03f: Fix builds (properly)
+
 ## 0.1.1
 
 ### Patch Changes
