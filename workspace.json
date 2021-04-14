@@ -22,14 +22,17 @@
                         "passWithNoTests": true
                     }
                 },
+
                 "build": {
-                    "executor": "@nrwl/node:build",
-                    "outputs": ["{options.outputPath}"],
+                    "executor": "@nrwl/workspace:run-commands",
                     "options": {
-                        "outputPath": "libs/typescript-project-references",
-                        "tsConfig": "libs/typescript-project-references/tsconfig.lib.json",
-                        "packageJson": "libs/typescript-project-references/package.json",
-                        "main": "libs/typescript-project-references/src/index.ts"
+                        "commands": [
+                            {
+                                "command": "tsc -b libs/typescript-project-references",
+                                "forwardAllArgs": true
+                            }
+                        ],
+                        "parallel": false
                     }
                 }
             }
@@ -70,13 +73,15 @@
                     }
                 },
                 "build": {
-                    "executor": "@nrwl/node:build",
-                    "outputs": ["{options.outputPath}"],
+                    "executor": "@nrwl/workspace:run-commands",
                     "options": {
-                        "outputPath": "libs/nx-esbuild",
-                        "tsConfig": "libs/nx-esbuild/tsconfig.lib.json",
-                        "packageJson": "libs/nx-esbuild/package.json",
-                        "main": "libs/nx-esbuild/src/index.ts"
+                        "commands": [
+                            {
+                                "command": "tsc -b libs/nx-esbuild",
+                                "forwardAllArgs": true
+                            }
+                        ],
+                        "parallel": false
                     }
                 }
             }

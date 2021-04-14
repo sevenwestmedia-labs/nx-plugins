@@ -6,6 +6,9 @@ dist
 /out-tsc
 tsconfig.tsbuildinfo
 
+**/src/**/*.d.ts
+**/src/**/*.js
+**/src/**/*.js.map
 
 # dependencies
 node_modules

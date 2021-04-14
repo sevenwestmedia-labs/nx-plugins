@@ -76,6 +76,9 @@ jobs:
         run: |
           pnpm install --frozen-lockfile
 
+      - name: type scheck
+        run: pnpx tsc -b
+
       - name: Build packages
         run: pnpm run build
 
