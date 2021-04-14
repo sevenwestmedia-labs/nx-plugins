@@ -26,7 +26,8 @@ jobs:
       - name: Version command
         id: version
         run: |
-          npx -p @changesets/cli changeset version 2>&1
+          npm install --no-package-lock --no-save @changesets/cli
+          npx changeset version 2>&1
       - name: Push changes
         if: steps.version.outputs.changes == 'true'
         run: |

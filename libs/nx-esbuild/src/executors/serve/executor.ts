@@ -12,7 +12,12 @@ export default async function runExecutor(
     }
     const appRoot = context.workspace.projects[context.projectName].root
 
-    const args = getEsbuildArgs(options, appRoot)
+    const args = getEsbuildArgs(
+        options,
+        appRoot,
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        Object.keys(require(`${appRoot}/package.json`).dependencies),
+    )
 
     const esbuild = execa('esbuild', [...args, '--watch'])
     esbuild.stdout?.pipe(process.stdout)
