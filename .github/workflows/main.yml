@@ -27,7 +27,7 @@ jobs:
         id: version
         run: |
           npm install --no-package-lock --no-save @changesets/cli
-          npx changeset version 2>&1
+          echo ::set-output name=changes::$(npx changeset version 2>&1 | grep -q 'No unreleased changesets found' && echo 'false' || echo 'true')
       - name: Push changes
         if: steps.version.outputs.changes == 'true'
         run: |
