@@ -1,8 +1,9 @@
 {
-  "name": "typescript-project-references-e2e",
-  "version": "0.0.1",
-  "main": "dist/index.js",
-  "peerDependencies": {
-    "tslib": "^2.1.0"
-  }
+    "name": "typescript-project-references-e2e",
+    "version": "0.0.1",
+    "main": "dist/index.js",
+    "private": true,
+    "peerDependencies": {
+        "tslib": "^2.1.0"
+    }
 }
