@@ -75,12 +75,14 @@ module.exports = {
         )
     }
 
-    updateJson(host, `${project.root}/.eslintrc.json`, (eslint) => {
-        // Type checking in linting is super slow
-        delete eslint.overrides[0].parserOptions
+    if (host.exists(`${project.root}/.eslintrc.json`)) {
+        updateJson(host, `${project.root}/.eslintrc.json`, (eslint) => {
+            // Type checking in linting is super slow
+            delete eslint.overrides[0].parserOptions
 
-        return eslint
-    })
+            return eslint
+        })
+    }
 
     host.delete(`${project.root}/tsconfig.json`)
     if (project.projectType === 'library') {

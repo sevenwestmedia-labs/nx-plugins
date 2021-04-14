@@ -23,31 +23,13 @@
                     }
                 },
                 "build": {
-                    "executor": "@nrwl/node:package",
+                    "executor": "@nrwl/node:build",
                     "outputs": ["{options.outputPath}"],
                     "options": {
-                        "outputPath": "dist/libs/typescript-project-references",
+                        "outputPath": "libs/typescript-project-references",
                         "tsConfig": "libs/typescript-project-references/tsconfig.lib.json",
                         "packageJson": "libs/typescript-project-references/package.json",
-                        "main": "libs/typescript-project-references/src/index.ts",
-                        "assets": [
-                            "libs/typescript-project-references/*.md",
-                            {
-                                "input": "./libs/typescript-project-references/src",
-                                "glob": "**/*.!(ts)",
-                                "output": "./src"
-                            },
-                            {
-                                "input": "./libs/typescript-project-references",
-                                "glob": "generators.json",
-                                "output": "."
-                            },
-                            {
-                                "input": "./libs/typescript-project-references",
-                                "glob": "executors.json",
-                                "output": "."
-                            }
-                        ]
+                        "main": "libs/typescript-project-references/src/index.ts"
                     }
                 }
             }
@@ -62,7 +44,7 @@
                     "options": {
                         "target": "typescript-project-references:build",
                         "npmPackageName": "@wanews/nx-typescript-project-references",
-                        "pluginOutputPath": "dist/libs/typescript-project-references",
+                        "pluginOutputPath": "libs/typescript-project-references",
                         "jestConfig": "apps/typescript-project-references-e2e/jest.config.js"
                     }
                 }
@@ -88,31 +70,13 @@
                     }
                 },
                 "build": {
-                    "executor": "@nrwl/node:package",
+                    "executor": "@nrwl/node:build",
                     "outputs": ["{options.outputPath}"],
                     "options": {
-                        "outputPath": "dist/libs/nx-esbuild",
+                        "outputPath": "libs/nx-esbuild",
                         "tsConfig": "libs/nx-esbuild/tsconfig.lib.json",
                         "packageJson": "libs/nx-esbuild/package.json",
-                        "main": "libs/nx-esbuild/src/index.ts",
-                        "assets": [
-                            "libs/nx-esbuild/*.md",
-                            {
-                                "input": "./libs/nx-esbuild/src",
-                                "glob": "**/*.!(ts)",
-                                "output": "./src"
-                            },
-                            {
-                                "input": "./libs/nx-esbuild",
-                                "glob": "generators.json",
-                                "output": "."
-                            },
-                            {
-                                "input": "./libs/nx-esbuild",
-                                "glob": "executors.json",
-                                "output": "."
-                            }
-                        ]
+                        "main": "libs/nx-esbuild/src/index.ts"
                     }
                 }
             }

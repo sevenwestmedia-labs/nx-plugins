@@ -1,10 +1,9 @@
 {
-    "extends": "../../tsconfig.base.json",
-    "files": [],
-    "include": [],
-    "references": [
-        {
-            "path": "./tsconfig.spec.json"
-        }
-    ]
+    "extends": "../../tsconfig.settings.json",
+    "compilerOptions": {
+        "outDir": "./dist",
+        "rootDir": "./tests",
+        "types": ["jest", "node"]
+    },
+    "include": ["tests/**/*.ts", "tests/**/*.tsx"]
 }

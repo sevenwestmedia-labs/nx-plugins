@@ -15,6 +15,7 @@ importers:
       '@nrwl/nx-plugin': ^11.5.2
       '@nrwl/tao': 11.5.2
       '@nrwl/workspace': 11.5.2
+      '@types/execa': ^2.0.0
       '@types/jest': 26.0.22
       '@types/node': 14.14.36
       '@typescript-eslint/eslint-plugin': 4.19.0
@@ -40,6 +41,7 @@ importers:
       '@nrwl/nx-plugin': 11.5.2_typescript@4.2.3
       '@nrwl/tao': 11.5.2
       '@nrwl/workspace': 11.5.2_prettier@2.2.1
+      '@types/execa': 2.0.0
       '@types/jest': 26.0.22
       '@types/node': 14.14.36
       '@typescript-eslint/eslint-plugin': 4.19.0_f26dcf5ec38a04241b14c26bc931244e
@@ -1077,6 +1079,13 @@ packages:
     resolution: {integrity: sha512-Vs0hm0vPahPMYi9tDjtP66llufgO3ST16WXaSTtDGEl9cewAl3AibmxWw6TINOqHPT9z0uABKAYjT9jNSg4npw==}
     dependencies:
       '@babel/types': 7.13.12
+    dev: true
+
+  /@types/execa/2.0.0:
+    resolution: {integrity: sha512-aBnkJ0r3khaZkHzu9pDZeWXrDg1N/ZtDGRQkK+KIqNVvvTvW+URXMUHQQCQMYdb2GPrcwu9Fq6l9iiT+pirIbg==}
+    deprecated: This is a stub types definition. execa provides its own type definitions, so you do not need this installed.
+    dependencies:
+      execa: 5.0.0
     dev: true
 
   /@types/fs-extra/9.0.9:
@@ -3355,7 +3364,6 @@ packages:
       onetime: 5.1.2
       signal-exit: 3.0.3
       strip-final-newline: 2.0.0
-    dev: false
 
   /exit/0.1.2:
     resolution: {integrity: sha1-BjJjj42HfMghB9MKD/8aF8uhzQw=}
@@ -3843,7 +3851,6 @@ packages:
   /get-stream/6.0.0:
     resolution: {integrity: sha512-A1B3Bh1UmL0bidM/YX2NsCOTnGJePL9rO/M+Mw3m9f2gUpfokS0hi5Eah0WSUEWZdZhIZtMjkIYS7mDfOqNHbg==}
     engines: {node: '>=10'}
-    dev: false
 
   /get-value/2.0.6:
     resolution: {integrity: sha1-3BXKHGcjh8p2vTesCjlbogQqLCg=}
@@ -4174,7 +4181,6 @@ packages:
   /human-signals/2.1.0:
     resolution: {integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==}
     engines: {node: '>=10.17.0'}
-    dev: false
 
   /iconv-lite/0.4.24:
     resolution: {integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==}
