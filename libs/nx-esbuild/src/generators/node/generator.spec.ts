@@ -1,3 +1,4 @@
+import 'regenerator-runtime'
 import { createTreeWithEmptyWorkspace } from '@nrwl/devkit/testing'
 import { Tree, readProjectConfiguration } from '@nrwl/devkit'
 

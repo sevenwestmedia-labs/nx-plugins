@@ -1,8 +1,8 @@
 {
-  "name": "nx-esbuild-e2e",
-  "version": "0.0.1",
-  "main": "dist/index.js",
-  "peerDependencies": {
-    "tslib": "^2.1.0"
-  }
+    "name": "nx-esbuild-e2e",
+    "version": "0.0.1",
+    "main": "dist/index.js",
+    "peerDependencies": {
+        "tslib": "^2.1.0"
+    }
 }

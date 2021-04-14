@@ -1,9 +1,9 @@
+import 'regenerator-runtime'
 import {
     ensureNxProject,
     runCommandAsync,
     runNxCommandAsync,
     uniq,
-    fileExists,
 } from '@nrwl/nx-plugin/testing'
 
 jest.setTimeout(60000)
@@ -17,9 +17,7 @@ describe('nx-esbuild e2e', () => {
             'npm add esbuild nodemon dotenv --dev',
         )
 
-        await runNxCommandAsync(
-            `generate @wanews/nx-esbuild:nx-esbuild ${plugin}`,
-        )
+        await runNxCommandAsync(`generate @wanews/nx-esbuild:node ${plugin}`)
 
         const result = await runNxCommandAsync(`build ${plugin}`)
         // Ensure bundle exists on disk

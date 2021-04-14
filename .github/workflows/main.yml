@@ -88,6 +88,9 @@ jobs:
       - name: Run tests
         run: pnpm test
 
+      - name: Run e2e tests
+        run: pnpm e2e
+
       - name: Release packages
         uses: changesets/action@master
         with:
