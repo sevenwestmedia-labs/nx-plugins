@@ -20,7 +20,7 @@ describe('typescript-project-references e2e', () => {
         const appName = uniq('app')
         ensureNxProject(
             '@wanews/nx-typescript-project-references',
-            'dist/libs/typescript-project-references',
+            'libs/typescript-project-references',
         )
 
         await runNxCommandAsync(

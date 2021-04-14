@@ -96,7 +96,7 @@
                     "options": {
                         "target": "nx-esbuild:build",
                         "npmPackageName": "@wanews/nx-esbuild",
-                        "pluginOutputPath": "dist/libs/nx-esbuild",
+                        "pluginOutputPath": "libs/nx-esbuild",
                         "jestConfig": "apps/nx-esbuild-e2e/jest.config.js"
                     }
                 }

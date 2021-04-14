@@ -11,7 +11,7 @@ jest.setTimeout(60000)
 describe('nx-esbuild e2e', () => {
     it('should create nx-esbuild', async () => {
         const plugin = uniq('nx-esbuild')
-        ensureNxProject('@wanews/nx-esbuild', 'dist/libs/nx-esbuild')
+        ensureNxProject('@wanews/nx-esbuild', 'libs/nx-esbuild')
         await runCommandAsyncHandlingError('npm install')
         await runCommandAsyncHandlingError(
             'npm add esbuild nodemon dotenv --dev',
