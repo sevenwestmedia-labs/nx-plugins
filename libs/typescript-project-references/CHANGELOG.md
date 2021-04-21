@@ -1,5 +1,11 @@
 # @wanews/nx-typescript-project-references
 
+## 0.2.0
+
+### Minor Changes
+
+- 80eda06: Add library generator
+
 ## 0.1.2
 
 ### Patch Changes
