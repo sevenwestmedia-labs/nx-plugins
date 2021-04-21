@@ -7,6 +7,7 @@ dist
 tsconfig.tsbuildinfo
 
 **/src/**/*.d.ts
+!**/src/**/schema.d.ts
 **/src/**/*.js
 **/src/**/*.js.map
 

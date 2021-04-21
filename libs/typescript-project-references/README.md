@@ -1,5 +1,19 @@
 # @wanews/nx-typescript-project-references
 
-## Instructions
+## Installation
 
-1. npm add tsconfig-paths-jest esbuild-jest esbuild --dev
+```
+pnpm add -WD @wanews/nx-typescript-project-references
+```
+
+## Upgrade a repo
+
+```
+pnpx nx generate @wanews/nx-typescript-project-references:migrate
+```
+
+## Library generator
+
+```
+pnpx nx generate @wanews/nx-typescript-project-references:library
+```

@@ -7,6 +7,11 @@
       "factory": "./src/generators/migrate/generator",
       "schema": "./src/generators/migrate/schema.json",
       "description": "migrate generator"
+    },
+    "library": {
+      "factory": "./src/generators/library/generator",
+      "schema": "./src/generators/library/schema.json",
+      "description": "Creates a library which is compiled using TypeScript project references"
     }
   }
 }
