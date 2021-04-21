@@ -160,7 +160,9 @@ function fixBabelrc(
             // The @nrwl projects comes with too many assumptions, we need to
             // drop back to basics
             value.presets = (value.presets || []).filter(
-                (preset: string) => preset !== '@nrwl/web/babel',
+                (preset: string) =>
+                    preset !== '@nrwl/web/babel' &&
+                    preset[0] !== '@nrwl/web/babel',
             )
             if (!value.presets.includes('@babel/preset-typescript')) {
                 value.presets.splice(0, 0, '@babel/preset-typescript')
