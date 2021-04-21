@@ -1,5 +1,11 @@
 # @wanews/nx-typescript-project-references
 
+## 0.2.1
+
+### Patch Changes
+
+- 6f6cc70: Fixed crash when babel has no presets
+
 ## 0.2.0
 
 ### Minor Changes
