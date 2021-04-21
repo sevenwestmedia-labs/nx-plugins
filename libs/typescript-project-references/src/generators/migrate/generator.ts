@@ -159,7 +159,7 @@ function fixBabelrc(
         updateJson(host, babelRc, (value) => {
             // The @nrwl projects comes with too many assumptions, we need to
             // drop back to basics
-            value.presets = value.presets.filter(
+            value.presets = (value.presets || []).filter(
                 (preset: string) => preset !== '@nrwl/web/babel',
             )
             if (!value.presets.includes('@babel/preset-typescript')) {
