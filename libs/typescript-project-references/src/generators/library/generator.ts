@@ -69,6 +69,10 @@ export default async function (host: Tree, options: LibraryGeneratorSchema) {
                   package: {
                       executor:
                           '@wanews/nx-typescript-project-references:package',
+                      options: {
+                          main: `libs/${options.name}/src/index.ts`,
+                          tsConfig: `libs/${options.name}/tsconfig.json`,
+                      },
                   },
               }
             : {},
