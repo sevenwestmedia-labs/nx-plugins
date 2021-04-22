@@ -3,4 +3,5 @@ export interface LibraryGeneratorSchema {
     tags?: string
     directory?: string
     package?: boolean
+    packageName?: string
 }

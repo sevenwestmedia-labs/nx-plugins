@@ -27,6 +27,10 @@
         "package": {
             "type": "boolean",
             "description": "Adds a package command to the library"
+        },
+        "packageName": {
+            "type": "string",
+            "description": "The name in the projects package.json, name used if not specified"
         }
     },
     "required": ["name"]
