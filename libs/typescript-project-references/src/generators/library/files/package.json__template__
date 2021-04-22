@@ -1,8 +1,5 @@
 {
   "name": "<%= packageName %>",
   "version": "0.0.1",
-  "main": "dist/index.js",
-  "peerDependencies": {
-    "tslib": "^2.1.0"
-  }
+  "main": "dist/index.js"
 }
