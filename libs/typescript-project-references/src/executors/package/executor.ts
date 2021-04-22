@@ -46,6 +46,7 @@ export async function packageExecutor(
     tsup.stdout?.pipe(process.stdout)
     await tsup
 
+    console.log('Generating type definitions...')
     const tsc = execa('tsc', [
         '-p',
         libRoot,
@@ -56,6 +57,7 @@ export async function packageExecutor(
     ])
     tsc.stdout?.pipe(process.stdout)
     await tsc
+    console.log('Done')
 
     if (
         dependencies.length > 0 &&
