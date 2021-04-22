@@ -1,5 +1,11 @@
 # @wanews/nx-typescript-project-references
 
+## 0.3.2
+
+### Patch Changes
+
+- 82922e5: Fixed workspace config being incorrect after library generation
+
 ## 0.3.1
 
 ### Patch Changes
