@@ -1,5 +1,11 @@
 # @wanews/nx-typescript-project-references
 
+## 0.3.0
+
+### Minor Changes
+
+- 6b22065: Allow a separate package name to be specified for libraries
+
 ## 0.2.1
 
 ### Patch Changes
