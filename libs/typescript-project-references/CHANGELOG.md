@@ -1,5 +1,11 @@
 # @wanews/nx-typescript-project-references
 
+## 0.4.0
+
+### Minor Changes
+
+- 3905299: Log when generating type definitions when packaging so it doesn't look like it's hanging
+
 ## 0.3.2
 
 ### Patch Changes
