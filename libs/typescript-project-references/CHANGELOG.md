@@ -1,5 +1,11 @@
 # @wanews/nx-typescript-project-references
 
+## 0.3.1
+
+### Patch Changes
+
+- 1e89787: Remove tslib peer dependency from library generator
+
 ## 0.3.0
 
 ### Minor Changes
