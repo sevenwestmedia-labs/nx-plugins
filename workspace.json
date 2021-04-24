@@ -125,7 +125,7 @@
                     "options": {
                         "commands": [
                             {
-                                "command": "tsc -b libs/nx-esbuild",
+                                "command": "tsc -b libs/pulumi",
                                 "forwardAllArgs": true
                             }
                         ],
