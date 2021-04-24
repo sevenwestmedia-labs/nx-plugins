@@ -1,5 +1,7 @@
 # @wanews/nx-typescript-project-references
 
+Converts an NX repo to take advantage of TypeScript project references.
+
 ## Installation
 
 ```

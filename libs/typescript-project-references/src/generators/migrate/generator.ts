@@ -1,6 +1,7 @@
 import {
     getProjects,
     NxJsonProjectConfiguration,
+    offsetFromRoot,
     ProjectConfiguration,
     Tree,
     updateJson,
@@ -106,7 +107,7 @@ module.exports = {
             !tsconfig.references.some((ref: any) => ref.path === project.root)
         ) {
             tsconfig.references.push({
-                path: project.root,
+                path: `./${project.root}`,
             })
         }
 
@@ -118,15 +119,31 @@ function createTypeScriptConfig(
     host: Tree,
     project: ProjectConfiguration & NxJsonProjectConfiguration,
 ) {
-    writeJson(host, `./${project.root}/tsconfig.json`, {
-        extends: '../../tsconfig.settings.json',
-        compilerOptions: {
-            outDir: './dist',
-            rootDir: './src',
-            types: ['jest', 'node'],
-        },
-        include: ['src/**/*.ts', 'src/**/*.tsx'],
-    })
+    if (host.exists(`./${project.root}/tsconfig.json`)) {
+        updateJson(host, `./${project.root}/tsconfig.json`, (tsConfig) => {
+            tsConfig.extends = `${offsetFromRoot(
+                project.root,
+            )}tsconfig.settings.json`
+            tsConfig.compilerOptions = tsConfig.compilerOptions || {}
+            tsConfig.compilerOptions.outDir = './dist'
+            tsConfig.compilerOptions.rootDir = './src'
+            if (!tsConfig.compilerOptions.types?.includes('jest')) {
+                tsConfig.compilerOptions.types?.push('jest')
+            }
+
+            return tsConfig
+        })
+    } else {
+        writeJson(host, `./${project.root}/tsconfig.json`, {
+            extends: '../../tsconfig.settings.json',
+            compilerOptions: {
+                outDir: './dist',
+                rootDir: './src',
+                types: ['jest', 'node'],
+            },
+            include: ['src/**/*.ts', 'src/**/*.tsx'],
+        })
+    }
 }
 
 function createOrUpdateLibProjectPackageJson(
@@ -134,6 +151,11 @@ function createOrUpdateLibProjectPackageJson(
     project: ProjectConfiguration & NxJsonProjectConfiguration,
     name: string,
 ) {
+    // Only projects can be referenced, don't mess with applications
+    if (project.projectType !== 'library') {
+        return
+    }
+
     if (host.exists(`${project.root}/package.json`)) {
         updateJson(host, `${project.root}/package.json`, (value) => {
             value.main = 'dist/index.js'
@@ -142,12 +164,10 @@ function createOrUpdateLibProjectPackageJson(
         })
     } else {
         writeJson(host, `${project.root}/package.json`, {
-            name: `${name}`,
+            name,
+            private: true,
             version: '0.0.1',
             main: 'dist/index.js',
-            peerDependencies: {
-                tslib: '^2.1.0',
-            },
         })
     }
 }
