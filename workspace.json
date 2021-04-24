@@ -22,7 +22,6 @@
                         "passWithNoTests": true
                     }
                 },
-
                 "build": {
                     "executor": "@nrwl/workspace:run-commands",
                     "options": {
@@ -98,6 +97,71 @@
                         "npmPackageName": "@wanews/nx-esbuild",
                         "pluginOutputPath": "libs/nx-esbuild",
                         "jestConfig": "apps/nx-esbuild-e2e/jest.config.js"
+                    }
+                }
+            }
+        },
+        "pulumi": {
+            "root": "libs/pulumi",
+            "sourceRoot": "libs/pulumi/src",
+            "projectType": "library",
+            "targets": {
+                "lint": {
+                    "executor": "@nrwl/linter:eslint",
+                    "options": {
+                        "lintFilePatterns": ["libs/pulumi/**/*.ts"]
+                    }
+                },
+                "test": {
+                    "executor": "@nrwl/jest:jest",
+                    "outputs": ["coverage/libs/pulumi"],
+                    "options": {
+                        "jestConfig": "libs/pulumi/jest.config.js",
+                        "passWithNoTests": true
+                    }
+                },
+                "build": {
+                    "executor": "@nrwl/node:package",
+                    "outputs": ["{options.outputPath}"],
+                    "options": {
+                        "outputPath": "dist/libs/pulumi",
+                        "tsConfig": "libs/pulumi/tsconfig.lib.json",
+                        "packageJson": "libs/pulumi/package.json",
+                        "main": "libs/pulumi/src/index.ts",
+                        "assets": [
+                            "libs/pulumi/*.md",
+                            {
+                                "input": "./libs/pulumi/src",
+                                "glob": "**/*.!(ts)",
+                                "output": "./src"
+                            },
+                            {
+                                "input": "./libs/pulumi",
+                                "glob": "generators.json",
+                                "output": "."
+                            },
+                            {
+                                "input": "./libs/pulumi",
+                                "glob": "executors.json",
+                                "output": "."
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "pulumi-e2e": {
+            "projectType": "application",
+            "root": "apps/pulumi-e2e",
+            "sourceRoot": "apps/pulumi-e2e/src",
+            "targets": {
+                "e2e": {
+                    "executor": "@nrwl/nx-plugin:e2e",
+                    "options": {
+                        "target": "pulumi:build",
+                        "npmPackageName": "@wanews/nx-pulumi",
+                        "pluginOutputPath": "dist/libs/pulumi",
+                        "jestConfig": "apps/pulumi-e2e/jest.config.js"
                     }
                 }
             }
