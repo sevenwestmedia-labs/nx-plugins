@@ -77,9 +77,11 @@ module.exports = {
 
     if (host.exists(`${project.root}/.eslintrc.json`)) {
         updateJson(host, `${project.root}/.eslintrc.json`, (eslint) => {
-            // Type checking in linting is super slow
-            delete eslint.overrides[0].parserOptions
-
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            ;(eslint.overrides || []).forEach((override: any) => {
+                // Type checking in linting is super slow
+                delete override.parserOptions
+            })
             return eslint
         })
     }
