@@ -1,20 +1,23 @@
 {
-  "files": [],
-  "compilerOptions": {
-    "disableSourceOfProjectReferenceRedirect": true
-  },
-  "references": [
-    {
-      "path": "libs/typescript-project-references"
+    "files": [],
+    "compilerOptions": {
+        "disableSourceOfProjectReferenceRedirect": true
     },
-    {
-      "path": "apps/typescript-project-references-e2e"
-    },
-    {
-      "path": "libs/nx-esbuild"
-    },
-    {
-      "path": "apps/nx-esbuild-e2e"
-    }
-  ]
+    "references": [
+        {
+            "path": "libs/typescript-project-references"
+        },
+        {
+            "path": "apps/typescript-project-references-e2e"
+        },
+        {
+            "path": "libs/nx-esbuild"
+        },
+        {
+            "path": "apps/nx-esbuild-e2e"
+        },
+        {
+            "path": "libs/pulumi"
+        }
+    ]
 }

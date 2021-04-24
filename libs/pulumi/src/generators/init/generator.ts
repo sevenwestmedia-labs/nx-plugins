@@ -37,6 +37,11 @@ function normalizeOptions(
             `Expect ${options.projectName} to have a 'build' target`,
         )
     }
+    if (targetProjectConfig.projectType !== 'application') {
+        throw new Error(
+            `Expect ${options.projectName} to be an NX application, not library`,
+        )
+    }
 
     const infrastructureProjectName = `${options.projectName}-infrastructure`
     const infrastructureProjectDirectory = `${targetProjectDirectory}-infrastructure`

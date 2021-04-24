@@ -121,31 +121,15 @@
                     }
                 },
                 "build": {
-                    "executor": "@nrwl/node:package",
-                    "outputs": ["{options.outputPath}"],
+                    "executor": "@nrwl/workspace:run-commands",
                     "options": {
-                        "outputPath": "dist/libs/pulumi",
-                        "tsConfig": "libs/pulumi/tsconfig.lib.json",
-                        "packageJson": "libs/pulumi/package.json",
-                        "main": "libs/pulumi/src/index.ts",
-                        "assets": [
-                            "libs/pulumi/*.md",
+                        "commands": [
                             {
-                                "input": "./libs/pulumi/src",
-                                "glob": "**/*.!(ts)",
-                                "output": "./src"
-                            },
-                            {
-                                "input": "./libs/pulumi",
-                                "glob": "generators.json",
-                                "output": "."
-                            },
-                            {
-                                "input": "./libs/pulumi",
-                                "glob": "executors.json",
-                                "output": "."
+                                "command": "tsc -b libs/nx-esbuild",
+                                "forwardAllArgs": true
                             }
-                        ]
+                        ],
+                        "parallel": false
                     }
                 }
             }
