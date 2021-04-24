@@ -1,5 +1,11 @@
 # @wanews/nx-typescript-project-references
 
+## 0.4.1
+
+### Patch Changes
+
+- 4ba9991: Fix crash when parser options has already been removed
+
 ## 0.4.0
 
 ### Minor Changes
