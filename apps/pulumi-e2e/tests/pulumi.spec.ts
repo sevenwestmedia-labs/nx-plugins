@@ -11,7 +11,7 @@ jest.setTimeout(200000)
 describe('init e2e', () => {
     it('should create infrastructure project', async () => {
         const app = uniq('app')
-        ensureNxProject('@wanews/nx-pulumi', 'dist/libs/pulumi')
+        ensureNxProject('@wanews/nx-pulumi', 'libs/pulumi')
         await runNxCommandAsync(
             `generate @nrwl/node:application --name=${app} --no-interactive`,
         )
