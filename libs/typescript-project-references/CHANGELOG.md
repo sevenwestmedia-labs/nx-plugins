@@ -1,5 +1,13 @@
 # @wanews/nx-typescript-project-references
 
+## 0.4.2
+
+### Patch Changes
+
+- 161f951: tsconfig root file paths now are prefixed with ./
+  Created package.jsons from migration are marked as private
+  Removed tslib from created package.json
+
 ## 0.4.1
 
 ### Patch Changes
