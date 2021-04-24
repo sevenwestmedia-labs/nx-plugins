@@ -144,7 +144,7 @@
                     "options": {
                         "target": "pulumi:build",
                         "npmPackageName": "@wanews/nx-pulumi",
-                        "pluginOutputPath": "dist/libs/pulumi",
+                        "pluginOutputPath": "libs/pulumi",
                         "jestConfig": "apps/pulumi-e2e/jest.config.js"
                     }
                 }
