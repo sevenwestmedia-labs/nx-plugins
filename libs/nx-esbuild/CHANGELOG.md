@@ -1,5 +1,12 @@
 # @wanews/nx-esbuild
 
+## 0.3.0
+
+### Minor Changes
+
+- ca0cabe: Include devDependencies in automatic externals
+- ca0cabe: Added outdir to go with multiple entrypoints
+
 ## 0.2.0
 
 ### Minor Changes
