@@ -3,6 +3,5 @@ export interface ServeExecutorSchema {
     target?: string
     externals?: string[]
     entry?: string
-    entries?: string[]
     outfile?: string
 }

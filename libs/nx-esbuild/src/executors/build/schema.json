@@ -10,7 +10,8 @@
         "target": { "type": "string" },
         "entry": { "type": "string" },
         "entries": { "type": "array", "items": { "type": "string" } },
-        "outfile": { "type": "string" }
+        "outfile": { "type": "string" },
+        "outdir": { "type": "string" }
     },
     "required": []
 }

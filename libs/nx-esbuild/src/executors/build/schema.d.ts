@@ -5,4 +5,5 @@ export interface BuildExecutorSchema {
     entry?: string
     entries?: string[]
     outfile?: string
+    outdir?: string
 }

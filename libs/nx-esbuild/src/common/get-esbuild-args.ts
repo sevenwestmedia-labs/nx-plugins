@@ -5,17 +5,21 @@ export function getEsbuildArgs(
     options: BuildExecutorSchema | ServeExecutorSchema,
     libRoot: string,
     packageJsonDependencies: string[],
+    packageJsonDevDependencies: string[],
 ) {
     return [
         options.entry || `${libRoot}/src/index.ts`,
-        ...(options.entries || []),
+        ...('entries' in options ? options.entries || [] : []),
         `--bundle`,
         `--sourcemap`,
         `--platform=${options.platform || 'node'}`,
         `--target=${options.target || 'node12'}`,
         ...(options.externals || [])
             .concat(packageJsonDependencies)
+            .concat(packageJsonDevDependencies)
             .map((external) => `--external:${external}`),
-        `--outfile=${options.outfile || `${libRoot}/dist/bundle.js`}`,
+        'outdir' in options && options.outdir
+            ? `--outdir=${options.outdir}`
+            : `--outfile=${options.outfile || `${libRoot}/dist/bundle.js`}`,
     ]
 }

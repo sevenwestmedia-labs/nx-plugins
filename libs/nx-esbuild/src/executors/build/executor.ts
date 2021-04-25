@@ -20,6 +20,7 @@ export default async function runExecutor(
         options,
         appRoot,
         Object.keys(packageJson?.dependencies || {}),
+        Object.keys(packageJson?.devDependencies || {}),
     )
 
     const esbuild = execa('esbuild', args)
