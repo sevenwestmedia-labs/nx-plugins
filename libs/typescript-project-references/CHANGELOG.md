@@ -1,5 +1,11 @@
 # @wanews/nx-typescript-project-references
 
+## 0.6.0
+
+### Minor Changes
+
+- fdfeace: Fixed project tsconfig always being overwritten
+
 ## 0.5.0
 
 ### Minor Changes
