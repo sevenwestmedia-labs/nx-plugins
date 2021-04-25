@@ -1,5 +1,11 @@
 # @wanews/nx-pulumi
 
+## 0.2.0
+
+### Minor Changes
+
+- 3dc37c8: Allow buildTarget to be set
+
 ## 0.1.2
 
 ### Patch Changes
