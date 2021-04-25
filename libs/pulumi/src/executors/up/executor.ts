@@ -12,12 +12,12 @@ export default async function runUpExecutor(
     const infrastructureRoot =
         context.workspace.projects[`${context.projectName}-infrastructure`].root
 
-    console.log(`> nx run ${options.targetProjectName}:build`)
+    console.log(`> nx run ${options.targetProjectName}:build:production`)
     // Build project to be deployed
     for await (const s of await runExecutor(
         {
             project: options.targetProjectName,
-            target: 'build',
+            target: options.buildTarget ?? 'build',
             configuration: 'production',
         },
         {},

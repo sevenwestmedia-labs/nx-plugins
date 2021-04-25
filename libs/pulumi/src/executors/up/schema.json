@@ -5,7 +5,8 @@
     "description": "",
     "type": "object",
     "properties": {
-        "targetProjectName": { "type": "string" }
+        "targetProjectName": { "type": "string" },
+        "buildTarget": { "type": "string" }
     },
     "required": ["targetProjectName"]
 }
