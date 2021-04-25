@@ -132,7 +132,7 @@ function createTypeScriptConfig(
 
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             tsConfig.references = tsConfig.references.filter((ref: any) => {
-                return [
+                return ![
                     './tsconfig.lib.json',
                     './tsconfig.spec.json',
                     './tsconfig.app.json',
