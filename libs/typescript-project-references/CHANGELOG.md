@@ -1,5 +1,11 @@
 # @wanews/nx-typescript-project-references
 
+## 0.5.0
+
+### Minor Changes
+
+- 71521bc: Make less disruptive when run again
+
 ## 0.4.2
 
 ### Patch Changes
