@@ -8,6 +8,7 @@ export function getEsbuildArgs(
 ) {
     return [
         options.entry || `${libRoot}/src/index.ts`,
+        ...(options.entries || []),
         `--bundle`,
         `--sourcemap`,
         `--platform=${options.platform || 'node'}`,

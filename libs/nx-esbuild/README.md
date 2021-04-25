@@ -1,7 +1,41 @@
 # nx-esbuild
 
-This library was generated with [Nx](https://nx.dev).
+NX Plugin to build your node apps using ESBuild and can serve it by watching the bundle with nodemon
 
-## Running unit tests
+## Generators
 
-Run `nx test nx-esbuild` to execute the unit tests via [Jest](https://jestjs.io).
+### node
+
+Creates a new node application.
+
+- dependencies in package.json will automatically get marked as externals
+
+## Executors
+
+### build
+
+Bundles your node application
+
+#### Options
+
+The available options are listed in libs/nx-esbuild/src/executors/build/schema.json
+
+See https://esbuild.github.io/api/#simple-options for more info on the available options
+
+### serve
+
+Bundles your node application in watch mode, then starts nodemon to watch the bundle
+
+#### Options
+
+The available options are listed in llibs/nx-esbuild/src/executors/serve/schema.json
+
+See https://esbuild.github.io/api/#simple-options for more info on the available options
+
+## An option is missing
+
+I have just added the options I needed to start with, to add another just
+
+- Add the option to the schema.json file
+- Add the option to the schema.d.ts file
+- Consume the option in executor.ts and pass the appropriate cli arg

@@ -9,6 +9,7 @@
         "platform": { "type": "string" },
         "target": { "type": "string" },
         "entry": { "type": "string" },
+        "entries": { "type": "array", "items": { "type": "string" } },
         "outfile": { "type": "string" }
     },
     "required": []
