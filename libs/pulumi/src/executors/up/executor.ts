@@ -10,9 +10,9 @@ export default async function runUpExecutor(
         throw new Error('No projectName')
     }
     const infrastructureRoot =
-        context.workspace.projects[context.projectName].root
+        context.workspace.projects[`${context.projectName}-infrastructure`].root
 
-    console.log(`Building ${options.targetProjectName}`)
+    console.log(`> nx run ${options.targetProjectName}:build`)
     // Build project to be deployed
     for await (const s of await runExecutor(
         {
@@ -30,13 +30,16 @@ export default async function runUpExecutor(
         }
     }
 
-    const pulumi = execa(
-        'pulumi',
-        ['up', '--cwd', infrastructureRoot, ...process.argv.slice(4)],
-        {
-            stdio: [process.stdin, process.stdout, process.stderr],
-        },
-    )
+    const pulumiArgs = [
+        'up',
+        '--cwd',
+        infrastructureRoot,
+        ...process.argv.slice(4),
+    ]
+    console.log(`> pulumi ${pulumiArgs.join(' ')}`)
+    const pulumi = execa('pulumi', pulumiArgs, {
+        stdio: [process.stdin, process.stdout, process.stderr],
+    })
     try {
         await pulumi
     } catch {
