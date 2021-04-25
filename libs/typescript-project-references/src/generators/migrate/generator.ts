@@ -89,7 +89,6 @@ module.exports = {
         })
     }
 
-    host.delete(`${project.root}/tsconfig.json`)
     if (project.projectType === 'library') {
         host.delete(`${project.root}/tsconfig.lib.json`)
     }
@@ -121,8 +120,25 @@ function createTypeScriptConfig(
     host: Tree,
     project: ProjectConfiguration & NxJsonProjectConfiguration,
 ) {
-    if (host.exists(`./${project.root}/tsconfig.json`)) {
-        updateJson(host, `./${project.root}/tsconfig.json`, (tsConfig) => {
+    const tsConfigPath = `./${project.root}/tsconfig.json`
+    if (host.exists(tsConfigPath)) {
+        updateJson(host, tsConfigPath, (tsConfig) => {
+            if (tsConfig.files && tsConfig.files.length === 0) {
+                delete tsConfig.files
+            }
+            if (tsConfig.include && tsConfig.include.length === 0) {
+                delete tsConfig.include
+            }
+
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            tsConfig.references = tsConfig.references.filter((ref: any) => {
+                return [
+                    './tsconfig.lib.json',
+                    './tsconfig.spec.json',
+                    './tsconfig.app.json',
+                ].includes(ref.path)
+            })
+
             tsConfig.extends = `${offsetFromRoot(
                 project.root,
             )}tsconfig.settings.json`
@@ -136,8 +152,8 @@ function createTypeScriptConfig(
             return tsConfig
         })
     } else {
-        writeJson(host, `./${project.root}/tsconfig.json`, {
-            extends: '../../tsconfig.settings.json',
+        writeJson(host, tsConfigPath, {
+            extends: `${offsetFromRoot(project.root)}tsconfig.settings.json`,
             compilerOptions: {
                 outDir: './tsc-out',
                 rootDir: './src',
