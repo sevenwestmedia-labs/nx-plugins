@@ -7,9 +7,11 @@ export function getEsbuildArgs(
     packageJsonDependencies: string[],
     packageJsonDevDependencies: string[],
 ) {
-    return [
+    const entries = ('entries' in options && options.entries) || [
         options.entry || `${libRoot}/src/index.ts`,
-        ...('entries' in options ? options.entries || [] : []),
+    ]
+    return [
+        ...entries,
         `--bundle`,
         `--sourcemap`,
         `--platform=${options.platform || 'node'}`,
