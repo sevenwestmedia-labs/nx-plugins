@@ -1,4 +1,5 @@
 import {
+    formatFiles,
     getProjects,
     NxJsonProjectConfiguration,
     offsetFromRoot,
@@ -31,6 +32,7 @@ export default async function (host: Tree, _options: MigrateSchema) {
     const projects = getProjects(host)
 
     projects.forEach((project, name) => migrateProject(host, project, name))
+    await formatFiles(host)
 }
 
 function migrateProject(
