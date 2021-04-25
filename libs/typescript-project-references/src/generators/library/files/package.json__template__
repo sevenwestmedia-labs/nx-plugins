@@ -1,5 +1,10 @@
 {
   "name": "<%= packageName %>",
+  "private": true,
   "version": "0.0.1",
-  "main": "dist/index.js"
+  "main": "out-tsc/index.js",
+  "scripts": {
+    "prepack": "scripts/prepack.js",
+    "postpublish": "scripts/postpublish.js"
+  }
 }

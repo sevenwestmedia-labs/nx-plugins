@@ -1,0 +1,11 @@
+const fs = require('fs')
+const path = require('path')
+
+const packageJsonPath = path.resolve(__dirname + '/../package.json')
+const packageJson = fs.readFileSync(packageJsonPath)
+
+const indent = packageJson.match(/( +)"name"/)[1].length
+const parsed = JSON.parse(packageJson)
+parsed.main = 'dist/index.js'
+parsed.module = 'dist/esm/index.js'
+fs.writeFileSync(packageJsonPath, JSON.stringify(parsed, null, indent))

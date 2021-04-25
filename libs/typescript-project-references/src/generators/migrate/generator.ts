@@ -59,8 +59,8 @@ module.exports = {
     transform: {
         '^.+\\.(tsx?|jsx?|html)$': 'babel-jest',
     },
-    testPathIgnorePatterns: ['/node_modules/', '/dist/'],
-    modulePathIgnorePatterns: ['/dist/'],
+    testPathIgnorePatterns: ['/node_modules/', '/dist/', '/tsc-out/'],
+    modulePathIgnorePatterns: ['/dist/', '/tsc-out/'],
     moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: __dirname } )
 };`,
     )
@@ -125,7 +125,7 @@ function createTypeScriptConfig(
                 project.root,
             )}tsconfig.settings.json`
             tsConfig.compilerOptions = tsConfig.compilerOptions || {}
-            tsConfig.compilerOptions.outDir = './dist'
+            tsConfig.compilerOptions.outDir = './tsc-out'
             tsConfig.compilerOptions.rootDir = './src'
             if (!tsConfig.compilerOptions.types?.includes('jest')) {
                 tsConfig.compilerOptions.types?.push('jest')
@@ -137,7 +137,7 @@ function createTypeScriptConfig(
         writeJson(host, `./${project.root}/tsconfig.json`, {
             extends: '../../tsconfig.settings.json',
             compilerOptions: {
-                outDir: './dist',
+                outDir: './tsc-out',
                 rootDir: './src',
                 types: ['jest', 'node'],
             },
@@ -158,7 +158,7 @@ function createOrUpdateLibProjectPackageJson(
 
     if (host.exists(`${project.root}/package.json`)) {
         updateJson(host, `${project.root}/package.json`, (value) => {
-            value.main = 'dist/index.js'
+            value.main = 'tsc-out/index.js'
 
             return value
         })
@@ -167,7 +167,7 @@ function createOrUpdateLibProjectPackageJson(
             name,
             private: true,
             version: '0.0.1',
-            main: 'dist/index.js',
+            main: 'tsc-out/index.js',
         })
     }
 }
