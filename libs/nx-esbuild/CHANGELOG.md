@@ -1,5 +1,11 @@
 # @wanews/nx-esbuild
 
+## 0.2.0
+
+### Minor Changes
+
+- c57c6cb: Add option for multiple entry points
+
 ## 0.1.2
 
 ### Patch Changes
