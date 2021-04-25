@@ -1,5 +1,11 @@
 # @wanews/nx-esbuild
 
+## 0.3.1
+
+### Patch Changes
+
+- 4a8831d: Fixed default entry being set when entries set
+
 ## 0.3.0
 
 ### Minor Changes
