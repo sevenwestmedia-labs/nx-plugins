@@ -82,10 +82,10 @@ importers:
     specifiers: {}
 
   libs/nx-esbuild:
-    specifiers:
-      execa: ^5.0.0
-    dependencies:
-      execa: 5.0.0
+    specifiers: {}
+
+  libs/pulumi:
+    specifiers: {}
 
   libs/typescript-project-references:
     specifiers:
