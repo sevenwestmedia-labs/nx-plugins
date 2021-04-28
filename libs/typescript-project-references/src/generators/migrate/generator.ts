@@ -4,11 +4,13 @@ import {
     NxJsonProjectConfiguration,
     offsetFromRoot,
     ProjectConfiguration,
+    ProjectGraph,
     Tree,
     updateJson,
     writeJson,
 } from '@nrwl/devkit'
 import { MigrateSchema } from './schema'
+import { createProjectGraph } from '@nrwl/workspace/src/core/project-graph'
 
 export default async function (host: Tree, _options: MigrateSchema) {
     writeJson(host, `./tsconfig.json`, {
@@ -30,15 +32,20 @@ export default async function (host: Tree, _options: MigrateSchema) {
     })
 
     const projects = getProjects(host)
+    const graph = createProjectGraph()
 
-    projects.forEach((project, name) => migrateProject(host, project, name))
+    projects.forEach((project, name) =>
+        migrateProject(host, name, project, graph, projects),
+    )
     await formatFiles(host)
 }
 
 function migrateProject(
     host: Tree,
-    project: ProjectConfiguration & NxJsonProjectConfiguration,
     name: string,
+    project: ProjectConfiguration & NxJsonProjectConfiguration,
+    graph: ProjectGraph,
+    projects: Map<string, ProjectConfiguration & NxJsonProjectConfiguration>,
 ) {
     host.write(
         `${project.root}/jest.config.js`,
@@ -98,7 +105,7 @@ module.exports = {
     // NOTE This means we cannot use @nrwl/jest resolver, we have to use typescript -> jest path mapping instead
     host.delete(`${project.root}/tsconfig.spec.json`)
     fixBabelrc(host, project)
-    createTypeScriptConfig(host, project)
+    createTypeScriptConfig(host, name, project, projects, graph)
     createOrUpdateLibProjectPackageJson(host, project, name)
 
     // Add into root typescript project references config
@@ -118,7 +125,10 @@ module.exports = {
 
 function createTypeScriptConfig(
     host: Tree,
+    name: string,
     project: ProjectConfiguration & NxJsonProjectConfiguration,
+    projects: Map<string, ProjectConfiguration & NxJsonProjectConfiguration>,
+    graph: ProjectGraph,
 ) {
     const tsConfigPath = `./${project.root}/tsconfig.json`
     if (host.exists(tsConfigPath)) {
@@ -130,14 +140,9 @@ function createTypeScriptConfig(
                 delete tsConfig.include
             }
 
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            tsConfig.references = tsConfig.references.filter((ref: any) => {
-                return ![
-                    './tsconfig.lib.json',
-                    './tsconfig.spec.json',
-                    './tsconfig.app.json',
-                ].includes(ref.path)
-            })
+            tsConfig.references = graph.dependencies[name].map((dep) => ({
+                path: projects.get(dep.target)?.root,
+            }))
 
             tsConfig.extends = `${offsetFromRoot(
                 project.root,
@@ -160,6 +165,9 @@ function createTypeScriptConfig(
                 types: ['jest', 'node'],
             },
             include: ['src/**/*.ts', 'src/**/*.tsx'],
+            references: graph.dependencies[name].map((dep) => ({
+                path: projects.get(dep.target)?.root,
+            })),
         })
     }
 }
