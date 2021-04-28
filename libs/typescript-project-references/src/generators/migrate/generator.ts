@@ -131,6 +131,12 @@ function createTypeScriptConfig(
     graph: ProjectGraph,
 ) {
     const tsConfigPath = `./${project.root}/tsconfig.json`
+    const typescriptReferences = graph.dependencies[name]
+        .map((dep) => ({
+            path: projects.get(dep.target)?.root,
+        }))
+        .filter((ref) => !!ref.path)
+
     if (host.exists(tsConfigPath)) {
         updateJson(host, tsConfigPath, (tsConfig) => {
             if (tsConfig.files && tsConfig.files.length === 0) {
@@ -140,9 +146,7 @@ function createTypeScriptConfig(
                 delete tsConfig.include
             }
 
-            tsConfig.references = graph.dependencies[name].map((dep) => ({
-                path: projects.get(dep.target)?.root,
-            }))
+            tsConfig.references = typescriptReferences
 
             tsConfig.extends = `${offsetFromRoot(
                 project.root,
@@ -165,9 +169,7 @@ function createTypeScriptConfig(
                 types: ['jest', 'node'],
             },
             include: ['src/**/*.ts', 'src/**/*.tsx'],
-            references: graph.dependencies[name].map((dep) => ({
-                path: projects.get(dep.target)?.root,
-            })),
+            references: typescriptReferences,
         })
     }
 }
