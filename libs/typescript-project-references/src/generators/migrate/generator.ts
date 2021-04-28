@@ -20,16 +20,18 @@ export default async function (host: Tree, _options: MigrateSchema) {
         },
         references: [],
     })
-    writeJson(host, `./tsconfig.settings.json`, {
-        extends: './tsconfig.base.json',
-        compilerOptions: {
-            declaration: true,
-            noEmit: false,
-            composite: true,
-            incremental: true,
-        },
-        exclude: ['node_modules', 'tmp'],
-    })
+    if (!host.exists(`./tsconfig.settings.json`)) {
+        writeJson(host, `./tsconfig.settings.json`, {
+            extends: './tsconfig.base.json',
+            compilerOptions: {
+                declaration: true,
+                noEmit: false,
+                composite: true,
+                incremental: true,
+            },
+            exclude: ['node_modules', 'tmp'],
+        })
+    }
 
     const projects = getProjects(host)
     const graph = createProjectGraph()
@@ -132,10 +134,15 @@ function createTypeScriptConfig(
 ) {
     const tsConfigPath = `./${project.root}/tsconfig.json`
     const typescriptReferences = graph.dependencies[name]
-        .map((dep) => ({
-            path: projects.get(dep.target)?.root,
-        }))
-        .filter((ref) => !!ref.path)
+        .map(
+            (dep) =>
+                projects.get(dep.target) && {
+                    path: `${offsetFromRoot(project.root)}${
+                        projects.get(dep.target)?.root
+                    }`,
+                },
+        )
+        .filter((ref) => !!ref)
 
     if (host.exists(tsConfigPath)) {
         updateJson(host, tsConfigPath, (tsConfig) => {
@@ -146,8 +153,6 @@ function createTypeScriptConfig(
                 delete tsConfig.include
             }
 
-            tsConfig.references = typescriptReferences
-
             tsConfig.extends = `${offsetFromRoot(
                 project.root,
             )}tsconfig.settings.json`
@@ -157,6 +162,10 @@ function createTypeScriptConfig(
             if (!tsConfig.compilerOptions.types?.includes('jest')) {
                 tsConfig.compilerOptions.types?.push('jest')
             }
+            if (!tsConfig.include) {
+                tsConfig.include = ['src/**/*.ts', 'src/**/*.tsx']
+            }
+            tsConfig.references = typescriptReferences
 
             return tsConfig
         })
