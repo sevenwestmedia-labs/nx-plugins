@@ -1,5 +1,11 @@
 # @wanews/nx-typescript-project-references
 
+## 0.7.0
+
+### Minor Changes
+
+- 46ffaa8: Update typescript references based on NX dep graph
+
 ## 0.6.0
 
 ### Minor Changes
