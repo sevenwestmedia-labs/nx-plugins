@@ -1,5 +1,15 @@
 # @wanews/nx-esbuild
 
+## 0.5.0
+
+### Minor Changes
+
+- 8ea3d11: First pass at allowing plugins
+
+### Patch Changes
+
+- 76cebd4: Fixed no logs coming from esbuild
+
 ## 0.4.0
 
 ### Minor Changes
