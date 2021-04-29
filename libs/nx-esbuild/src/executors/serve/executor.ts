@@ -41,7 +41,10 @@ export default async function runExecutor(
         ],
         plugins: options.plugins?.map((plugin) => {
             // eslint-disable-next-line @typescript-eslint/no-var-requires
-            return require(plugin.package)(plugin.args)
+            const pluginPkg = require(plugin.package)
+            return 'default' in pluginPkg
+                ? pluginPkg.default(plugin.args)
+                : pluginPkg(plugin.args)
         }),
     })
 
