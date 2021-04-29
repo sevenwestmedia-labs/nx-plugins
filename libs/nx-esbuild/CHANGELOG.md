@@ -1,5 +1,11 @@
 # @wanews/nx-esbuild
 
+## 0.4.0
+
+### Minor Changes
+
+- 048a764: Switch to calling esbuild in code & code gen options to expose all esbuild options
+
 ## 0.3.1
 
 ### Patch Changes

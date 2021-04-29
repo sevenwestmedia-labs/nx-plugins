@@ -1,5 +1,11 @@
 # @wanews/nx-typescript-project-references
 
+## 0.7.1
+
+### Patch Changes
+
+- 048a764: Better handling of projects with no dependencies in migrator
+
 ## 0.7.0
 
 ### Minor Changes
