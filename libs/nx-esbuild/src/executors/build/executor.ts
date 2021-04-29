@@ -1,8 +1,7 @@
 import { BuildExecutorSchema } from './schema'
-import execa from 'execa'
 import { ExecutorContext, readJson } from '@nrwl/devkit'
-import { getEsbuildArgs } from '../../common/get-esbuild-args'
 import { FsTree } from '@nrwl/tao/src/shared/tree'
+import { build } from 'esbuild'
 
 export default async function runExecutor(
     options: BuildExecutorSchema,
@@ -16,19 +15,27 @@ export default async function runExecutor(
 
     const packageJson = readJson(tree, `${appRoot}/package.json`)
 
-    const args = getEsbuildArgs(
-        options,
-        appRoot,
-        Object.keys(packageJson?.dependencies || {}),
-        Object.keys(packageJson?.devDependencies || {}),
-    )
+    Object.keys(options).forEach((key) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const value = (options as any)[key]
+        // NX or json schema default objects to an empty object, this can cause issues with esbuild
+        if (typeof value === 'object' && Object.keys(value).length === 0) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            delete (options as any)[key]
+        }
+    })
 
-    const esbuild = execa('esbuild', args)
-    esbuild.stdout?.pipe(process.stdout)
-    esbuild.stderr?.pipe(process.stderr)
-    await esbuild
+    const result = await build({
+        ...options,
+        bundle: true,
+        external: [
+            ...(options.external || []),
+            ...Object.keys(packageJson?.dependencies || {}),
+            ...Object.keys(packageJson?.devDependencies || {}),
+        ],
+    })
 
     return {
-        success: true,
+        success: result.errors.length === 0,
     }
 }

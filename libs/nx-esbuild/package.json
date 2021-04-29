@@ -4,9 +4,7 @@
     "main": "src/index.js",
     "generators": "./generators.json",
     "executors": "./executors.json",
-    "dependencies": {
-        "execa": "^5.0.0"
-    },
+    "dependencies": {},
     "peerDependencies": {
         "esbuild": "^0.11.0",
         "nodemon": "^2.0.0",
