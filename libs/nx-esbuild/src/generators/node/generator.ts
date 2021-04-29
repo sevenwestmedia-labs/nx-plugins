@@ -69,9 +69,9 @@ export default async function (host: Tree, options: NodeGeneratorSchema) {
                 options: {
                     platform: 'node',
                     target: 'node14',
-                    outfile: `./${normalizedOptions.projectRoot}/bundle.js`,
+                    outfile: `./${normalizedOptions.projectRoot}/dist/bundle.js`,
                     entryPoints: [
-                        `./${normalizedOptions.projectRoot}/index.ts`,
+                        `./${normalizedOptions.projectRoot}/src/index.ts`,
                     ],
                 },
             },
@@ -80,9 +80,9 @@ export default async function (host: Tree, options: NodeGeneratorSchema) {
                 options: {
                     platform: 'node',
                     target: 'node14',
-                    outfile: `./${normalizedOptions.projectRoot}/bundle.js`,
+                    outfile: `./${normalizedOptions.projectRoot}/dist/bundle.js`,
                     entryPoints: [
-                        `./${normalizedOptions.projectRoot}/index.ts`,
+                        `./${normalizedOptions.projectRoot}/src/index.ts`,
                     ],
                 },
             },

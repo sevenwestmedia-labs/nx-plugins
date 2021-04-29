@@ -4,6 +4,7 @@ import {
     runCommandAsync,
     runNxCommandAsync,
     uniq,
+    checkFilesExist,
 } from '@nrwl/nx-plugin/testing'
 
 jest.setTimeout(60000)
@@ -23,7 +24,7 @@ describe('nx-esbuild e2e', () => {
         // Ensure bundle exists on disk
         await new Promise((resolve) => setTimeout(resolve, 100))
 
-        expect(result.stderr).toContain(`apps/${plugin}/dist/bundle.js`)
+        checkFilesExist(`apps/${plugin}/dist/bundle.js`)
     })
 })
 
