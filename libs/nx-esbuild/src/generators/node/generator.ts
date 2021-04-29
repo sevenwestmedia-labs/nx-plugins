@@ -66,9 +66,25 @@ export default async function (host: Tree, options: NodeGeneratorSchema) {
         targets: {
             build: {
                 executor: '@wanews/nx-esbuild:build',
+                options: {
+                    platform: 'node',
+                    target: 'node14',
+                    outfile: `./${normalizedOptions.projectRoot}/bundle.js`,
+                    entryPoints: [
+                        `./${normalizedOptions.projectRoot}/index.ts`,
+                    ],
+                },
             },
             serve: {
                 executor: '@wanews/nx-esbuild:serve',
+                options: {
+                    platform: 'node',
+                    target: 'node14',
+                    outfile: `./${normalizedOptions.projectRoot}/bundle.js`,
+                    entryPoints: [
+                        `./${normalizedOptions.projectRoot}/index.ts`,
+                    ],
+                },
             },
         },
         tags: normalizedOptions.parsedTags,
