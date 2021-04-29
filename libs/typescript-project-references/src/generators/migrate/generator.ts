@@ -133,16 +133,18 @@ function createTypeScriptConfig(
     graph: ProjectGraph,
 ) {
     const tsConfigPath = `./${project.root}/tsconfig.json`
-    const typescriptReferences = graph.dependencies[name]
-        .map(
-            (dep) =>
-                projects.get(dep.target) && {
-                    path: `${offsetFromRoot(project.root)}${
-                        projects.get(dep.target)?.root
-                    }`,
-                },
-        )
-        .filter((ref) => !!ref)
+    const graphDependencies = graph.dependencies[name]
+    const typescriptReferences =
+        graphDependencies
+            ?.map(
+                (dep) =>
+                    projects.get(dep.target) && {
+                        path: `${offsetFromRoot(project.root)}${
+                            projects.get(dep.target)?.root
+                        }`,
+                    },
+            )
+            ?.filter((ref) => !!ref) || []
 
     if (host.exists(tsConfigPath)) {
         updateJson(host, tsConfigPath, (tsConfig) => {

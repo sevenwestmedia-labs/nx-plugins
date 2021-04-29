@@ -1,9 +1,4 @@
-export interface BuildExecutorSchema {
-    platform?: string
-    target?: string
-    externals?: string[]
-    entry?: string
-    entries?: string[]
-    outfile?: string
-    outdir?: string
-}
+import { BuildOptions } from 'esbuild'
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface BuildExecutorSchema extends BuildOptions {}
