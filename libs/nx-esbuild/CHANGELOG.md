@@ -1,5 +1,11 @@
 # @wanews/nx-esbuild
 
+## 0.6.0
+
+### Minor Changes
+
+- 584d3f5: Allow plugins to have default export
+
 ## 0.5.0
 
 ### Minor Changes
