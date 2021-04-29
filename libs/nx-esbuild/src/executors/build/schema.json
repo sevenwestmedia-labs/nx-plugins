@@ -34,17 +34,6 @@
             "enum": ["browser", "neutral", "node"],
             "type": "string"
         },
-        "Plugin": {
-            "properties": {
-                "name": {
-                    "type": "string"
-                },
-                "setup": {
-                    "type": "object"
-                }
-            },
-            "type": "object"
-        },
         "Record<string,string>": {
             "type": "object"
         },
@@ -236,7 +225,11 @@
         },
         "plugins": {
             "items": {
-                "$ref": "#/definitions/Plugin"
+                "type": "object",
+                "properties": {
+                    "package": { "type": "string" },
+                    "args": { "type": "object" }
+                }
             },
             "type": "array"
         },

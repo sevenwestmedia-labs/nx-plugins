@@ -34,12 +34,15 @@ export default async function runExecutor(
         sourcemap: true,
         logLevel: 'info',
         ...options,
-        ...options,
         external: [
             ...(options.external || []),
             ...Object.keys(packageJson?.dependencies || {}),
             ...Object.keys(packageJson?.devDependencies || {}),
         ],
+        plugins: options.plugins?.map((plugin) => {
+            // eslint-disable-next-line @typescript-eslint/no-var-requires
+            return require(plugin.package)(plugin.args)
+        }),
     })
 
     const nodemon = execa('nodemon', [

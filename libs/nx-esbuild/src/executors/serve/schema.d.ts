@@ -1,4 +1,6 @@
 import { BuildOptions } from 'esbuild'
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface ServeExecutorSchema extends BuildOptions {}
+export interface ServeExecutorSchema extends Omit<BuildOptions, 'plugins'> {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    plugins: Array<{ package: string; args: any }>
+}
