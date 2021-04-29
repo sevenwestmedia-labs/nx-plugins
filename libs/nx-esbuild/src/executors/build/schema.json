@@ -118,17 +118,10 @@
             "type": "string"
         },
         "entryPoints": {
-            "anyOf": [
-                {
-                    "items": {
-                        "type": "string"
-                    },
-                    "type": "array"
-                },
-                {
-                    "$ref": "#/definitions/Record<string,string>"
-                }
-            ]
+            "items": {
+                "type": "string"
+            },
+            "type": "array"
         },
         "external": {
             "items": {
@@ -298,16 +291,6 @@
         },
         "tsconfig": {
             "type": "string"
-        },
-        "watch": {
-            "anyOf": [
-                {
-                    "$ref": "#/definitions/WatchMode"
-                },
-                {
-                    "type": "boolean"
-                }
-            ]
         },
         "write": {
             "type": "boolean"
