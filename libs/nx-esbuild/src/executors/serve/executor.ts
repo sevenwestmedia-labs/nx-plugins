@@ -30,14 +30,16 @@ export default async function runExecutor(
     })
 
     await build({
+        bundle: true,
+        sourcemap: true,
+        logLevel: 'info',
+        ...options,
         ...options,
         external: [
             ...(options.external || []),
             ...Object.keys(packageJson?.dependencies || {}),
             ...Object.keys(packageJson?.devDependencies || {}),
         ],
-        bundle: true,
-        watch: true,
     })
 
     const nodemon = execa('nodemon', [

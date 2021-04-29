@@ -26,8 +26,10 @@ export default async function runExecutor(
     })
 
     const result = await build({
-        ...options,
         bundle: true,
+        sourcemap: true,
+        logLevel: 'info',
+        ...options,
         external: [
             ...(options.external || []),
             ...Object.keys(packageJson?.dependencies || {}),
