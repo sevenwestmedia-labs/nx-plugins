@@ -1,5 +1,11 @@
 # @wanews/nx-esbuild
 
+## 0.6.2
+
+### Patch Changes
+
+- 95969f0: Fixed serve not starting esbuild in watch mode
+
 ## 0.6.1
 
 ### Patch Changes
