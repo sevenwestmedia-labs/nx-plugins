@@ -1,5 +1,11 @@
 # @wanews/nx-esbuild
 
+## 0.6.1
+
+### Patch Changes
+
+- 368adc4: Fixed same issue for build executor
+
 ## 0.6.0
 
 ### Minor Changes
