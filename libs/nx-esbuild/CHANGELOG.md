@@ -1,5 +1,11 @@
 # @wanews/nx-esbuild
 
+## 0.7.0
+
+### Minor Changes
+
+- a6f460e: Preserve color in console output off monitored application
+
 ## 0.6.2
 
 ### Patch Changes
