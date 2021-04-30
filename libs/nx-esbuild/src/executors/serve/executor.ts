@@ -49,16 +49,20 @@ export default async function runExecutor(
         }),
     })
 
-    const nodemon = execa('nodemon', [
-        '-r',
-        'dotenv/config',
-        '--enable-source-maps',
-        options.outfile,
-        `--watch`,
-        options.outfile,
-    ])
-    nodemon.stdout?.pipe(process.stdout)
-    nodemon.stderr?.pipe(process.stderr)
+    const nodemon = execa(
+        'nodemon',
+        [
+            '-r',
+            'dotenv/config',
+            '--enable-source-maps',
+            options.outfile,
+            `--watch`,
+            options.outfile,
+        ],
+        {
+            stdio: [process.stdin, process.stdout, 'pipe'],
+        },
+    )
     await nodemon
     if (nodemon.connected) {
         nodemon.cancel()
