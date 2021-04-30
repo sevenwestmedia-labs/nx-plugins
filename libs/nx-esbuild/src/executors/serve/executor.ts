@@ -32,6 +32,7 @@ export default async function runExecutor(
     await build({
         bundle: true,
         sourcemap: true,
+        watch: true,
         logLevel: 'info',
         ...options,
         external: [
