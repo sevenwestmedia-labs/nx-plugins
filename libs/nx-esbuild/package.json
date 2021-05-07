@@ -6,8 +6,8 @@
     "executors": "./executors.json",
     "dependencies": {},
     "peerDependencies": {
-        "esbuild": "^0.11.0",
-        "nodemon": "^2.0.0",
-        "dotenv": "^8.0.0"
+        "esbuild": ">0.11.0",
+        "nodemon": ">2.0.0",
+        "dotenv": ">8.0.0"
     }
 }
