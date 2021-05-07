@@ -1,5 +1,11 @@
 # @wanews/nx-esbuild
 
+## 0.8.0
+
+### Minor Changes
+
+- f281d6e: Improved peer dependency ranges
+
 ## 0.7.0
 
 ### Minor Changes
