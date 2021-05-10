@@ -12,7 +12,11 @@ export default async function runUpExecutor(
     const infrastructureRoot =
         context.workspace.projects[`${context.projectName}-infrastructure`].root
 
-    console.log(`> nx run ${options.targetProjectName}:build:production`)
+    console.log(
+        `> nx run ${options.targetProjectName}:${
+            options.buildTarget ?? 'build'
+        }:production`,
+    )
     // Build project to be deployed
     for await (const s of await runExecutor(
         {
@@ -31,6 +35,15 @@ export default async function runUpExecutor(
     }
 
     for (const additionalBuildTarget of options.additionalBuildTargets || []) {
+        console.log(
+            `> nx run ${additionalBuildTarget.project}:${
+                additionalBuildTarget.target
+            }${
+                additionalBuildTarget.configuration
+                    ? `:${additionalBuildTarget}`
+                    : ''
+            }`,
+        )
         for await (const s of await runExecutor(
             additionalBuildTarget,
             {},

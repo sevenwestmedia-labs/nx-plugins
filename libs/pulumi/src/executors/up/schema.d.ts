@@ -4,6 +4,6 @@ export interface BuildExecutorSchema {
     additionalBuildTargets?: Array<{
         project: string
         target: string
-        configuration: string
+        configuration?: string
     }>
 }
