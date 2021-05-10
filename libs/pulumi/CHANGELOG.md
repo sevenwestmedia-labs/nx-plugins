@@ -1,5 +1,11 @@
 # @wanews/nx-pulumi
 
+## 0.3.0
+
+### Minor Changes
+
+- 745732a: Allow additional targets to be run before up
+
 ## 0.2.0
 
 ### Minor Changes
