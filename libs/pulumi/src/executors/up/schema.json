@@ -6,7 +6,19 @@
     "type": "object",
     "properties": {
         "targetProjectName": { "type": "string" },
-        "buildTarget": { "type": "string" }
+        "buildTarget": { "type": "string" },
+        "additionalBuildTargets": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "project": { "type": "string" },
+                    "target": { "type": "string" },
+                    "configuration": { "type": "string" }
+                },
+                "required": ["project", "target"]
+            }
+        }
     },
     "required": ["targetProjectName"]
 }

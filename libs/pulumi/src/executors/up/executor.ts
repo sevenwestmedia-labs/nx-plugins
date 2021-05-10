@@ -30,6 +30,20 @@ export default async function runUpExecutor(
         }
     }
 
+    for (const additionalBuildTarget of options.additionalBuildTargets || []) {
+        for await (const s of await runExecutor(
+            additionalBuildTarget,
+            {},
+            context,
+        )) {
+            if (!s.success) {
+                return {
+                    success: false,
+                }
+            }
+        }
+    }
+
     const pulumiArgs = [
         'up',
         '--cwd',
