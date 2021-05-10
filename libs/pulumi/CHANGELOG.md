@@ -1,5 +1,11 @@
 # @wanews/nx-pulumi
 
+## 0.4.0
+
+### Minor Changes
+
+- b92ec0c: Fixed types and improved logging of pulumi plugin and upgraded deps
+
 ## 0.3.0
 
 ### Minor Changes
