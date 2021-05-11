@@ -1,5 +1,11 @@
 # @wanews/nx-pulumi
 
+## 0.5.0
+
+### Minor Changes
+
+- 3a2e038: Add template files for esbuild generator
+
 ## 0.4.0
 
 ### Minor Changes
