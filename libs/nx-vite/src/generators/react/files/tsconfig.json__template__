@@ -1,0 +1,9 @@
+{
+  "extends": "<%= offsetFromRoot %>tsconfig.settings.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc",
+    "rootDir": "./src",
+    "types": ["jest", "node"]
+  },
+  "include": ["src/**/*.ts"]
+}

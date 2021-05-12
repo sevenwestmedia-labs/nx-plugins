@@ -17,6 +17,12 @@
             "path": "apps/nx-esbuild-e2e"
         },
         {
+            "path": "libs/nx-vite"
+        },
+        {
+            "path": "apps/nx-vite-e2e"
+        },
+        {
             "path": "libs/pulumi"
         }
     ]

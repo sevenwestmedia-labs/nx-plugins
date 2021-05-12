@@ -1,0 +1,7 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "properties": {},
+    "type": "object",
+    "cli": "nx",
+    "title": "Vite Build Executor"
+}

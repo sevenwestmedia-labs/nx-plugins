@@ -1,0 +1,12 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "name": "nx-vite",
+    "version": "0.0.1",
+    "generators": {
+        "react": {
+            "factory": "./src/generators/react/generator",
+            "schema": "./src/generators/react/schema.json",
+            "description": "Next Generation Frontend Tooling with Vite"
+        }
+    }
+}
