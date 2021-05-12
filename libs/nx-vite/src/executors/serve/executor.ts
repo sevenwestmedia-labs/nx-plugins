@@ -13,14 +13,14 @@ export default async function runExecutor(
     const tree = new FsTree(context.cwd, context.isVerbose)
     const appRoot = context.workspace.projects[context.projectName].root
 
-    const nodemon = execa('vite', [`${tree.root}/${appRoot}`, '--open'], {
+    const vite = execa('vite', [`${tree.root}/${appRoot}`, '--open'], {
         stdio: [process.stdin, process.stdout, 'pipe'],
     })
 
-    await nodemon
+    await vite
 
-    if (nodemon.connected) {
-        nodemon.cancel()
+    if (vite.connected) {
+        vite.cancel()
     }
 
     return {
