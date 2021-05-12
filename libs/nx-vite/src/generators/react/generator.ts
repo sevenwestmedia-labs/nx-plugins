@@ -70,14 +70,7 @@ export default async function (host: Tree, options: NodeGeneratorSchema) {
             },
             serve: {
                 executor: '@wanews/nx-vite:serve',
-                options: {
-                    platform: 'node',
-                    target: 'node14',
-                    outfile: `./${normalizedOptions.projectRoot}/dist/bundle.js`,
-                    entryPoints: [
-                        `./${normalizedOptions.projectRoot}/src/index.ts`,
-                    ],
-                },
+                options: {},
             },
         },
         tags: normalizedOptions.parsedTags,

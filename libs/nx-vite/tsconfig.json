@@ -4,5 +4,5 @@
         "rootDir": "./src",
         "types": ["jest", "node"]
     },
-    "include": ["src/**/*.ts", "src/**/*.tsx", "src/generators/react/files/src/App.tsx__template__"]
+    "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

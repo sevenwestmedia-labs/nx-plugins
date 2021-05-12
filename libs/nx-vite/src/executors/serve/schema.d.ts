@@ -1,4 +1,2 @@
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface ServeExecutorSchema {
-    port?: number
-}
+export interface ServeExecutorSchema {}
