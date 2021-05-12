@@ -14,7 +14,7 @@ export default async function runExecutor(
     const appRoot = context.workspace.projects[context.projectName].root
 
     await build({
-        root: tree + '/' + appRoot,
+        root: tree.root + '/' + appRoot,
     })
 
     return {
