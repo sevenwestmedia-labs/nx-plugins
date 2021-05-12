@@ -1,5 +1,11 @@
 # @wanews/nx-esbuild
 
+## 0.9.0
+
+### Minor Changes
+
+- cdf9fc0: Add missing config files into project generator
+
 ## 0.8.0
 
 ### Minor Changes
