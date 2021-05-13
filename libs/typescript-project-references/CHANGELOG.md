@@ -1,5 +1,11 @@
 # @wanews/nx-typescript-project-references
 
+## 0.8.2
+
+### Patch Changes
+
+- a25c803: Prevents tsconfig.base being overwritten
+
 ## 0.8.1
 
 ### Patch Changes
