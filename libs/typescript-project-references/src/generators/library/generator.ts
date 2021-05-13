@@ -6,6 +6,7 @@ import {
     names,
     offsetFromRoot,
     Tree,
+    updateJson,
 } from '@nrwl/devkit'
 import * as path from 'path'
 import { LibraryGeneratorSchema } from './schema'
@@ -70,8 +71,8 @@ export default async function (host: Tree, options: LibraryGeneratorSchema) {
                       executor:
                           '@wanews/nx-typescript-project-references:package',
                       options: {
-                          main: `libs/${options.name}/src/index.ts`,
-                          tsConfig: `libs/${options.name}/tsconfig.json`,
+                          main: `${normalizedOptions.projectRoot}/src/index.ts`,
+                          tsConfig: `${normalizedOptions.projectRoot}/tsconfig.json`,
                       },
                   },
               }
@@ -80,5 +81,12 @@ export default async function (host: Tree, options: LibraryGeneratorSchema) {
         tags: normalizedOptions.parsedTags,
     })
     addFiles(host, normalizedOptions)
+    updateJson(host, 'tsconfig.base.json', (value) => {
+        value.paths.push({
+            [options.packageName ||
+            options.name]: `${normalizedOptions.projectRoot}/src/index.ts`,
+        })
+        return value
+    })
     await formatFiles(host)
 }
