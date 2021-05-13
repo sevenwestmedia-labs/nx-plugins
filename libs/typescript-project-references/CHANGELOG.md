@@ -1,5 +1,11 @@
 # @wanews/nx-typescript-project-references
 
+## 0.8.1
+
+### Patch Changes
+
+- ea011a4: Fixed method of updating tsconfig.base paths
+
 ## 0.8.0
 
 ### Minor Changes

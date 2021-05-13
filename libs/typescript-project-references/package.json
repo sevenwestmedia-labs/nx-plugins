@@ -1,6 +1,6 @@
 {
   "name": "@wanews/nx-typescript-project-references",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "main": "dist/index.js",
   "generators": "./generators.json",
   "executors": "./executors.json",
