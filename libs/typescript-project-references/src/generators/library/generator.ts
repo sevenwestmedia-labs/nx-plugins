@@ -82,11 +82,13 @@ export default async function (host: Tree, options: LibraryGeneratorSchema) {
     })
     addFiles(host, normalizedOptions)
     updateJson(host, 'tsconfig.base.json', (value) => {
-        value.paths.push({
+        const oldPaths = value.paths
+
+        return {
+            ...oldPaths,
             [options.packageName ||
             options.name]: `${normalizedOptions.projectRoot}/src/index.ts`,
-        })
-        return value
+        }
     })
     await formatFiles(host)
 }
