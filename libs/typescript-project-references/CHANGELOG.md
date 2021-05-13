@@ -1,5 +1,11 @@
 # @wanews/nx-typescript-project-references
 
+## 0.8.0
+
+### Minor Changes
+
+- 88e1539: Adds generated project path to tsconfig.base.json
+
 ## 0.7.1
 
 ### Patch Changes
