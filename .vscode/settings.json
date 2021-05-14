@@ -5,5 +5,8 @@
         "skipFiles": ["<node_internals>/**"],
         "smartStep": true
     },
-    "jestrunner.jestPath": "node_modules/jest/bin/jest.js"
+    "jestrunner.jestPath": "node_modules/jest/bin/jest.js",
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+    }
 }
