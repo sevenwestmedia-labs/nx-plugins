@@ -1,5 +1,11 @@
 # @wanews/nx-esbuild
 
+## 0.9.1
+
+### Patch Changes
+
+- be3cc1c: Fix jest config not being updated
+
 ## 0.9.0
 
 ### Minor Changes

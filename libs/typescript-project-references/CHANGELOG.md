@@ -1,5 +1,11 @@
 # @wanews/nx-typescript-project-references
 
+## 0.8.3
+
+### Patch Changes
+
+- be3cc1c: Fix jest config not being updated
+
 ## 0.8.2
 
 ### Patch Changes

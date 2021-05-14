@@ -1,5 +1,11 @@
 # @wanews/nx-pulumi
 
+## 0.5.1
+
+### Patch Changes
+
+- be3cc1c: Fix jest config not being updated
+
 ## 0.5.0
 
 ### Minor Changes
