@@ -2,5 +2,4 @@ module.exports = {
   displayName: '<%= projectName %>',
   preset: '<%= offsetFromRoot %>jest.preset.js',
   coverageDirectory: '<%= offsetFromRoot %>coverage/libs/<%= projectName %>',
-  setupFilesAfterEnv: ['./jest.setup.js'],
 }

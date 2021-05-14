@@ -87,6 +87,22 @@ export default async function (host: Tree, options: NodeGeneratorSchema) {
                     ],
                 },
             },
+            lint: {
+                executor: '@nrwl/linter:eslint',
+                options: {
+                    lintFilePatterns: [
+                        `${normalizedOptions.projectRoot}/**/*.ts`,
+                    ],
+                },
+            },
+            test: {
+                executor: '@nrwl/jest:jest',
+                options: {
+                    jestConfig: `${normalizedOptions.projectRoot}/jest.config.js`,
+                    passWithNoTests: true,
+                },
+                outputs: [`coverage/${normalizedOptions.projectRoot}`],
+            },
         },
         tags: normalizedOptions.parsedTags,
     })

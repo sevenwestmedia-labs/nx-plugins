@@ -5,6 +5,7 @@ import {
     getWorkspaceLayout,
     names,
     offsetFromRoot,
+    TargetConfiguration,
     Tree,
     updateJson,
 } from '@nrwl/devkit'
@@ -62,12 +63,31 @@ function addFiles(host: Tree, options: NormalizedSchema) {
 
 export default async function (host: Tree, options: LibraryGeneratorSchema) {
     const normalizedOptions = normalizeOptions(host, options)
+    const defaultTargets: {
+        [targetName: string]: TargetConfiguration
+    } = {
+        lint: {
+            executor: '@nrwl/linter:eslint',
+            options: {
+                lintFilePatterns: [`${normalizedOptions.projectRoot}/**/*.ts`],
+            },
+        },
+        test: {
+            executor: '@nrwl/jest:jest',
+            options: {
+                jestConfig: `${normalizedOptions.projectRoot}/jest.config.js`,
+                passWithNoTests: true,
+            },
+            outputs: [`coverage/${normalizedOptions.projectRoot}`],
+        },
+    }
     addProjectConfiguration(host, normalizedOptions.projectName, {
         root: normalizedOptions.projectRoot,
         projectType: 'library',
         sourceRoot: `${normalizedOptions.projectRoot}/src`,
         targets: options.package
             ? {
+                  ...defaultTargets,
                   package: {
                       executor:
                           '@wanews/nx-typescript-project-references:package',
@@ -77,8 +97,7 @@ export default async function (host: Tree, options: LibraryGeneratorSchema) {
                       },
                   },
               }
-            : {},
-
+            : defaultTargets,
         tags: normalizedOptions.parsedTags,
     })
     addFiles(host, normalizedOptions)
