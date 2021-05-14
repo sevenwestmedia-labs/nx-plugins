@@ -87,7 +87,8 @@ export default async function (host: Tree, options: LibraryGeneratorSchema) {
 
         value.compilerOptions.paths = {
             ...existingPaths,
-            [options.packageName || options.name]: [
+            [options.packageName ||
+            `@${getWorkspaceLayout(host).npmScope}/${options.name}`]: [
                 `${normalizedOptions.projectRoot}/src/index.ts`,
             ],
         }
