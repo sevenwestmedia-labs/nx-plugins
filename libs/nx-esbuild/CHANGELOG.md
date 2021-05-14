@@ -1,5 +1,11 @@
 # @wanews/nx-esbuild
 
+## 0.10.0
+
+### Minor Changes
+
+- 9921701: Add lint and test targets for all generators
+
 ## 0.9.1
 
 ### Patch Changes

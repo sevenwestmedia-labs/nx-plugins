@@ -1,5 +1,12 @@
 # @wanews/nx-pulumi
 
+## 0.6.0
+
+### Minor Changes
+
+- 9921701: Add lint and test targets for all generators
+- 9921701: Update babel config so regenerator runtime is not needed
+
 ## 0.5.1
 
 ### Patch Changes
