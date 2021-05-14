@@ -7,6 +7,7 @@ import {
     Tree,
     updateProjectConfiguration,
 } from '@nrwl/devkit'
+import { addPropertyToJestConfig } from '@nrwl/jest'
 import * as path from 'path'
 import { PulumiGeneratorSchema } from './schema'
 
@@ -106,5 +107,11 @@ export default async function (host: Tree, options: PulumiGeneratorSchema) {
         targetProjectConfig,
     )
     addFiles(host, normalizedOptions)
+    addPropertyToJestConfig(
+        host,
+        'jest.config.js',
+        'projects',
+        `<rootDir>/${normalizedOptions.projectRoot}`,
+    )
     await formatFiles(host)
 }

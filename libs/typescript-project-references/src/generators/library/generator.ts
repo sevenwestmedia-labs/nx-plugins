@@ -8,6 +8,7 @@ import {
     Tree,
     updateJson,
 } from '@nrwl/devkit'
+import { addPropertyToJestConfig } from '@nrwl/jest'
 import * as path from 'path'
 import { LibraryGeneratorSchema } from './schema'
 
@@ -86,12 +87,19 @@ export default async function (host: Tree, options: LibraryGeneratorSchema) {
 
         value.compilerOptions.paths = {
             ...existingPaths,
-            [options.packageName || options.name]: [
+            [options.packageName ||
+            `@${getWorkspaceLayout(host).npmScope}/${options.name}`]: [
                 `${normalizedOptions.projectRoot}/src/index.ts`,
             ],
         }
 
         return value
     })
+    addPropertyToJestConfig(
+        host,
+        'jest.config.js',
+        'projects',
+        `<rootDir>/${normalizedOptions.projectRoot}`,
+    )
     await formatFiles(host)
 }

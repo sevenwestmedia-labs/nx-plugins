@@ -7,6 +7,7 @@ import {
     offsetFromRoot,
     Tree,
 } from '@nrwl/devkit'
+import { addPropertyToJestConfig } from '@nrwl/jest'
 import * as path from 'path'
 import { NodeGeneratorSchema } from './schema'
 
@@ -90,5 +91,11 @@ export default async function (host: Tree, options: NodeGeneratorSchema) {
         tags: normalizedOptions.parsedTags,
     })
     addFiles(host, normalizedOptions)
+    addPropertyToJestConfig(
+        host,
+        'jest.config.js',
+        'projects',
+        `<rootDir>/${normalizedOptions.projectRoot}`,
+    )
     await formatFiles(host)
 }
