@@ -107,11 +107,14 @@ export default async function (host: Tree, options: PulumiGeneratorSchema) {
         targetProjectConfig,
     )
     addFiles(host, normalizedOptions)
-    addPropertyToJestConfig(
-        host,
-        'jest.config.js',
-        'projects',
-        `<rootDir>/${normalizedOptions.projectRoot}`,
-    )
+
+    if (host.exists('jest.config.js')) {
+        addPropertyToJestConfig(
+            host,
+            'jest.config.js',
+            'projects',
+            `<rootDir>/${normalizedOptions.projectRoot}`,
+        )
+    }
     await formatFiles(host)
 }

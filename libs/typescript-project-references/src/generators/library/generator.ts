@@ -95,11 +95,14 @@ export default async function (host: Tree, options: LibraryGeneratorSchema) {
 
         return value
     })
-    addPropertyToJestConfig(
-        host,
-        'jest.config.js',
-        'projects',
-        `<rootDir>/${normalizedOptions.projectRoot}`,
-    )
+
+    if (host.exists('jest.config.js')) {
+        addPropertyToJestConfig(
+            host,
+            'jest.config.js',
+            'projects',
+            `<rootDir>/${normalizedOptions.projectRoot}`,
+        )
+    }
     await formatFiles(host)
 }
