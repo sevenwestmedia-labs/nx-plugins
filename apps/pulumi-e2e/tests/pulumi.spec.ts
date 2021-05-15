@@ -1,10 +1,10 @@
-import 'regenerator-runtime'
 import {
     ensureNxProject,
     readJson,
     runNxCommandAsync,
     uniq,
 } from '@nrwl/nx-plugin/testing'
+import 'regenerator-runtime'
 
 jest.setTimeout(200000)
 
@@ -29,7 +29,26 @@ describe('init e2e', () => {
             projectType: 'application',
             root: `apps/${app}-infrastructure`,
             sourceRoot: `apps/${app}-infrastructure/src`,
-            targets: {},
+            targets: {
+                targets: {
+                    lint: {
+                        executor: '@nrwl/linter:eslint',
+                        options: {
+                            lintFilePatterns: [
+                                `apps/${app}-infrastructure/**/*.ts`,
+                            ],
+                        },
+                    },
+                    test: {
+                        executor: '@nrwl/jest:jest',
+                        options: {
+                            jestConfig: `apps/${app}-infrastructure/jest.config.js`,
+                            passWithNoTests: true,
+                        },
+                        outputs: [`coverage/apps/${app}-infrastructure`],
+                    },
+                },
+            },
         })
     })
 })
