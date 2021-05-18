@@ -43,15 +43,6 @@ export default async function runExecutor(
             const dir = entryPointDir.replace(outbase || entryPointDir, '')
             const name = path.parse(entryPoint).name
             const entrypointOutDir = path.join(outdir, dir)
-            await execa('pnpx', ['make-dedicated-lockfile'], {
-                cwd: entrypointOutDir,
-                stdio: [process.stdin, process.stdout, 'pipe'],
-            })
-
-            await fs.writeFile(
-                path.join(entrypointOutDir, 'pnpm-workspace.yaml'),
-                '',
-            )
 
             if (existsSync(path.join(entryPointDir, 'package.json'))) {
                 await fs.copyFile(
@@ -65,11 +56,29 @@ export default async function runExecutor(
                 )
             }
 
+            // This creates a lockfile based on the lambda/project package.json
+            // https://github.com/pnpm/pnpm/issues/2198#issuecomment-669623478
+            await execa('pnpx', ['make-dedicated-lockfile'], {
+                cwd: entrypointOutDir,
+                stdio: [process.stdin, process.stdout, 'pipe'],
+            })
+
+            // Need to add this, otherwise pnpm will find the workspace one and not put the .pnpm folder in the dist folder.
+            // This has to be done after we have generated the dedicated lockfile from the main lockfile
+            // https://github.com/pnpm/pnpm/discussions/3427#discussioncomment-716016
+            await fs.writeFile(
+                path.join(entrypointOutDir, 'pnpm-workspace.yaml'),
+                '',
+            )
+
+            // Now install, it will install into the dist folder and virtual store will be in that folder too
             await execa('pnpm', ['install'], {
                 cwd: entrypointOutDir,
                 stdio: [process.stdin, process.stdout, 'pipe'],
             })
-            // This prob needs to check platform
+
+            // This prob needs to check platform to make it cross platform
+            // But need to instruct it to keep symlinks
             await execa('zip', ['-rqy', `../${name}.zip`, `.`], {
                 cwd: entrypointOutDir,
                 stdio: [process.stdin, process.stdout, 'pipe'],

@@ -98,7 +98,10 @@ importers:
     specifiers: {}
 
   libs/pulumi:
-    specifiers: {}
+    specifiers:
+      js-yaml: ^4.0.0
+    dependencies:
+      js-yaml: 4.1.0
 
   libs/typescript-project-references:
     specifiers:
