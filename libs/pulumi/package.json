@@ -4,6 +4,9 @@
     "main": "src/index.js",
     "generators": "./generators.json",
     "executors": "./executors.json",
+    "dependencies": {
+        "js-yaml": "^4.0.0"
+    },
     "peerDependencies": {
         "@nrwl/jest": ">12.0.0"
     }

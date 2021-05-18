@@ -1,6 +1,9 @@
 import { ExecutorContext, runExecutor } from '@nrwl/devkit'
-import { BuildExecutorSchema } from './schema'
 import execa from 'execa'
+import fs from 'fs'
+import yaml from 'js-yaml'
+import path from 'path'
+import { BuildExecutorSchema } from './schema'
 
 export default async function runUpExecutor(
     options: BuildExecutorSchema,
@@ -47,7 +50,10 @@ export default async function runUpExecutor(
         for await (const s of await runExecutor(
             additionalBuildTarget,
             {},
-            context,
+            {
+                ...context,
+                configurationName: additionalBuildTarget.configuration,
+            },
         )) {
             if (!s.success) {
                 return {
@@ -57,11 +63,39 @@ export default async function runUpExecutor(
         }
     }
 
+    const pulumiArguments = process.argv.slice(4)
+    const stackFormat =
+        options.configurationStackFormat || '[projectName].[configuration]'
+    const stackFromConfiguration =
+        context.configurationName && !pulumiArguments.includes('--stack')
+            ? [
+                  '--stack',
+                  stackFormat
+                      .replace(
+                          '[projectName]',
+                          (
+                              yaml.load(
+                                  fs
+                                      .readFileSync(
+                                          path.join(
+                                              infrastructureRoot,
+                                              'Pulumi.yaml',
+                                          ),
+                                      )
+                                      .toString(),
+                                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                              ) as any
+                          ).name,
+                      )
+                      .replace('[configuration]', context.configurationName),
+              ]
+            : []
     const pulumiArgs = [
         'up',
         '--cwd',
         infrastructureRoot,
-        ...process.argv.slice(4),
+        ...pulumiArguments,
+        ...stackFromConfiguration,
     ]
     console.log(`> pulumi ${pulumiArgs.join(' ')}`)
     const pulumi = execa('pulumi', pulumiArgs, {

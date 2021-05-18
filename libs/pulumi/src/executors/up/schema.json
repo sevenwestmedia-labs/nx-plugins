@@ -7,6 +7,7 @@
     "properties": {
         "targetProjectName": { "type": "string" },
         "buildTarget": { "type": "string" },
+        "configurationStackFormat": { "type": "string" },
         "additionalBuildTargets": {
             "type": "array",
             "items": {
