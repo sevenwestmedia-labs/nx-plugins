@@ -1,15 +1,20 @@
 {
-  "$schema": "http://json-schema.org/schema",
-  "executors": {
-    "build": {
-      "implementation": "./src/executors/build/executor",
-      "schema": "./src/executors/build/schema.json",
-      "description": "build executor"
-    },
-    "serve": {
-      "implementation": "./src/executors/serve/executor",
-      "schema": "./src/executors/serve/schema.json",
-      "description": "serve executor"
+    "$schema": "http://json-schema.org/schema",
+    "executors": {
+        "build": {
+            "implementation": "./src/executors/build/executor",
+            "schema": "./src/executors/build/schema.json",
+            "description": "build executor"
+        },
+        "serve": {
+            "implementation": "./src/executors/serve/executor",
+            "schema": "./src/executors/serve/schema.json",
+            "description": "serve executor"
+        },
+        "package": {
+            "implementation": "./src/executors/package/executor",
+            "schema": "./src/executors/package/schema.json",
+            "description": "package executor"
+        }
     }
-  }
 }

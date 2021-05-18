@@ -1,0 +1,295 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "definitions": {
+        "Charset": {
+            "enum": ["ascii", "utf8"],
+            "type": "string"
+        },
+        "Format": {
+            "enum": ["cjs", "esm", "iife"],
+            "type": "string"
+        },
+        "Loader": {
+            "enum": [
+                "base64",
+                "binary",
+                "css",
+                "dataurl",
+                "default",
+                "file",
+                "js",
+                "json",
+                "jsx",
+                "text",
+                "ts",
+                "tsx"
+            ],
+            "type": "string"
+        },
+        "LogLevel": {
+            "enum": ["debug", "error", "info", "silent", "verbose", "warning"],
+            "type": "string"
+        },
+        "Platform": {
+            "enum": ["browser", "neutral", "node"],
+            "type": "string"
+        },
+        "Record<string,string>": {
+            "type": "object"
+        },
+        "StdinOptions": {
+            "properties": {
+                "contents": {
+                    "type": "string"
+                },
+                "loader": {
+                    "$ref": "#/definitions/Loader"
+                },
+                "resolveDir": {
+                    "type": "string"
+                },
+                "sourcefile": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "WatchMode": {
+            "properties": {
+                "onRebuild": {
+                    "type": "object"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "properties": {
+        "absWorkingDir": {
+            "type": "string"
+        },
+        "allowOverwrite": {
+            "type": "boolean"
+        },
+        "assetNames": {
+            "type": "string"
+        },
+        "banner": {
+            "additionalProperties": {
+                "type": "string"
+            },
+            "type": "object"
+        },
+        "bundle": {
+            "type": "boolean"
+        },
+        "charset": {
+            "$ref": "#/definitions/Charset"
+        },
+        "chunkNames": {
+            "type": "string"
+        },
+        "color": {
+            "type": "boolean"
+        },
+        "conditions": {
+            "items": {
+                "type": "string"
+            },
+            "type": "array"
+        },
+        "define": {
+            "additionalProperties": {
+                "type": "string"
+            },
+            "type": "object"
+        },
+        "entryNames": {
+            "type": "string"
+        },
+        "entryPoints": {
+            "items": {
+                "type": "string"
+            },
+            "type": "array"
+        },
+        "external": {
+            "items": {
+                "type": "string"
+            },
+            "type": "array"
+        },
+        "footer": {
+            "additionalProperties": {
+                "type": "string"
+            },
+            "type": "object"
+        },
+        "format": {
+            "$ref": "#/definitions/Format"
+        },
+        "globalName": {
+            "type": "string"
+        },
+        "incremental": {
+            "type": "boolean"
+        },
+        "inject": {
+            "items": {
+                "type": "string"
+            },
+            "type": "array"
+        },
+        "jsxFactory": {
+            "type": "string"
+        },
+        "jsxFragment": {
+            "type": "string"
+        },
+        "keepNames": {
+            "type": "boolean"
+        },
+        "legalComments": {
+            "enum": ["eof", "external", "inline", "linked", "none"],
+            "type": "string"
+        },
+        "loader": {
+            "additionalProperties": {
+                "enum": [
+                    "base64",
+                    "binary",
+                    "css",
+                    "dataurl",
+                    "default",
+                    "file",
+                    "js",
+                    "json",
+                    "jsx",
+                    "text",
+                    "ts",
+                    "tsx"
+                ],
+                "type": "string"
+            },
+            "type": "object"
+        },
+        "logLevel": {
+            "$ref": "#/definitions/LogLevel"
+        },
+        "logLimit": {
+            "type": "number"
+        },
+        "mainFields": {
+            "items": {
+                "type": "string"
+            },
+            "type": "array"
+        },
+        "metafile": {
+            "type": "boolean"
+        },
+        "minify": {
+            "type": "boolean"
+        },
+        "minifyIdentifiers": {
+            "type": "boolean"
+        },
+        "minifySyntax": {
+            "type": "boolean"
+        },
+        "minifyWhitespace": {
+            "type": "boolean"
+        },
+        "nodePaths": {
+            "items": {
+                "type": "string"
+            },
+            "type": "array"
+        },
+        "outExtension": {
+            "additionalProperties": {
+                "type": "string"
+            },
+            "type": "object"
+        },
+        "outbase": {
+            "type": "string"
+        },
+        "outdir": {
+            "type": "string"
+        },
+        "outfile": {
+            "type": "string"
+        },
+        "platform": {
+            "$ref": "#/definitions/Platform"
+        },
+        "plugins": {
+            "items": {
+                "type": "object",
+                "properties": {
+                    "package": { "type": "string" },
+                    "args": { "type": "object" }
+                }
+            },
+            "type": "array"
+        },
+        "preserveSymlinks": {
+            "type": "boolean"
+        },
+        "publicPath": {
+            "type": "string"
+        },
+        "pure": {
+            "items": {
+                "type": "string"
+            },
+            "type": "array"
+        },
+        "resolveExtensions": {
+            "items": {
+                "type": "string"
+            },
+            "type": "array"
+        },
+        "sourceRoot": {
+            "type": "string"
+        },
+        "sourcemap": {
+            "enum": ["both", "external", false, "inline", true]
+        },
+        "sourcesContent": {
+            "type": "boolean"
+        },
+        "splitting": {
+            "type": "boolean"
+        },
+        "stdin": {
+            "$ref": "#/definitions/StdinOptions"
+        },
+        "target": {
+            "anyOf": [
+                {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                {
+                    "type": "string"
+                }
+            ]
+        },
+        "treeShaking": {
+            "enum": ["ignore-annotations", true]
+        },
+        "tsconfig": {
+            "type": "string"
+        },
+        "write": {
+            "type": "boolean"
+        }
+    },
+    "type": "object",
+    "cli": "nx",
+    "title": "ESBuild Build Executor"
+}
