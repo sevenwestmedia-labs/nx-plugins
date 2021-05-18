@@ -1,5 +1,11 @@
 # @wanews/nx-esbuild
 
+## 0.11.0
+
+### Minor Changes
+
+- 7822824: Added a esbuild package executor
+
 ## 0.10.0
 
 ### Minor Changes

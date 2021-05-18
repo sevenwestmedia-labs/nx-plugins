@@ -1,5 +1,11 @@
 # @wanews/nx-pulumi
 
+## 0.7.0
+
+### Minor Changes
+
+- a9d08e8: Add support for calculating stack name for affected:up
+
 ## 0.6.0
 
 ### Minor Changes
