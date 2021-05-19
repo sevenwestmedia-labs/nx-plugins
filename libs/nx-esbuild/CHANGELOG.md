@@ -1,5 +1,11 @@
 # @wanews/nx-esbuild
 
+## 0.12.0
+
+### Minor Changes
+
+- d06cf86: Fixed packaging multiple entrypoints having the same zip file name
+
 ## 0.11.0
 
 ### Minor Changes
