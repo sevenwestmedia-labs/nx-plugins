@@ -39,6 +39,7 @@ export default async function runExecutor(
         const outbase = options.outbase || lowestCommonAncestor(...entryPoints)
 
         for (const entryPoint of entryPoints) {
+            console.log(`> Packaging ${entryPoint}`)
             const entryPointDir = path.dirname(entryPoint)
             const dir = entryPointDir.replace(outbase || entryPointDir, '')
             const name = path.parse(entryPoint).name
@@ -79,7 +80,14 @@ export default async function runExecutor(
 
             // This prob needs to check platform to make it cross platform
             // But need to instruct it to keep symlinks
-            await execa('zip', ['-rqy', `../${name}.zip`, `.`], {
+            const relativeZipLocation = `../${dir || name}.zip`
+            console.log(
+                `> Writing ${path.relative(
+                    process.cwd(),
+                    path.resolve(entrypointOutDir, relativeZipLocation),
+                )}`,
+            )
+            await execa('zip', ['-rqy', relativeZipLocation, `.`], {
                 cwd: entrypointOutDir,
                 stdio: [process.stdin, process.stdout, 'pipe'],
             })
