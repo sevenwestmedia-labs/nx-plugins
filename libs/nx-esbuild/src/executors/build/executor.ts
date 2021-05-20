@@ -1,7 +1,7 @@
-import { BuildExecutorSchema } from './schema'
 import { ExecutorContext, readJson } from '@nrwl/devkit'
 import { FsTree } from '@nrwl/tao/src/shared/tree'
 import { build } from 'esbuild'
+import { BuildExecutorSchema } from './schema'
 
 export default async function runExecutor(
     options: BuildExecutorSchema,
@@ -45,6 +45,6 @@ export default async function runExecutor(
     })
 
     return {
-        success: result.errors.length === 0,
+        success: !(result.errors && result.errors.length !== 0),
     }
 }
