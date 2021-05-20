@@ -45,6 +45,6 @@ export default async function runExecutor(
     })
 
     return {
-        success: !(result.errors && result.errors.length !== 0),
+        success: !result.errors?.length,
     }
 }
