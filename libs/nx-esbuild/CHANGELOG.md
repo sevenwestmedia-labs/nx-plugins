@@ -1,5 +1,11 @@
 # @wanews/nx-esbuild
 
+## 0.12.1
+
+### Patch Changes
+
+- 1a55bad: Fix the error check in nx-esbuild executor to check for the presence of the errors array in the results object
+
 ## 0.12.0
 
 ### Minor Changes
