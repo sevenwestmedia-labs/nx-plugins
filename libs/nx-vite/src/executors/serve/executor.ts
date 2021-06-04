@@ -13,7 +13,7 @@ export default async function runExecutor(
     const tree = new FsTree(context.cwd, context.isVerbose)
     const appRoot = context.workspace.projects[context.projectName].root
 
-    const vite = execa('vite', [`${tree.root}/${appRoot}`, '--open'], {
+    const vite = execa('yarn vite', [`${tree.root}/${appRoot}`, '--open'], {
         stdio: [process.stdin, process.stdout, 'pipe'],
     })
 
