@@ -1,6 +1,9 @@
 {
     "name": "@wanews/nx-pulumi",
     "version": "0.7.0",
+    "license": "MIT",
+    "repository": "https://github.com/sevenwestmedia-labs/nx-plugins",
+    "author": "Seven West Media WA",
     "main": "src/index.js",
     "generators": "./generators.json",
     "executors": "./executors.json",

@@ -5,6 +5,7 @@ dist
 /tmp
 /out-tsc
 tsconfig.tsbuildinfo
+*.orig
 
 **/src/**/*.d.ts
 !**/src/**/schema.d.ts
