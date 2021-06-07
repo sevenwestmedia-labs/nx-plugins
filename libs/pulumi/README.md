@@ -35,3 +35,27 @@ For example if your `name` key in `Pulumi.yaml` is my-infrastructure and you pas
 The main reason for having a plugin is to automatically build the target application and allows NX to deploy applications which have changed in the mono repo. Only the `up` command needs to rebuild the target application.
 
 All other commands you can just use the `--cwd apps/<my-app>-infrastructure` flag when running the pulumi CLI
+
+## Troubleshooting
+
+### Error: unknown flag: --nonInteractive (or similar)
+
+NX Mangles command line args, the issue is being tracked at https://github.com/nrwl/nx/issues/5710
+
+You can use `patch-package` to fix the issue:
+
+```
+pnpm add -WD patch-package
+```
+
+Edit `node_modules/@nrwl/cli/lib/parse-run-one-options.js`
+
+Add this configuration to the yargs initialisation
+
+```
+configuration: {
+    "camel-case-expansion": false
+}
+```
+
+run `pnpx patch-package @nrwl/cli` to generate the patch
