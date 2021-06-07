@@ -1,5 +1,11 @@
 # @wanews/nx-pulumi
 
+## 0.8.1
+
+### Patch Changes
+
+- 527dc0c: Add troubleshooting info for nx mangling cli args
+
 ## 0.8.0
 
 ### Minor Changes
