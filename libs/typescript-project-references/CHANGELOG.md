@@ -1,5 +1,11 @@
 # @wanews/nx-typescript-project-references
 
+## 0.10.0
+
+### Minor Changes
+
+- 289986f: Update configurations, links to git and other tweaks
+
 ## 0.9.0
 
 ### Minor Changes

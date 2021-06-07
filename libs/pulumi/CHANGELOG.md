@@ -1,5 +1,11 @@
 # @wanews/nx-pulumi
 
+## 0.8.0
+
+### Minor Changes
+
+- 289986f: Update configurations, links to git and other tweaks
+
 ## 0.7.0
 
 ### Minor Changes

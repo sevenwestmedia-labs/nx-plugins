@@ -1,5 +1,11 @@
 # @wanews/nx-vite
 
+## 0.3.0
+
+### Minor Changes
+
+- 289986f: Update configurations, links to git and other tweaks
+
 ## 0.2.1
 
 ### Patch Changes

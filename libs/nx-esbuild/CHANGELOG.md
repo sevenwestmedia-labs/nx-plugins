@@ -1,5 +1,11 @@
 # @wanews/nx-esbuild
 
+## 0.13.0
+
+### Minor Changes
+
+- 289986f: Update configurations, links to git and other tweaks
+
 ## 0.12.1
 
 ### Patch Changes

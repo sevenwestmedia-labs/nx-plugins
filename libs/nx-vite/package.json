@@ -1,6 +1,6 @@
 {
     "name": "@wanews/nx-vite",
-    "version": "0.2.1",
+    "version": "0.3.0",
     "license": "MIT",
     "repository": "https://github.com/sevenwestmedia-labs/nx-plugins",
     "author": "Seven West Media WA",
