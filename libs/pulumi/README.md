@@ -35,7 +35,3 @@ For example if your `name` key in `Pulumi.yaml` is my-infrastructure and you pas
 The main reason for having a plugin is to automatically build the target application and allows NX to deploy applications which have changed in the mono repo. Only the `up` command needs to rebuild the target application.
 
 All other commands you can just use the `--cwd apps/<my-app>-infrastructure` flag when running the pulumi CLI
-
-## Running unit tests
-
-Run `nx test pulumi` to execute the unit tests via [Jest](https://jestjs.io).

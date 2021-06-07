@@ -15,6 +15,8 @@ Scaffolds a basic React (Typescript) project.
 **Usage**
 `npx nx generate @wanews/nx-vite:react <application-name>`
 
+For other templates, see https://github.com/vitejs/vite/tree/main/packages/create-app. You can use the above generator then replace the files with one of the templates in vite or even better add a generator with the template.
+
 ## Executors
 
 ### build
