@@ -1,5 +1,11 @@
 # @wanews/nx-typescript-project-references
 
+## 0.10.1
+
+### Patch Changes
+
+- 38b3ef0: Fixed tsconfig.json compiling to wrong folder
+
 ## 0.10.0
 
 ### Minor Changes
