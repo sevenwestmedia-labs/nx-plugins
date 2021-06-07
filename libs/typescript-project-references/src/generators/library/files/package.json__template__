@@ -3,8 +3,8 @@
   "private": true,
   "version": "0.0.1",
   "main": "out-tsc/index.js",
-  "scripts": {
-    "prepack": "scripts/prepack.js",
-    "postpublish": "scripts/postpublish.js"
+  "publishConfig": {
+    "main": "dist/index.js",
+    "module": "dist/esm/index.js"
   }
 }
