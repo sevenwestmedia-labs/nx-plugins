@@ -1,5 +1,11 @@
 # @wanews/nx-vite
 
+## 0.3.1
+
+### Patch Changes
+
+- ae4895b: Revert packagemanager change
+
 ## 0.3.0
 
 ### Minor Changes
