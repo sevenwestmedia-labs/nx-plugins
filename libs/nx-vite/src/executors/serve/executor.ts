@@ -16,8 +16,8 @@ export default async function runExecutor(
     const appRoot = context.workspace.projects[context.projectName].root
 
     const vite = execa(
-        `${packageManager} vite`,
-        [`${tree.root}/${appRoot}`, '--open'],
+        packageManager,
+        ['vite', `${tree.root}/${appRoot}`, '--open'],
         {
             stdio: [process.stdin, process.stdout, 'pipe'],
         },
