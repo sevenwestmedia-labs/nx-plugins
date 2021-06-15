@@ -1,11 +1,12 @@
 import { ExecutorContext } from '@nrwl/devkit'
+import { detectPackageManager } from '@nrwl/tao/src/shared/package-manager'
 import { createProjectGraph } from '@nrwl/workspace/src/core/project-graph'
 import {
     calculateProjectDependencies,
     updateBuildableProjectPackageJsonDependencies,
 } from '@nrwl/workspace/src/utilities/buildable-libs-utils'
-import { PackageExecutorSchema } from './schema'
 import execa from 'execa'
+import { PackageExecutorSchema } from './schema'
 
 export async function packageExecutor(
     options: PackageExecutorSchema,
@@ -18,6 +19,7 @@ export async function packageExecutor(
         throw new Error('No targetName')
     }
 
+    const packageManager = detectPackageManager()
     const projGraph = createProjectGraph()
     const libRoot = context.workspace.projects[context.projectName].root
     const { target, dependencies } = calculateProjectDependencies(
@@ -28,7 +30,8 @@ export async function packageExecutor(
         context.configurationName || 'production',
     )
 
-    const tsup = execa('tsup', [
+    const tsup = execa(packageManager, [
+        'tsup',
         options.main,
         '-d',
         `${libRoot}/dist`,
@@ -47,7 +50,8 @@ export async function packageExecutor(
     await tsup
 
     console.log('Generating type definitions...')
-    const tsc = execa('tsc', [
+    const tsc = execa(packageManager, [
+        'tsc',
         '-p',
         libRoot,
         '--declaration',

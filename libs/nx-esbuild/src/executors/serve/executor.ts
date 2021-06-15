@@ -1,8 +1,9 @@
-import { ServeExecutorSchema } from './schema'
-import execa from 'execa'
 import { ExecutorContext, readJson } from '@nrwl/devkit'
+import { detectPackageManager } from '@nrwl/tao/src/shared/package-manager'
 import { FsTree } from '@nrwl/tao/src/shared/tree'
 import { build } from 'esbuild'
+import execa from 'execa'
+import { ServeExecutorSchema } from './schema'
 
 export default async function runExecutor(
     options: ServeExecutorSchema,
@@ -15,6 +16,7 @@ export default async function runExecutor(
         throw new Error('Need to specify outfile in watch mode')
     }
 
+    const packageManager = detectPackageManager()
     const appRoot = context.workspace.projects[context.projectName].root
     const tree = new FsTree(context.cwd, context.isVerbose)
     const packageJson = readJson(tree, `${appRoot}/package.json`)
@@ -50,8 +52,9 @@ export default async function runExecutor(
     })
 
     const nodemon = execa(
-        'nodemon',
+        packageManager,
         [
+            'nodemon',
             '-r',
             'dotenv/config',
             '--enable-source-maps',

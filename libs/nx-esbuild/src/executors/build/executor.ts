@@ -29,6 +29,7 @@ export default async function runExecutor(
         bundle: true,
         sourcemap: true,
         logLevel: 'info',
+        metafile: true,
         ...options,
         external: [
             ...(options.external || []),
