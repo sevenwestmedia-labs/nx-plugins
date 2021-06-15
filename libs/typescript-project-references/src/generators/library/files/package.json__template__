@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.1",
   "main": "out-tsc/index.js",
+  "module": "src/index.ts",
   "publishConfig": {
     "main": "dist/index.js",
     "module": "dist/esm/index.js"
