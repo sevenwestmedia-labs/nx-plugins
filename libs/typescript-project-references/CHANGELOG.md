@@ -1,5 +1,11 @@
 # @wanews/nx-typescript-project-references
 
+## 0.10.2
+
+### Patch Changes
+
+- da49fff: Add module out
+
 ## 0.10.1
 
 ### Patch Changes
