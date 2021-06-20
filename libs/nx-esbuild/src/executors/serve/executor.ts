@@ -17,6 +17,12 @@ export default async function runExecutor(
     }
 
     const packageManager = detectPackageManager()
+    const packageManagerCmd =
+        packageManager === 'pnpm'
+            ? 'pnpx'
+            : packageManager === 'yarn'
+            ? 'yarn'
+            : 'npx'
     const appRoot = context.workspace.projects[context.projectName].root
     const tree = new FsTree(context.cwd, context.isVerbose)
     const packageJson = readJson(tree, `${appRoot}/package.json`)
@@ -52,7 +58,7 @@ export default async function runExecutor(
     })
 
     const nodemon = execa(
-        packageManager,
+        packageManagerCmd,
         [
             'nodemon',
             '-r',

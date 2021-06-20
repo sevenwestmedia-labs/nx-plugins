@@ -21,6 +21,12 @@ export async function packageExecutor(
     }
 
     const packageManager = detectPackageManager()
+    const packageManagerCmd =
+        packageManager === 'pnpm'
+            ? 'pnpx'
+            : packageManager === 'yarn'
+            ? 'yarn'
+            : 'npx'
     const projGraph = createProjectGraph()
     const libRoot = context.workspace.projects[context.projectName].root
     const tree = new FsTree(context.cwd, context.isVerbose)
@@ -33,7 +39,7 @@ export async function packageExecutor(
     )
     const packageJson = readJson(tree, `${libRoot}/package.json`)
 
-    const tsup = execa(packageManager, [
+    const tsup = execa(packageManagerCmd, [
         'tsup',
         options.main,
         '-d',
@@ -56,7 +62,7 @@ export async function packageExecutor(
     await tsup
 
     console.log('Generating type definitions...')
-    const tsc = execa(packageManager, [
+    const tsc = execa(packageManagerCmd, [
         'tsc',
         '-p',
         libRoot,
