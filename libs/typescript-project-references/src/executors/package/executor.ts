@@ -1,5 +1,6 @@
-import { ExecutorContext } from '@nrwl/devkit'
+import { ExecutorContext, readJson } from '@nrwl/devkit'
 import { detectPackageManager } from '@nrwl/tao/src/shared/package-manager'
+import { FsTree } from '@nrwl/tao/src/shared/tree'
 import { createProjectGraph } from '@nrwl/workspace/src/core/project-graph'
 import {
     calculateProjectDependencies,
@@ -22,6 +23,7 @@ export async function packageExecutor(
     const packageManager = detectPackageManager()
     const projGraph = createProjectGraph()
     const libRoot = context.workspace.projects[context.projectName].root
+    const tree = new FsTree(context.cwd, context.isVerbose)
     const { target, dependencies } = calculateProjectDependencies(
         projGraph,
         context.root,
@@ -29,18 +31,22 @@ export async function packageExecutor(
         context.targetName,
         context.configurationName || 'production',
     )
+    const packageJson = readJson(tree, `${libRoot}/package.json`)
 
     const tsup = execa(packageManager, [
         'tsup',
         options.main,
         '-d',
         `${libRoot}/dist`,
-        ...dependencies.reduce<string[]>((acc, dep) => {
+        ...[
+            ...dependencies.map((dep) => dep.name),
+            ...Object.keys(packageJson?.dependencies || {}),
+            ...Object.keys(packageJson?.peerDependencies || {}),
+        ].reduce<string[]>((acc, dep) => {
             acc.push('--external')
-            acc.push(dep.name)
+            acc.push(dep)
             return acc
         }, []),
-
         '--sourcemap',
         '--format',
         'esm,cjs',
