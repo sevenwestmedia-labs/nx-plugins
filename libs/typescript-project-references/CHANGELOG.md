@@ -1,5 +1,11 @@
 # @wanews/nx-typescript-project-references
 
+## 0.11.0
+
+### Minor Changes
+
+- 18bc28f: Mark dependencies and peerDependencies as externals when packaging
+
 ## 0.10.2
 
 ### Patch Changes
