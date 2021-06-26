@@ -1,5 +1,11 @@
 # @wanews/nx-vite
 
+## 0.4.1
+
+### Patch Changes
+
+- 66b63f1: Use relative path for root tsconfig references
+
 ## 0.4.0
 
 ### Minor Changes

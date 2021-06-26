@@ -1,5 +1,11 @@
 # @wanews/nx-pulumi
 
+## 0.9.1
+
+### Patch Changes
+
+- 66b63f1: Use relative path for root tsconfig references
+
 ## 0.9.0
 
 ### Minor Changes

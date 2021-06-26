@@ -1,5 +1,11 @@
 # @wanews/nx-typescript-project-references
 
+## 0.12.1
+
+### Patch Changes
+
+- 66b63f1: Use relative path for root tsconfig references
+
 ## 0.12.0
 
 ### Minor Changes
