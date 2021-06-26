@@ -125,7 +125,7 @@ export default async function (host: Tree, options: LibraryGeneratorSchema) {
         updateJson(host, 'tsconfig.json', (tsconfig) => {
             if (tsconfig.references) {
                 tsconfig.references.push({
-                    path: normalizedOptions.projectRoot,
+                    path: `./${normalizedOptions.projectRoot}`,
                 })
 
                 tsconfig.references.sort(
