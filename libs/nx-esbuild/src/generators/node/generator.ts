@@ -27,7 +27,7 @@ function normalizeOptions(
     const projectDirectory = options.directory
         ? `${names(options.directory).fileName}/${name}`
         : `${getWorkspaceLayout(host).appsDir}/${name}`
-    const projectName = projectDirectory.replace(new RegExp('/', 'g'), '-')
+    const projectName = name.replace(new RegExp('/', 'g'), '-')
     const parsedTags = options.tags
         ? options.tags.split(',').map((s) => s.trim())
         : []
