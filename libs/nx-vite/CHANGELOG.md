@@ -1,5 +1,12 @@
 # @wanews/nx-vite
 
+## 0.4.0
+
+### Minor Changes
+
+- f122f2b: Update root tsconfig.json to add project reference
+- d133ace: When user specifies a directory, use it without appending apps/libs
+
 ## 0.3.1
 
 ### Patch Changes

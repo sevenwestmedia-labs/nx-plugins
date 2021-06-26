@@ -1,5 +1,11 @@
 # @wanews/nx-pulumi
 
+## 0.9.0
+
+### Minor Changes
+
+- f122f2b: Update root tsconfig.json to add project reference
+
 ## 0.8.1
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @wanews/nx-esbuild
 
+## 0.14.0
+
+### Minor Changes
+
+- f122f2b: Update root tsconfig.json to add project reference
+- d133ace: When user specifies a directory, use it without appending apps/libs
+
 ## 0.13.0
 
 ### Minor Changes
