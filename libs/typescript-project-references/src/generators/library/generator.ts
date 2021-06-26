@@ -120,5 +120,23 @@ export default async function (host: Tree, options: LibraryGeneratorSchema) {
             `<rootDir>/${normalizedOptions.projectRoot}`,
         )
     }
+
+    if (host.exists('tsconfig.json')) {
+        updateJson(host, 'tsconfig.json', (tsconfig) => {
+            if (tsconfig.references) {
+                tsconfig.references.push({
+                    path: normalizedOptions.projectRoot,
+                })
+
+                tsconfig.references.sort(
+                    (a: { path: string }, b: { path: string }) =>
+                        a.path.localeCompare(b.path),
+                )
+            }
+
+            return tsconfig
+        })
+    }
+
     await formatFiles(host)
 }
