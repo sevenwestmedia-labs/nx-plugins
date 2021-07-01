@@ -49,7 +49,7 @@ export default async function runUpExecutor(
                 additionalBuildTarget.target
             }${
                 additionalBuildTarget.configuration
-                    ? `:${additionalBuildTarget}`
+                    ? `:${additionalBuildTarget.configuration}`
                     : ''
             }`,
         )
