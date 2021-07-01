@@ -26,39 +26,37 @@ export default async function runUpExecutor(
             options.buildTarget ?? 'build'
         }:production`,
     )
-    // Build project to be deployed
-    for await (const s of await runExecutor(
-        {
-            project: options.targetProjectName,
-            target: options.buildTarget ?? 'build',
-            configuration: 'production',
-        },
-        {},
-        context,
-    )) {
-        if (!s.success) {
-            return {
-                success: false,
-            }
-        }
-    }
 
-    for (const additionalBuildTarget of options.additionalBuildTargets || []) {
+    const deprecatedBuildTarget = options.buildTarget ? [{
+        project: options.targetProjectName,
+        target: options.buildTarget ?? 'build',
+        configuration: 'production',
+    }] : []
+
+    const deprecatedAdditionalBuildTargets = options.additionalBuildTargets ?? []
+
+    const buildTargets = options.buildTargets ?? []
+
+    for (const buildTarget of [
+        ...deprecatedBuildTarget,
+        ...deprecatedAdditionalBuildTargets,
+        ...(buildTargets),
+     ]) {
         console.log(
-            `> nx run ${additionalBuildTarget.project}:${
-                additionalBuildTarget.target
+            `> nx run ${buildTarget.project}:${
+                buildTarget.target
             }${
-                additionalBuildTarget.configuration
-                    ? `:${additionalBuildTarget.configuration}`
+                buildTarget.configuration
+                    ? `:${buildTarget.configuration}`
                     : ''
             }`,
         )
         for await (const s of await runExecutor(
-            additionalBuildTarget,
+            buildTarget,
             {},
             {
                 ...context,
-                configurationName: additionalBuildTarget.configuration,
+                configurationName: buildTarget.configuration,
             },
         )) {
             if (!s.success) {
