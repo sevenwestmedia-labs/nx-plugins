@@ -2,4 +2,4 @@
 '@wanews/nx-pulumi': major
 ---
 
-Deprecate buildTarget and additionalBuiltTargets, and combines them into buildTargets
+BREAKING: buildTarget and additionalBuiltTargets are now combined into buildTargets
