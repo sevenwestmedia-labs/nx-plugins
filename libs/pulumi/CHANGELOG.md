@@ -1,5 +1,15 @@
 # @wanews/nx-pulumi
 
+## 0.10.0
+
+### Minor Changes
+
+- 833aace: allow overriding infrastructure project name in workspace.json
+
+### Patch Changes
+
+- c4a7a3f: fix a bug affecting console output
+
 ## 0.9.1
 
 ### Patch Changes
