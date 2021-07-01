@@ -1,5 +1,11 @@
 # @wanews/nx-pulumi
 
+## 0.10.1
+
+### Patch Changes
+
+- 7dd9516: update schema.json
+
 ## 0.10.0
 
 ### Minor Changes
