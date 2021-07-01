@@ -7,4 +7,5 @@ export interface BuildExecutorSchema {
         target: string
         configuration?: string
     }>
+    infrastructureProject?: string
 }

@@ -12,8 +12,14 @@ export default async function runUpExecutor(
     if (!context.projectName) {
         throw new Error('No projectName')
     }
+
+    const infrastructureProject = options.infrastructureProject
+        ?? `${context.projectName}-infrastructure`
+
     const infrastructureRoot =
-        context.workspace.projects[`${context.projectName}-infrastructure`].root
+        context.workspace.projects[
+            infrastructureProject
+        ].root
 
     console.log(
         `> nx run ${options.targetProjectName}:${
