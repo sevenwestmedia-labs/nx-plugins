@@ -27,20 +27,19 @@ export default async function runUpExecutor(
         }:production`,
     )
 
+    const buildTargets = options.buildTargets ?? []
     const deprecatedBuildTarget = options.buildTarget ? [{
         project: options.targetProjectName,
         target: options.buildTarget ?? 'build',
         configuration: 'production',
     }] : []
-
-    const deprecatedAdditionalBuildTargets = options.additionalBuildTargets ?? []
-
-    const buildTargets = options.buildTargets ?? []
+    const deprecatedAdditionalBuildTargets
+        = options.additionalBuildTargets ?? []
 
     for (const buildTarget of [
+        ...buildTargets,
         ...deprecatedBuildTarget,
         ...deprecatedAdditionalBuildTargets,
-        ...(buildTargets),
      ]) {
         console.log(
             `> nx run ${buildTarget.project}:${
