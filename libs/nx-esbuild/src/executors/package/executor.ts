@@ -16,6 +16,7 @@ export default async function runExecutor(
     }
     const packageManager = detectPackageManager()
     const appRoot = context.workspace.projects[context.projectName].root
+    const workspaceRoot = context.root
 
     if (packageManager !== 'pnpm' && packageManager !== 'yarn') {
         throw new Error('Currently only pnpm and yarn are supported')
@@ -124,6 +125,11 @@ export default async function runExecutor(
             } else if (existsSync(path.join(appRoot, 'yarn.lock'))) {
                 await fs.copyFile(
                     path.join(appRoot, 'yarn.lock'),
+                    path.join(entrypointOutDir, 'yarn.lock'),
+                )
+            } else if (existsSync(path.join(workspaceRoot, 'yarn.lock'))) {
+                await fs.copyFile(
+                    path.join(workspaceRoot, 'yarn.lock'),
                     path.join(entrypointOutDir, 'yarn.lock'),
                 )
             }
