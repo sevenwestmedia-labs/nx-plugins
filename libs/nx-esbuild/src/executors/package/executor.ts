@@ -17,9 +17,10 @@ export default async function runExecutor(
     const packageManager = detectPackageManager()
     const appRoot = context.workspace.projects[context.projectName].root
 
-    if (packageManager !== 'pnpm') {
-        throw new Error('Currently only PNPM is supported')
+    if (packageManager !== 'pnpm' && packageManager !== 'yarn') {
+        throw new Error('Currently only pnpm and yarn are supported')
     }
+
     const outdir =
         options.outdir || (options.outfile && path.dirname(options.outfile))
     if (!outdir) {
@@ -74,6 +75,60 @@ export default async function runExecutor(
 
             // Now install, it will install into the dist folder and virtual store will be in that folder too
             await execa('pnpm', ['install'], {
+                cwd: entrypointOutDir,
+                stdio: [process.stdin, process.stdout, 'pipe'],
+            })
+
+            // This prob needs to check platform to make it cross platform
+            // But need to instruct it to keep symlinks
+            const relativeZipLocation = `../${dir || name}.zip`
+            console.log(
+                `> Writing ${path.relative(
+                    process.cwd(),
+                    path.resolve(entrypointOutDir, relativeZipLocation),
+                )}`,
+            )
+            await execa('zip', ['-rqy', relativeZipLocation, `.`], {
+                cwd: entrypointOutDir,
+                stdio: [process.stdin, process.stdout, 'pipe'],
+            })
+        }
+    } else if (packageManager === 'yarn') {
+        const outbase = options.outbase || lowestCommonAncestor(...entryPoints)
+
+        for (const entryPoint of entryPoints) {
+            console.log(`> Packaging ${entryPoint}`)
+            const entryPointDir = path.dirname(entryPoint)
+            const dir = entryPointDir.replace(outbase || entryPointDir, '')
+            const name = path.parse(entryPoint).name
+            const entrypointOutDir = path.join(outdir, dir)
+
+            if (existsSync(path.join(entryPointDir, 'package.json'))) {
+                await fs.copyFile(
+                    path.join(entryPointDir, 'package.json'),
+                    path.join(entrypointOutDir, 'package.json'),
+                )
+            } else if (existsSync(path.join(appRoot, 'package.json'))) {
+                await fs.copyFile(
+                    path.join(appRoot, 'package.json'),
+                    path.join(entrypointOutDir, 'package.json'),
+                )
+            }
+
+            // similar to pnpx make-dedicated-lockfile, just use the project lockfile
+            if (existsSync(path.join(entryPointDir, 'yarn.lock'))) {
+                await fs.copyFile(
+                    path.join(entryPointDir, 'yarn.lock'),
+                    path.join(entrypointOutDir, 'yarn.lock'),
+                )
+            } else if (existsSync(path.join(appRoot, 'yarn.lock'))) {
+                await fs.copyFile(
+                    path.join(appRoot, 'yarn.lock'),
+                    path.join(entrypointOutDir, 'yarn.lock'),
+                )
+            }
+
+            await execa('yarn', ['install', '--prod'], {
                 cwd: entrypointOutDir,
                 stdio: [process.stdin, process.stdout, 'pipe'],
             })
