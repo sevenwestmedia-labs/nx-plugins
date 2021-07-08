@@ -1,5 +1,11 @@
 # @wanews/nx-esbuild
 
+## 0.15.0
+
+### Minor Changes
+
+- 1763c9f: add support for the yarn package manager
+
 ## 0.14.1
 
 ### Patch Changes
