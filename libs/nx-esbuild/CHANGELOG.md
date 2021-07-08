@@ -1,5 +1,11 @@
 # @wanews/nx-esbuild
 
+## 0.15.1
+
+### Patch Changes
+
+- ad97d64: hotfix: check for yarn.lock in workspace root
+
 ## 0.15.0
 
 ### Minor Changes
