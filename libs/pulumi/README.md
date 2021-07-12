@@ -47,7 +47,7 @@ Default:
 ```
 nx affected --target=up --env=prod --all
 # Or in parallel
-
+nx affected --target=up --env=prod --all --parallel --maxParallel=5
 ```
 
 ### Running other pulumi commands
