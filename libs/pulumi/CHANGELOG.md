@@ -1,5 +1,11 @@
 # @wanews/nx-pulumi
 
+## 0.11.0
+
+### Minor Changes
+
+- 3cf0e8b: Introduce --env to trigger convention based stack name
+
 ## 0.10.1
 
 ### Patch Changes
