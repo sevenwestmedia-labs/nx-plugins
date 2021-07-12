@@ -1,0 +1,2 @@
+name: <%= projectName %>
+runtime: nodejs
