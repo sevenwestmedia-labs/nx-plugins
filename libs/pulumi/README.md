@@ -22,13 +22,33 @@ This will start pulumi with a `--cwd` of the infrastructure project automaticall
 
 ### Affected deploys
 
-This module uses the `configuration` flag to calculate the stack name. By default it will use the format
+when using S3 or another state which doesn't include the project name in the state path, a good workaround is naming your stacks `<project-name>.<env>`. For example `my-project.prod`.
 
 ```
-[projectName].[configuration]
+[projectName].[env]
 ```
 
-For example if your `name` key in `Pulumi.yaml` is my-infrastructure and you pass `--configuration prod`, the stack name will be `my-infrastructure.prod`
+For example if your `name` key in `Pulumi.yaml` is my-infrastructure and you pass `--env prod`, the stack name will be `my-infrastructure.prod`
+
+This allows you to use the NX affected command with Pulumi to deploy all the affected stacks.
+
+#### Configuration
+
+Use the `configurationStackFormat` executor configuration value to change the stack name format.
+
+Current placeholders `[projectName]`, `[environment]`
+
+Default:
+
+`configurationStackFormat='[projectName].[environment]'`
+
+#### Example
+
+```
+nx affected --target=up --env=prod --all
+# Or in parallel
+
+```
 
 ### Running other pulumi commands
 

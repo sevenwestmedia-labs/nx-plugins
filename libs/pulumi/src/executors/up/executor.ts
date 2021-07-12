@@ -13,13 +13,11 @@ export default async function runUpExecutor(
         throw new Error('No projectName')
     }
 
-    const infrastructureProject = options.infrastructureProject
-        ?? `${context.projectName}-infrastructure`
+    const infrastructureProject =
+        options.infrastructureProject ?? `${context.projectName}-infrastructure`
 
     const infrastructureRoot =
-        context.workspace.projects[
-            infrastructureProject
-        ].root
+        context.workspace.projects[infrastructureProject].root
 
     console.log(
         `> nx run ${options.targetProjectName}:${
@@ -69,31 +67,58 @@ export default async function runUpExecutor(
         }
     }
 
-    const pulumiArguments = process.argv.slice(4)
+    const commandLineMap: Record<string, string> = {
+        '--disableIntegrityChecking': '--disable-integrity-checking',
+        '--nonInteractive': '--non-interactive',
+        '--targetDependents': '--target-dependents',
+        '--targetReplace': '--target-replace',
+    }
+
+    let env: string | undefined
+
+    // NX Mangles command line args. Let's fix them back.
+    // https://github.com/nrwl/nx/issues/5710
+    // This is an incomplete list, should do all args
+    const pulumiArguments = process.argv
+        .slice(4)
+        .map((arg) => {
+            const mangled = Object.keys(commandLineMap).find((mangled) =>
+                arg.startsWith(mangled),
+            )
+            if (mangled) {
+                return arg.replace(mangled, commandLineMap[mangled])
+            }
+            return arg
+        })
+        .filter((arg) => {
+            if (arg.startsWith('--env')) {
+                env = arg.replace('--env=', '')
+                return false
+            }
+            if (arg.startsWith('--environment')) {
+                env = arg.replace('--environment=', '')
+                return false
+            }
+            return true
+        })
+
     const stackFormat =
-        options.configurationStackFormat || '[projectName].[configuration]'
+        options.configurationStackFormat || '[projectName].[environment]'
+    const pulumiProjectName: string = (
+        yaml.load(
+            fs
+                .readFileSync(path.join(infrastructureRoot, 'Pulumi.yaml'))
+                .toString(),
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        ) as any
+    ).name
     const stackFromConfiguration =
-        context.configurationName && !pulumiArguments.includes('--stack')
+        env && !pulumiArguments.includes('--stack')
             ? [
                   '--stack',
                   stackFormat
-                      .replace(
-                          '[projectName]',
-                          (
-                              yaml.load(
-                                  fs
-                                      .readFileSync(
-                                          path.join(
-                                              infrastructureRoot,
-                                              'Pulumi.yaml',
-                                          ),
-                                      )
-                                      .toString(),
-                                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                              ) as any
-                          ).name,
-                      )
-                      .replace('[configuration]', context.configurationName),
+                      .replace('[projectName]', pulumiProjectName)
+                      .replace('[environment]', env),
               ]
             : []
     const pulumiArgs = [
@@ -103,6 +128,29 @@ export default async function runUpExecutor(
         ...pulumiArguments,
         ...stackFromConfiguration,
     ]
+
+    // Don't fail if using --env and that stack doesn't exist
+    if (env) {
+        if (
+            !fs.existsSync(
+                path.join(
+                    infrastructureRoot,
+                    `Pulumi.${pulumiProjectName}.${env}.yaml`,
+                ),
+            )
+        ) {
+            console.warn(
+                `${
+                    context.projectName || 'unknown project'
+                } skipped due to no stack configuration matching --env convention`,
+            )
+
+            return {
+                success: true,
+            }
+        }
+    }
+
     console.log(`> pulumi ${pulumiArgs.join(' ')}`)
     const pulumi = execa('pulumi', pulumiArgs, {
         stdio: [process.stdin, process.stdout, process.stderr],
