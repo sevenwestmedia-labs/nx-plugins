@@ -1,5 +1,11 @@
 # @wanews/nx-pulumi
 
+## 0.12.1
+
+### Patch Changes
+
+- 8f0d161: fix a console output bug when targetProjectName is undefined
+
 ## 0.12.0
 
 ### Minor Changes
