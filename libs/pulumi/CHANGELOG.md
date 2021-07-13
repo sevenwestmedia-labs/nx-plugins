@@ -1,5 +1,11 @@
 # @wanews/nx-pulumi
 
+## 0.12.0
+
+### Minor Changes
+
+- 6cfdb73: allow "infrastructure-only" projects
+
 ## 0.11.0
 
 ### Minor Changes
