@@ -17,26 +17,37 @@ export default async function runUpExecutor(
         options.infrastructureProject ?? `${context.projectName}-infrastructure`
 
     const infrastructureRoot =
-        context.workspace.projects[infrastructureProject].root
+        context.workspace.projects[infrastructureProject]?.root
+
+    if (!infrastructureRoot) {
+        console.error(
+            'Error: infrastructureRoot not found. Set it in workspace.json.',
+        )
+        return {
+            success: false,
+        }
+    }
 
     console.log(
         `> nx run ${options.targetProjectName}:${
             options.buildTarget ?? 'build'
         }:production`,
     )
-    // Build project to be deployed
-    for await (const s of await runExecutor(
-        {
-            project: options.targetProjectName,
-            target: options.buildTarget ?? 'build',
-            configuration: 'production',
-        },
-        {},
-        context,
-    )) {
-        if (!s.success) {
-            return {
-                success: false,
+
+    if (options.targetProjectName) {
+        for await (const s of await runExecutor(
+            {
+                project: options.targetProjectName,
+                target: options.buildTarget ?? 'build',
+                configuration: 'production',
+            },
+            {},
+            context,
+        )) {
+            if (!s.success) {
+                return {
+                    success: false,
+                }
             }
         }
     }
