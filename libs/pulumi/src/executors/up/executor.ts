@@ -28,13 +28,12 @@ export default async function runUpExecutor(
         }
     }
 
-    console.log(
-        `> nx run ${options.targetProjectName}:${
-            options.buildTarget ?? 'build'
-        }:production`,
-    )
-
     if (options.targetProjectName) {
+        console.log(
+            `> nx run ${options.targetProjectName}:${
+                options.buildTarget ?? 'build'
+            }:production`,
+        )
         for await (const s of await runExecutor(
             {
                 project: options.targetProjectName,
