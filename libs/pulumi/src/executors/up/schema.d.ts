@@ -1,5 +1,5 @@
 export interface BuildExecutorSchema {
-    targetProjectName: string
+    targetProjectName?: string
     configurationStackFormat?: string
     buildTarget?: string
     additionalBuildTargets?: Array<{
