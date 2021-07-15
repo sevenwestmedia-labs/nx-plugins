@@ -14,7 +14,7 @@ export default async function runUpExecutor(
     }
 
     const infrastructureProject =
-        options.infrastructureProject ?? `${context.projectName}-infrastructure`
+        options.infrastructureProject ?? context.projectName
 
     const infrastructureRoot =
         context.workspace.projects[infrastructureProject]?.root
@@ -51,22 +51,20 @@ export default async function runUpExecutor(
         }
     }
 
-    for (const additionalBuildTarget of options.additionalBuildTargets || []) {
+    for (const buildTarget of options.buildTargets ??
+        options.additionalBuildTargets ??
+        []) {
         console.log(
-            `> nx run ${additionalBuildTarget.project}:${
-                additionalBuildTarget.target
-            }${
-                additionalBuildTarget.configuration
-                    ? `:${additionalBuildTarget.configuration}`
-                    : ''
+            `> nx run ${buildTarget.project}:${buildTarget.target}${
+                buildTarget.configuration ? `:${buildTarget.configuration}` : ''
             }`,
         )
         for await (const s of await runExecutor(
-            additionalBuildTarget,
+            buildTarget,
             {},
             {
                 ...context,
-                configurationName: additionalBuildTarget.configuration,
+                configurationName: buildTarget.configuration,
             },
         )) {
             if (!s.success) {
