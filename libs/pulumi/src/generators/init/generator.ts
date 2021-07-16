@@ -80,7 +80,9 @@ function addFiles(host: Tree, options: PulumiGeneratorNormalizedSchema) {
 }
 
 export default async function (host: Tree, options: PulumiGeneratorSchema) {
+    // note to self: normalizedOptions represents the (new) infrastructure project
     const normalizedOptions = normalizeOptions(host, options)
+
     addProjectConfiguration(host, normalizedOptions.projectName, {
         root: normalizedOptions.projectRoot,
         projectType: 'application',
@@ -102,6 +104,12 @@ export default async function (host: Tree, options: PulumiGeneratorSchema) {
                 },
                 outputs: [`coverage/${normalizedOptions.projectRoot}`],
             },
+            up: {
+                executor: '@wanews/nx-pulumi:up',
+                options: {
+                    targetProjectName: normalizedOptions.targetProjectName,
+                },
+            },
         },
         tags: normalizedOptions.parsedTags,
         implicitDependencies: [normalizedOptions.targetProjectName],
@@ -112,10 +120,10 @@ export default async function (host: Tree, options: PulumiGeneratorSchema) {
         normalizedOptions.targetProjectName,
     )
     targetProjectConfig.targets = targetProjectConfig.targets || {}
-    targetProjectConfig.targets.up = {
-        executor: '@wanews/nx-pulumi:up',
+    targetProjectConfig.targets.deploy = {
+        executor: '@nrwl/workspace:run-commands',
         options: {
-            targetProjectName: normalizedOptions.targetProjectName,
+            commands: [`nx run ${normalizedOptions.projectName}:up`],
         },
     }
 
@@ -124,6 +132,7 @@ export default async function (host: Tree, options: PulumiGeneratorSchema) {
         normalizedOptions.targetProjectName,
         targetProjectConfig,
     )
+
     addFiles(host, normalizedOptions)
 
     if (host.exists('jest.config.js')) {

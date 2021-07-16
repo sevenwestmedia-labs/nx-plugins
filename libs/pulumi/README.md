@@ -12,13 +12,15 @@ nx g @wanews/nx-pulumi:init
 
 ### Running deploy
 
-@wanews/nx-pulumi will add a `up` target to the selected project.
+@wanews/nx-pulumi will add a `deploy` target to the selected project.
 
-`nx up <your-project-name>`
+`nx deploy <your-project-name>`
 
 This will start pulumi with a `--cwd` of the infrastructure project automatically. All arguments will be passed onto the pulumi CLI.
 
-`nx up my-app --stack dev`
+`nx deploy my-app --stack dev`
+
+Under the hood, this will run the `up` against your infrastructure project.
 
 ### Affected deploys
 
