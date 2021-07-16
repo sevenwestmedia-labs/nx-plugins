@@ -21,8 +21,11 @@ describe('init e2e', () => {
 
         const workspaceJson = readJson('workspace.json')
         expect(workspaceJson.projects[app].targets).toMatchObject({
-            up: {
-                executor: '@wanews/nx-pulumi:up',
+            deploy: {
+                executor: '@nrwl/workspace:run-commands',
+                options: {
+                    commands: [`nx run ${app}-infrastructure:up`],
+                },
             },
         })
         expect(workspaceJson.projects[`${app}-infrastructure`]).toEqual({
@@ -45,6 +48,12 @@ describe('init e2e', () => {
                         passWithNoTests: true,
                     },
                     outputs: [`coverage/apps/${app}-infrastructure`],
+                },
+                up: {
+                    executor: '@wanews/nx-pulumi:up',
+                    options: {
+                        targetProjectName: app,
+                    },
                 },
             },
         })
