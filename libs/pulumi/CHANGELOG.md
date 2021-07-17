@@ -1,5 +1,11 @@
 # @wanews/nx-pulumi
 
+## 0.13.1
+
+### Patch Changes
+
+- 8801ee6: Ensure task fails when pulumi does not have an exit code of 0
+
 ## 0.13.0
 
 ### Minor Changes
