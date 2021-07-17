@@ -164,7 +164,10 @@ export default async function runUpExecutor(
         stdio: [process.stdin, process.stdout, process.stderr],
     })
     try {
-        await pulumi
+        const res = await pulumi
+        if (res.exitCode !== 0) {
+            return { success: false }
+        }
     } catch {
         return { success: false }
     }
