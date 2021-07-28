@@ -1,5 +1,11 @@
 # @wanews/nx-vite
 
+## 0.4.2
+
+### Patch Changes
+
+- 77261b0: Fixed vite serve for npm and pnpm
+
 ## 0.4.1
 
 ### Patch Changes
