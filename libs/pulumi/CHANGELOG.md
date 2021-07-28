@@ -1,5 +1,11 @@
 # @wanews/nx-pulumi
 
+## 0.14.0
+
+### Minor Changes
+
+- fa04d40: Add standalone infrastructure project generator
+
 ## 0.13.1
 
 ### Patch Changes
