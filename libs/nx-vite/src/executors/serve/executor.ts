@@ -1,5 +1,5 @@
 import { ExecutorContext } from '@nrwl/devkit'
-import { detectPackageManager } from '@nrwl/tao/src/shared/package-manager'
+import { getPackageManagerCommand } from '@nrwl/tao/src/shared/package-manager'
 import { FsTree } from '@nrwl/tao/src/shared/tree'
 import execa from 'execa'
 import { ServeExecutorSchema } from './schema'
@@ -11,12 +11,12 @@ export default async function runExecutor(
     if (!context.projectName) {
         throw new Error('No projectName')
     }
-    const packageManager = detectPackageManager()
+    const packageManager = getPackageManagerCommand()
     const tree = new FsTree(context.cwd, context.isVerbose)
     const appRoot = context.workspace.projects[context.projectName].root
 
     const vite = execa(
-        packageManager,
+        packageManager.exec,
         ['vite', `${tree.root}/${appRoot}`, '--open'],
         {
             stdio: [process.stdin, process.stdout, 'pipe'],
