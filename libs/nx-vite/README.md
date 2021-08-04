@@ -1,4 +1,4 @@
-# @wanews/x-vite
+# @wanews/nx-vite
 
 NX Plugin for Next Generation Frontend Tooling with Vite
 
