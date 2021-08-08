@@ -1,4 +1,4 @@
-import { ExecutorContext, runExecutor } from '@nrwl/devkit'
+import { ExecutorContext } from '@nrwl/devkit'
 import execa from 'execa'
 import fs from 'fs'
 import { getPulumiArgs } from '../../helpers/get-pulumi-args'
@@ -42,29 +42,7 @@ export default async function runUpExecutor(
         }
     }
 
-    for (const buildTarget of options.buildTargets ?? []) {
-        console.log(
-            `> nx run ${buildTarget.project}:${buildTarget.target}${
-                buildTarget.configuration ? `:${buildTarget.configuration}` : ''
-            }`,
-        )
-        for await (const s of await runExecutor(
-            buildTarget,
-            {},
-            {
-                ...context,
-                configurationName: buildTarget.configuration,
-            },
-        )) {
-            if (!s.success) {
-                return {
-                    success: false,
-                }
-            }
-        }
-    }
-
-    const pulumiArgs = ['up', ...pulumiArguments]
+    const pulumiArgs = ['destroy', ...pulumiArguments]
 
     console.log(`> pulumi ${pulumiArgs.join(' ')}`)
     const pulumi = execa('pulumi', pulumiArgs, {
