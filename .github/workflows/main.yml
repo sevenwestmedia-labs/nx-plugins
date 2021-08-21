@@ -29,6 +29,9 @@ jobs:
         run: |
           npm install --no-package-lock --no-save @changesets/cli
           echo ::set-output name=changes::$(npx changeset version 2>&1 | grep -q 'No unreleased changesets found' && echo 'false' || echo 'true')
+        env:
+          GITHUB_TOKEN: ${{ secrets.SERVICE_ACCOUNT_PAT }}
+
       - name: Push changes
         if: steps.version.outputs.changes == 'true'
         run: |
