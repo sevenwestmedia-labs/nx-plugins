@@ -37,7 +37,9 @@ export async function packageExecutor(
         context.targetName,
         context.configurationName || 'production',
     )
-    const packageJson = readJson(tree, `${libRoot}/package.json`)
+    const packageJson = tree.exists(`${libRoot}/package.json`)
+        ? readJson(tree, `${libRoot}/package.json`)
+        : {}
 
     const tsup = execa(packageManagerCmd, [
         'tsup',

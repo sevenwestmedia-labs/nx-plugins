@@ -25,7 +25,10 @@ export default async function runExecutor(
             : 'npx'
     const appRoot = context.workspace.projects[context.projectName].root
     const tree = new FsTree(context.cwd, context.isVerbose)
-    const packageJson = readJson(tree, `${appRoot}/package.json`)
+
+    const packageJson = tree.exists(`${appRoot}/package.json`)
+        ? readJson(tree, `${appRoot}/package.json`)
+        : {}
 
     Object.keys(options).forEach((key) => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
