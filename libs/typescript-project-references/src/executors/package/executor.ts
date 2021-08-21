@@ -48,6 +48,7 @@ export async function packageExecutor(
         `${libRoot}/dist`,
         ...[
             ...dependencies.map((dep) => dep.name),
+            ...(options.external || []),
             ...Object.keys(packageJson?.dependencies || {}),
             ...Object.keys(packageJson?.peerDependencies || {}),
         ].reduce<string[]>((acc, dep) => {

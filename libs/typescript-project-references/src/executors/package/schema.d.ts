@@ -5,4 +5,5 @@ export interface PackageExecutorSchema {
     packageJson: string
     updateBuildableProjectDepsInPackageJson?: boolean
     buildableProjectDepsInPackageJsonType?: 'dependencies' | 'peerDependencies'
+    external?: string[]
 }

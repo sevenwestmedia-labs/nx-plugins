@@ -31,6 +31,12 @@
         "packageJson": {
             "type": "string",
             "description": "The name of the package.json file"
+        },
+        "external": {
+            "items": {
+                "type": "string"
+            },
+            "type": "array"
         }
     },
     "required": ["tsConfig", "main"]
