@@ -62,7 +62,7 @@ jobs:
           git commit -m "Version packages" || echo "No changes to commit"
           git push
 
-      - name: type scheck
+      - name: typecheck
         run: pnpx tsc -b
 
       - name: Build packages

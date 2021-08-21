@@ -43,8 +43,6 @@
                     "executor": "@nrwl/nx-plugin:e2e",
                     "options": {
                         "target": "nx-esbuild:build",
-                        "npmPackageName": "@wanews/nx-esbuild",
-                        "pluginOutputPath": "libs/nx-esbuild",
                         "jestConfig": "apps/nx-esbuild-e2e/jest.config.js"
                     }
                 }
@@ -92,8 +90,6 @@
                     "executor": "@nrwl/nx-plugin:e2e",
                     "options": {
                         "target": "nx-vite:build",
-                        "npmPackageName": "@wanews/nx-vite",
-                        "pluginOutputPath": "libs/nx-vite",
                         "jestConfig": "apps/nx-vite-e2e/jest.config.js"
                     }
                 }
@@ -141,8 +137,6 @@
                     "executor": "@nrwl/nx-plugin:e2e",
                     "options": {
                         "target": "pulumi:build",
-                        "npmPackageName": "@wanews/nx-pulumi",
-                        "pluginOutputPath": "libs/pulumi",
                         "jestConfig": "apps/pulumi-e2e/jest.config.js"
                     }
                 }
@@ -192,8 +186,6 @@
                     "executor": "@nrwl/nx-plugin:e2e",
                     "options": {
                         "target": "typescript-project-references:build",
-                        "npmPackageName": "@wanews/nx-typescript-project-references",
-                        "pluginOutputPath": "libs/typescript-project-references",
                         "jestConfig": "apps/typescript-project-references-e2e/jest.config.js"
                     }
                 }
