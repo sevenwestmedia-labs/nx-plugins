@@ -1,28 +1,28 @@
 {
-  "compileOnSave": false,
-  "compilerOptions": {
-    "rootDir": ".",
-    "sourceMap": true,
-    "declaration": false,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "importHelpers": true,
-    "target": "es2015",
-    "module": "commonjs",
-    "lib": ["es2017", "dom"],
-    "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
-    "baseUrl": ".",
-    "strict": true,
-    "esModuleInterop": true,
-    "paths": {
-      "@wanews/typescript-project-references": [
-        "libs/typescript-project-references/src/index.ts"
-      ],
-      "@wanews/nx-esbuild": ["libs/nx-esbuild/src/index.ts"],
-      "@wanews/nx-pulumi": ["libs/pulumi/src/index.ts"]
-    }
-  },
-  "exclude": ["node_modules", "tmp"]
+    "compileOnSave": false,
+    "compilerOptions": {
+        "rootDir": ".",
+        "sourceMap": true,
+        "declaration": false,
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "importHelpers": true,
+        "target": "es2015",
+        "module": "commonjs",
+        "lib": ["es2017", "dom"],
+        "skipLibCheck": true,
+        "skipDefaultLibCheck": true,
+        "baseUrl": ".",
+        "strict": true,
+        "esModuleInterop": true,
+        "paths": {
+            "@wanews/nx-esbuild": ["libs/nx-esbuild/src/index.ts"],
+            "@wanews/nx-pulumi": ["libs/pulumi/src/index.ts"],
+            "@wanews/typescript-project-references": [
+                "libs/typescript-project-references/src/index.ts"
+            ]
+        }
+    },
+    "exclude": ["node_modules", "tmp"]
 }

@@ -1,7 +1,7 @@
 import { ExecutorContext, readJson } from '@nrwl/devkit'
 import { detectPackageManager } from '@nrwl/tao/src/shared/package-manager'
 import { FsTree } from '@nrwl/tao/src/shared/tree'
-import { createProjectGraph } from '@nrwl/workspace/src/core/project-graph'
+import { createProjectGraphAsync } from '@nrwl/workspace/src/core/project-graph'
 import {
     calculateProjectDependencies,
     updateBuildableProjectPackageJsonDependencies,
@@ -27,7 +27,7 @@ export async function packageExecutor(
             : packageManager === 'yarn'
             ? 'yarn'
             : 'npx'
-    const projGraph = createProjectGraph()
+    const projGraph = await createProjectGraphAsync()
     const libRoot = context.workspace.projects[context.projectName].root
     const tree = new FsTree(context.cwd, context.isVerbose)
     const { target, dependencies } = calculateProjectDependencies(
