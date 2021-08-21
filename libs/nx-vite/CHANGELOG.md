@@ -1,5 +1,11 @@
 # @wanews/nx-vite
 
+## 0.4.3
+
+### Patch Changes
+
+- [`73b2018`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/73b2018942106136f66957a8f0e1e95fd8738e0e) Thanks [@JakeGinnivan](https://github.com/JakeGinnivan)! - Fixed dependencies of nx-vite package so it works right away
+
 ## 0.4.2
 
 ### Patch Changes

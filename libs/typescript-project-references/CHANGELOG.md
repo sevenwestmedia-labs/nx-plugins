@@ -1,5 +1,15 @@
 # @wanews/nx-typescript-project-references
 
+## 0.13.0
+
+### Minor Changes
+
+- [`f38fc51`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/f38fc5172fdce0dda14523b21e2fc14b9ba49a0c) Thanks [@JakeGinnivan](https://github.com/JakeGinnivan)! - Allow external option to be passed to typescript-project-references package executor
+
+### Patch Changes
+
+- [`b46e10d`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/b46e10d96a2fd9e8d974a066fb56db3a5b2438e1) Thanks [@JakeGinnivan](https://github.com/JakeGinnivan)! - Fixed crash when project doesn't have a package.json
+
 ## 0.12.1
 
 ### Patch Changes
