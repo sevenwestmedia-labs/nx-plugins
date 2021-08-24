@@ -1,5 +1,11 @@
 # @wanews/nx-pulumi
 
+## 0.15.1
+
+### Patch Changes
+
+- [`c2b8a9c`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/c2b8a9c338f1a62f9dc133695ac54c9cfbca1020) Thanks [@JakeGinnivan](https://github.com/JakeGinnivan)! - Fixed init-standalone
+
 ## 0.15.0
 
 ### Minor Changes
