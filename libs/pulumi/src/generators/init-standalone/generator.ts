@@ -45,6 +45,8 @@ function addFiles(host: Tree, options: NormalizedSchema) {
     const templateOptions = {
         ...options,
         ...names(options.name),
+        projectName: options.name,
+        packageName: options.projectName,
         offsetFromRoot: offsetFromRoot(options.projectRoot),
         template: '',
     }
