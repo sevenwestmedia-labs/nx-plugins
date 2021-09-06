@@ -5,7 +5,6 @@
     "description": "",
     "type": "object",
     "properties": {
-        "targetProjectName": { "type": "string" },
         "buildTargets": {
             "type": "array",
             "items": {
@@ -18,20 +17,6 @@
                 "required": ["project", "target"]
             }
         },
-        "buildTarget": { "type": "string" },
-        "configurationStackFormat": { "type": "string" },
-        "additionalBuildTargets": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "project": { "type": "string" },
-                    "target": { "type": "string" },
-                    "configuration": { "type": "string" }
-                },
-                "required": ["project", "target"]
-            }
-        },
-        "infrastructureProject": { "type": "string" }
+        "configurationStackFormat": { "type": "string" }
     }
 }
