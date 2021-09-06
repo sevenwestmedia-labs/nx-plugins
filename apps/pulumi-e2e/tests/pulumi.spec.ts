@@ -52,7 +52,12 @@ describe('init e2e', () => {
                 up: {
                     executor: '@wanews/nx-pulumi:up',
                     options: {
-                        targetProjectName: app,
+                        buildTargets: [
+                            {
+                                project: app,
+                                target: 'build',
+                            },
+                        ],
                     },
                 },
             },
