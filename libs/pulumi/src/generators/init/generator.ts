@@ -107,7 +107,12 @@ export default async function (host: Tree, options: PulumiGeneratorSchema) {
             up: {
                 executor: '@wanews/nx-pulumi:up',
                 options: {
-                    targetProjectName: normalizedOptions.targetProjectName,
+                    buildTargets: [
+                        {
+                            project: normalizedOptions.targetProjectName,
+                            target: 'build',
+                        },
+                    ],
                 },
             },
         },

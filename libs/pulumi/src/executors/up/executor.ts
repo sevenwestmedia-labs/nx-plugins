@@ -13,16 +13,11 @@ export default async function runUpExecutor(
         throw new Error('No projectName')
     }
 
-    const infrastructureProject =
-        options.infrastructureProject ?? context.projectName
-
     const infrastructureRoot =
-        context.workspace.projects[infrastructureProject]?.root
+        context.workspace.projects[context.projectName]?.root
 
     if (!infrastructureRoot) {
-        console.error(
-            'Error: infrastructureRoot not found. Set it in workspace.json.',
-        )
+        console.error('Error: cannot resolve project root.')
         return {
             success: false,
         }
@@ -96,32 +91,7 @@ export default async function runUpExecutor(
         }
     }
 
-    if (options.targetProjectName) {
-        console.log(
-            `> nx run ${options.targetProjectName}:${
-                options.buildTarget ?? 'build'
-            }:production`,
-        )
-        for await (const s of await runExecutor(
-            {
-                project: options.targetProjectName,
-                target: options.buildTarget ?? 'build',
-                configuration: 'production',
-            },
-            {},
-            context,
-        )) {
-            if (!s.success) {
-                return {
-                    success: false,
-                }
-            }
-        }
-    }
-
-    for (const buildTarget of options.buildTargets ??
-        options.additionalBuildTargets ??
-        []) {
+    for (const buildTarget of options.buildTargets ?? []) {
         console.log(
             `> nx run ${buildTarget.project}:${buildTarget.target}${
                 buildTarget.configuration ? `:${buildTarget.configuration}` : ''
