@@ -1,5 +1,11 @@
 # @wanews/nx-pulumi
 
+## 0.16.0
+
+### Minor Changes
+
+- [#46](https://github.com/sevenwestmedia-labs/nx-plugins/pull/46) [`23d2213`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/23d221334203d4d00cf09976a0af216dc8855f02) Thanks [@JakeGinnivan](https://github.com/JakeGinnivan)! - BREAKING: Removed duplicate config options. Use `buildTargets` to build dependencies
+
 ## 0.15.1
 
 ### Patch Changes
