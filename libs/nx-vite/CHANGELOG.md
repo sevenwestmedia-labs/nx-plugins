@@ -1,5 +1,11 @@
 # @wanews/nx-vite
 
+## 0.5.0
+
+### Minor Changes
+
+- [`e1265d5`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/e1265d5c6feac19fcc9892c1ec8cb8634b285e13) Thanks [@JakeGinnivan](https://github.com/JakeGinnivan)! - Fixed a number of missing peer dependencies and dependencies
+
 ## 0.4.3
 
 ### Patch Changes
