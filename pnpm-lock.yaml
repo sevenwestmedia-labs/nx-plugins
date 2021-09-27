@@ -93,8 +93,10 @@ importers:
   libs/nx-esbuild:
     specifiers:
       '@pnpm/make-dedicated-lockfile': '>0.2.0'
+      execa: ^5.0.0
     dependencies:
       '@pnpm/make-dedicated-lockfile': 0.2.6
+      execa: 5.0.0
 
   libs/nx-vite:
     specifiers:
@@ -104,8 +106,10 @@ importers:
 
   libs/pulumi:
     specifiers:
+      execa: ^5.0.0
       js-yaml: ^4.0.0
     dependencies:
+      execa: 5.0.0
       js-yaml: 4.1.0
 
   libs/typescript-project-references:
