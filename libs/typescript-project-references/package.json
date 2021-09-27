@@ -12,6 +12,9 @@
         "execa": "^5.0.0"
     },
     "peerDependencies": {
+        "@nrwl/devkit": ">12.0.0",
+        "@nrwl/tao": ">12.0.0",
+        "@nrwl/workspace": ">12.0.0",
         "@nrwl/jest": ">12.0.0"
     }
 }

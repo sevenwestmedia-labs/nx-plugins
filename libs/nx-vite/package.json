@@ -11,6 +11,8 @@
         "execa": "^5.0.0"
     },
     "peerDependencies": {
+        "@nrwl/devkit": ">12.0.0",
+        "@nrwl/tao": ">12.0.0",
         "vite": ">2.0.0",
         "vite-tsconfig-paths": ">3.0.0"
     }

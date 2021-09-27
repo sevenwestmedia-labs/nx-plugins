@@ -8,12 +8,15 @@
     "generators": "./generators.json",
     "executors": "./executors.json",
     "dependencies": {
-        "@pnpm/make-dedicated-lockfile": ">0.2.0"
+        "@pnpm/make-dedicated-lockfile": ">0.2.0",
+        "execa": "^5.0.0"
     },
     "peerDependencies": {
-        "esbuild": ">0.11.0",
-        "nodemon": ">2.0.0",
+        "@nrwl/devkit": ">12.0.0",
+        "@nrwl/tao": ">12.0.0",
+        "@nrwl/jest": ">12.0.0",
         "dotenv": ">8.0.0",
-        "@nrwl/jest": ">12.0.0"
+        "esbuild": ">0.11.0",
+        "nodemon": ">2.0.0"
     }
 }
