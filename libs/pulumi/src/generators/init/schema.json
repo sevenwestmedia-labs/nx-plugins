@@ -14,6 +14,10 @@
             },
             "x-prompt": "What is the name of the project you want to deploy?"
         },
+        "backendUrl": {
+            "type": "string",
+            "description": "The url of the pulumi backend."
+        },
         "tags": {
             "type": "string",
             "description": "Add tags to the project (used for linting)",

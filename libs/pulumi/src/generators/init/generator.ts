@@ -54,6 +54,7 @@ function normalizeOptions(
 
     return {
         ...options,
+        backendUrl: options.backendUrl,
         projectName: infrastructureProjectName,
         projectRoot: infrastructureProjectDirectory,
         projectDirectory: infrastructureProjectName,
@@ -68,6 +69,7 @@ function addFiles(host: Tree, options: PulumiGeneratorNormalizedSchema) {
         ...options,
         projectName: options.targetProjectName,
         packageName: options.projectName,
+        backendUrl: options.backendUrl,
         offsetFromRoot: offsetFromRoot(options.projectRoot),
         template: '',
     }
