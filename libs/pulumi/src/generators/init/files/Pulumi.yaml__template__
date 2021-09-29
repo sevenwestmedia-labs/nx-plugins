@@ -1,3 +1,7 @@
 name: <%= projectName %>
 runtime: nodejs
 description: Program to manage the infrastructure for <%= projectName %>
+<% if (backendUrl) { %>
+backend:
+  url: <%= backendUrl %>
+<% } %>
