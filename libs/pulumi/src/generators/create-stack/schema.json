@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "cli": "nx",
+    "$id": "CreateStack",
+    "title": "",
+    "type": "object",
+    "properties": {
+        "projectName": {
+            "type": "string",
+            "description": "The name of the project you want to deploy.",
+            "alias": "p",
+            "$default": {
+                "$source": "projectName"
+            },
+            "x-prompt": "What is the name of the project you want to deploy?"
+        },
+        "env": { "type": "string" },
+        "configurationStackFormat": { "type": "string" },
+        "secretsProvider": { "type": "string" }
+    },
+    "required": ["projectName", "env"]
+}

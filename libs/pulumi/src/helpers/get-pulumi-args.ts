@@ -12,6 +12,7 @@ export function getPulumiArgs(
     stack: string
     pulumiConfigFolder: string | undefined
     stackFile: string
+    backendUrl: string | undefined
 } {
     const configFile = yaml.load(
         fs.readFileSync(path.join(root, 'Pulumi.yaml')).toString(),
@@ -19,6 +20,7 @@ export function getPulumiArgs(
     ) as any
     const pulumiProjectName: string = configFile.name
     const pulumiConfigFolder: string | undefined = configFile.config
+    const backendUrl: string | undefined = configFile.backend?.url
 
     const commandLineMap: Record<string, string> = {
         '--disableIntegrityChecking': '--disable-integrity-checking',
@@ -79,5 +81,6 @@ export function getPulumiArgs(
         stack,
         pulumiConfigFolder,
         stackFile,
+        backendUrl,
     }
 }
