@@ -10,6 +10,46 @@ NX Plugin for setting up Pulumi projects in an NX repo.
 nx g @wanews/nx-pulumi:init
 ```
 
+### create-stack
+
+```
+nx @wanews/nx-pulumi:create-stack --projectName=my-app-infrastructure --env=dev
+```
+
+#### env
+
+`--env=prod`
+
+Will create the stack name by prefixing the pulumi project name. ie `--env=prod` is the same as `--stack=<projectname>.prod`.
+
+### destroy-stack
+
+```
+nx wanews/nx-pulumi:destroy-stack --projectName=my-app-infrastructure --env=dev
+```
+
+#### env
+
+`--env=prod`
+
+Will create the stack name by prefixing the pulumi project name. ie `--env=prod` is the same as `--stack=<projectname>.prod`.
+
+### config-backup
+
+Config files have the secret provider hashes so as an alternative to checking them into git you can use this command to put the config files into s3, then optionally restore them before doing an up
+
+```
+nx wanews/nx-pulumi:backup-config --projectName=my-app-infrastructure --env=dev
+```
+
+### config-restore
+
+Config files have the secret provider hashes so as an alternative to checking them into git you can use this command to put the config files into s3, then optionally restore them before doing an up
+
+```
+nx wanews/nx-pulumi:restore-config --projectName=my-app-infrastructure --env=dev
+```
+
 ## Executors
 
 ### up
@@ -23,38 +63,6 @@ nx up my-app-infrastructure --stack dev
 `--env=prod`
 
 Will create the stack name by prefixing the pulumi project name. ie `--env=prod` is the same as `--stack=<projectname>.prod`.
-
-### create-stack
-
-```
-nx create-stack my-app-infrastructure --stack dev
-```
-
-#### env
-
-`--env=prod`
-
-Will create the stack name by prefixing the pulumi project name. ie `--env=prod` is the same as `--stack=<projectname>.prod`.
-
-### destroy-stack
-
-```
-nx destroy-stack my-app-infrastructure --stack dev
-```
-
-#### env
-
-`--env=prod`
-
-Will create the stack name by prefixing the pulumi project name. ie `--env=prod` is the same as `--stack=<projectname>.prod`.
-
-### config-backup
-
-Config files have the secret provider hashes so as an alternative to checking them into git you can use this command to put the config files into s3, then optionally restore them before doing an up
-
-### config-restore
-
-Config files have the secret provider hashes so as an alternative to checking them into git you can use this command to put the config files into s3, then optionally restore them before doing an up
 
 ## Running deploy
 
