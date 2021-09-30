@@ -1,17 +1,37 @@
 {
-    "$schema": "http://json-schema.org/schema",
-    "name": "pulumi",
-    "version": "0.0.1",
-    "generators": {
-        "init": {
-            "factory": "./src/generators/init/generator",
-            "schema": "./src/generators/init/schema.json",
-            "description": "Creates a infrastructure project for another NX application project"
-        },
-        "init-standalone": {
-            "factory": "./src/generators/init-standalone/generator",
-            "schema": "./src/generators/init-standalone/schema.json",
-            "description": "Creates a standalone infrastructure project"
-        }
+  "$schema": "http://json-schema.org/schema",
+  "name": "pulumi",
+  "version": "0.0.1",
+  "generators": {
+    "init": {
+      "factory": "./src/generators/init/generator",
+      "schema": "./src/generators/init/schema.json",
+      "description": "Creates a infrastructure project for another NX application project"
+    },
+    "init-standalone": {
+      "factory": "./src/generators/init-standalone/generator",
+      "schema": "./src/generators/init-standalone/schema.json",
+      "description": "Creates a standalone infrastructure project"
+    },
+    "restore-config": {
+      "factory": "./src/generators/restore-config/generator",
+      "schema": "./src/generators/restore-config/schema.json",
+      "description": "restore-config generator"
+    },
+    "backup-config": {
+      "factory": "./src/generators/backup-config/generator",
+      "schema": "./src/generators/backup-config/schema.json",
+      "description": "backup-config generator"
+    },
+    "create-stack": {
+      "factory": "./src/generators/create-stack/generator",
+      "schema": "./src/generators/create-stack/schema.json",
+      "description": "create-stack generator"
+    },
+    "destroy-stack": {
+      "factory": "./src/generators/destroy-stack/generator",
+      "schema": "./src/generators/destroy-stack/schema.json",
+      "description": "destroy-stack generator"
     }
+  }
 }
