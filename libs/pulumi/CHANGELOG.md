@@ -1,5 +1,11 @@
 # @wanews/nx-pulumi
 
+## 0.18.0
+
+### Minor Changes
+
+- [#42](https://github.com/sevenwestmedia-labs/nx-plugins/pull/42) [`2313ab5`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/2313ab5d35f80aed603b2d2e977896d3673dd4fc) Thanks [@JakeGinnivan](https://github.com/JakeGinnivan)! - Add a number of additional executors which make it easier to implement branch deploys
+
 ## 0.17.0
 
 ### Minor Changes
