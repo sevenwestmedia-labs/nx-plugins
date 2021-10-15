@@ -1,5 +1,11 @@
 # @wanews/nx-pulumi
 
+## 0.18.1
+
+### Patch Changes
+
+- [#49](https://github.com/sevenwestmedia-labs/nx-plugins/pull/49) [`4049eb2`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/4049eb2b5f36a2b12aec9fc73341dabac7cb515b) Thanks [@wimoMisterX](https://github.com/wimoMisterX)! - Fixed invalid args passed to pulumi stack init
+
 ## 0.18.0
 
 ### Minor Changes
