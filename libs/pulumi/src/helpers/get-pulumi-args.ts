@@ -30,6 +30,17 @@ export function getPulumiArgs(
         '--secretsProvider': '--secrets-provider',
     }
 
+    const generatorOptions = [
+        '--projectName',
+        '--configurationStackFormat',
+        '--dryRun',
+        '--skip-nx-cache',
+        '--removeStack',
+        '--removeLock',
+        '--removePendingOperations',
+        '--refreshBeforeDestroy',
+    ]
+
     let env: string | undefined
 
     // NX Mangles command line args. Let's fix them back.
@@ -55,7 +66,8 @@ export function getPulumiArgs(
                 env = arg.replace('--environment=', '')
                 return false
             }
-            return true
+            // only return non generator specific args
+            return !generatorOptions.some((option) => arg.startsWith(option))
         })
 
     let stack: string | undefined
