@@ -51,7 +51,8 @@ export default async function (
             'export',
             '--file',
             './state.json',
-            ...pulumiArguments,
+            // need to filter out --yes since export/import doesn't like it
+            ...pulumiArguments.filter((arg) => arg !== '--yes'),
         ]
         console.log(`> pulumi ${pulumiExportArgs.join(' ')}`)
         await execa('pulumi', pulumiExportArgs, {
@@ -63,7 +64,8 @@ export default async function (
             'import',
             '--file',
             './state.json',
-            ...pulumiArguments,
+            // need to filter out --yes since export/import doesn't like it
+            ...pulumiArguments.filter((arg) => arg !== '--yes'),
         ]
         console.log(`> pulumi ${pulumiImportArgs.join(' ')}`)
         await execa('pulumi', pulumiImportArgs, {
