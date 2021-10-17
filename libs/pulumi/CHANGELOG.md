@@ -1,5 +1,11 @@
 # @wanews/nx-pulumi
 
+## 0.18.2
+
+### Patch Changes
+
+- [#50](https://github.com/sevenwestmedia-labs/nx-plugins/pull/50) [`4ad91ab`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/4ad91ab766246576fb77c9d457e7cfc0f13778aa) Thanks [@wimoMisterX](https://github.com/wimoMisterX)! - Fixed destroy-stack generator failing when --yes is passed
+
 ## 0.18.1
 
 ### Patch Changes
