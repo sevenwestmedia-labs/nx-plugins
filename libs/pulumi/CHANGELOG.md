@@ -1,5 +1,13 @@
 # @wanews/nx-pulumi
 
+## 0.18.3
+
+### Patch Changes
+
+- [`b50dd93`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/b50dd93833ad95ba3f8aaf020f239d6d0a38a0cc) Thanks [@wimoMisterX](https://github.com/wimoMisterX)! - Added the logic to remove pending operations in the `destroy-stack` generator
+  Remove the stack before deleting the stack config in the `destroy-stack` generator
+  Added --ignorePendingCreateOperations flag to the `destroy-stack` generator
+
 ## 0.18.2
 
 ### Patch Changes
