@@ -3,6 +3,7 @@ export interface CreateStackGeneratorSchema {
     env: string
     configurationStackFormat?: string
 
+    ignorePendingCreateOperations?: boolean
     removeLock?: boolean
     removeStack?: boolean
     removePendingOperations?: boolean

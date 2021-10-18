@@ -1,4 +1,4 @@
-import { readProjectConfiguration, Tree } from '@nrwl/devkit'
+import { readProjectConfiguration, Tree, updateJson } from '@nrwl/devkit'
 import S3 from 'aws-sdk/clients/s3'
 import execa from 'execa'
 import { getPulumiArgs } from '../../helpers/get-pulumi-args'
@@ -57,6 +57,26 @@ export default async function (
         console.log(`> pulumi ${pulumiExportArgs.join(' ')}`)
         await execa('pulumi', pulumiExportArgs, {
             stdio: [process.stdin, process.stdout, process.stderr],
+        })
+
+        // remove the pending operations from the state
+        updateJson(tree, './state.json', (state) => {
+            if (!options.ignorePendingCreateOperations) {
+                const createOperations =
+                    state.deployment.pending_operations.filter(
+                        (operation: { resource: string; type: string }) =>
+                            operation.type === 'creating',
+                    )
+                if (createOperations.length > 0) {
+                    tree.delete('./state.json')
+                    console.error(createOperations)
+                    throw new Error(
+                        'There are pending create operations. Please remove them before destroying the stack',
+                    )
+                }
+            }
+            delete state.deployment.pending_operations
+            return state
         })
 
         const pulumiImportArgs = [
