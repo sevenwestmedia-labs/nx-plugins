@@ -96,28 +96,40 @@ export default async function (
     }
 
     if (options.refreshBeforeDestroy) {
-        const pulumiArgs = ['refresh', ...pulumiArguments]
-        console.log(`> pulumi ${pulumiArgs.join(' ')}`)
-        await execa('pulumi', pulumiArgs, {
+        const pulumiRefreshArgs = ['refresh', ...pulumiArguments]
+        console.log(`> pulumi ${pulumiRefreshArgs.join(' ')}`)
+        await execa('pulumi', pulumiRefreshArgs, {
             stdio: [process.stdin, process.stdout, process.stderr],
         })
     }
 
-    const pulumiArgs = ['destroy', ...pulumiArguments]
-
-    console.log(`> pulumi ${pulumiArgs.join(' ')}`)
-    await execa('pulumi', pulumiArgs, {
+    // delete the resources in the stack
+    const pulumiDestroyArgs = ['destroy', ...pulumiArguments]
+    console.log(`> pulumi ${pulumiDestroyArgs.join(' ')}`)
+    await execa('pulumi', pulumiDestroyArgs, {
         stdio: [process.stdin, process.stdout, process.stderr],
     })
 
-    if (options.removeStack && backendUrl && backendUrl.startsWith('s3')) {
-        const Bucket = backendUrl.replace('s3://', '')
-        console.log(`Deleting ${backendUrl}/.pulumi/config-backups/${stack}`)
-        await s3
-            .deleteObject({
-                Bucket,
-                Key: `.pulumi/config-backups/${stack}`,
-            })
-            .promise()
+    if (options.removeStack) {
+        // remove the stack
+        const pulumiRemoveArgs = ['stack', 'rm', ...pulumiArguments]
+        console.log(`> pulumi ${pulumiRemoveArgs.join(' ')}`)
+        await execa('pulumi', pulumiRemoveArgs, {
+            stdio: [process.stdin, process.stdout, process.stderr],
+        })
+
+        // remove the config
+        if (backendUrl && backendUrl.startsWith('s3://')) {
+            const Bucket = backendUrl.replace('s3://', '')
+            console.log(
+                `Deleting ${backendUrl}/.pulumi/config-backups/${stack}`,
+            )
+            await s3
+                .deleteObject({
+                    Bucket,
+                    Key: `.pulumi/config-backups/${stack}`,
+                })
+                .promise()
+        }
     }
 }
