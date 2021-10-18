@@ -35,6 +35,7 @@ export function getPulumiArgs(
         '--configurationStackFormat',
         '--dryRun',
         '--skip-nx-cache',
+        '--ignorePendingCreateOperations',
         '--removeStack',
         '--removeLock',
         '--removePendingOperations',

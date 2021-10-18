@@ -1,4 +1,4 @@
-import { readProjectConfiguration, Tree } from '@nrwl/devkit'
+import { readProjectConfiguration, Tree, updateJson } from '@nrwl/devkit'
 import S3 from 'aws-sdk/clients/s3'
 import execa from 'execa'
 import { getPulumiArgs } from '../../helpers/get-pulumi-args'
@@ -59,6 +59,26 @@ export default async function (
             stdio: [process.stdin, process.stdout, process.stderr],
         })
 
+        // remove the pending operations from the state
+        updateJson(tree, './state.json', (state) => {
+            if (!options.ignorePendingCreateOperations) {
+                const createOperations =
+                    state.deployment.pending_operations.filter(
+                        (operation: { resource: string; type: string }) =>
+                            operation.type === 'creating',
+                    )
+                if (createOperations.length > 0) {
+                    tree.delete('./state.json')
+                    console.error(createOperations)
+                    throw new Error(
+                        'There are pending create operations. Please remove them before destroying the stack',
+                    )
+                }
+            }
+            delete state.deployment.pending_operations
+            return state
+        })
+
         const pulumiImportArgs = [
             'stack',
             'import',
@@ -76,28 +96,40 @@ export default async function (
     }
 
     if (options.refreshBeforeDestroy) {
-        const pulumiArgs = ['refresh', ...pulumiArguments]
-        console.log(`> pulumi ${pulumiArgs.join(' ')}`)
-        await execa('pulumi', pulumiArgs, {
+        const pulumiRefreshArgs = ['refresh', ...pulumiArguments]
+        console.log(`> pulumi ${pulumiRefreshArgs.join(' ')}`)
+        await execa('pulumi', pulumiRefreshArgs, {
             stdio: [process.stdin, process.stdout, process.stderr],
         })
     }
 
-    const pulumiArgs = ['destroy', ...pulumiArguments]
-
-    console.log(`> pulumi ${pulumiArgs.join(' ')}`)
-    await execa('pulumi', pulumiArgs, {
+    // delete the resources in the stack
+    const pulumiDestroyArgs = ['destroy', ...pulumiArguments]
+    console.log(`> pulumi ${pulumiDestroyArgs.join(' ')}`)
+    await execa('pulumi', pulumiDestroyArgs, {
         stdio: [process.stdin, process.stdout, process.stderr],
     })
 
-    if (options.removeStack && backendUrl && backendUrl.startsWith('s3')) {
-        const Bucket = backendUrl.replace('s3://', '')
-        console.log(`Deleting ${backendUrl}/.pulumi/config-backups/${stack}`)
-        await s3
-            .deleteObject({
-                Bucket,
-                Key: `.pulumi/config-backups/${stack}`,
-            })
-            .promise()
+    if (options.removeStack) {
+        // remove the stack
+        const pulumiRemoveArgs = ['stack', 'rm', ...pulumiArguments]
+        console.log(`> pulumi ${pulumiRemoveArgs.join(' ')}`)
+        await execa('pulumi', pulumiRemoveArgs, {
+            stdio: [process.stdin, process.stdout, process.stderr],
+        })
+
+        // remove the config
+        if (backendUrl && backendUrl.startsWith('s3://')) {
+            const Bucket = backendUrl.replace('s3://', '')
+            console.log(
+                `Deleting ${backendUrl}/.pulumi/config-backups/${stack}`,
+            )
+            await s3
+                .deleteObject({
+                    Bucket,
+                    Key: `.pulumi/config-backups/${stack}`,
+                })
+                .promise()
+        }
     }
 }

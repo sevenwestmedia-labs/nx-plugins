@@ -16,6 +16,7 @@
         },
         "env": { "type": "string" },
         "configurationStackFormat": { "type": "string" },
+        "ignorePendingCreateOperations": { "type": "boolean" },
         "removeLock": { "type": "boolean" },
         "removeStack": { "type": "boolean" },
         "removePendingOperations": { "type": "boolean" },
