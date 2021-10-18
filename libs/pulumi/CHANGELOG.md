@@ -1,5 +1,11 @@
 # @wanews/nx-pulumi
 
+## 0.18.4
+
+### Patch Changes
+
+- [#52](https://github.com/sevenwestmedia-labs/nx-plugins/pull/52) [`8e1859a`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/8e1859a081d9c6931cb6b5e8d35cbce36cd5df1d) Thanks [@wimoMisterX](https://github.com/wimoMisterX)! - Fixed regression in --removePendingOperations in destroy-stack generator caused by #51
+
 ## 0.18.3
 
 ### Patch Changes
