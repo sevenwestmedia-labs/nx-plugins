@@ -3,6 +3,7 @@ import S3 from 'aws-sdk/clients/s3'
 import execa from 'execa'
 import { getPulumiArgs } from '../../helpers/get-pulumi-args'
 import { CreateStackGeneratorSchema } from './schema'
+import path from 'path'
 
 const s3 = new S3({})
 
@@ -46,11 +47,13 @@ export default async function (
     }
 
     if (options.removePendingOperations) {
+        const stateFile = `${targetProjectConfig.root}/${stack}-state.json`
+
         const pulumiExportArgs = [
             'stack',
             'export',
             '--file',
-            './state.json',
+            path.basename(stateFile),
             // need to filter out --yes since export/import doesn't like it
             ...pulumiArguments.filter((arg) => arg !== '--yes'),
         ]
@@ -60,15 +63,18 @@ export default async function (
         })
 
         // remove the pending operations from the state
-        updateJson(tree, './state.json', (state) => {
-            if (!options.ignorePendingCreateOperations) {
+        updateJson(tree, stateFile, (state) => {
+            if (
+                !options.ignorePendingCreateOperations &&
+                state.deployment.pending_operations
+            ) {
                 const createOperations =
                     state.deployment.pending_operations.filter(
                         (operation: { resource: string; type: string }) =>
                             operation.type === 'creating',
                     )
                 if (createOperations.length > 0) {
-                    tree.delete('./state.json')
+                    tree.delete(stateFile)
                     console.error(createOperations)
                     throw new Error(
                         'There are pending create operations. Please remove them before destroying the stack',
@@ -83,7 +89,7 @@ export default async function (
             'stack',
             'import',
             '--file',
-            './state.json',
+            path.basename(stateFile),
             // need to filter out --yes since export/import doesn't like it
             ...pulumiArguments.filter((arg) => arg !== '--yes'),
         ]
@@ -92,7 +98,7 @@ export default async function (
             stdio: [process.stdin, process.stdout, process.stderr],
         })
 
-        tree.delete('./state.json')
+        tree.delete(stateFile)
     }
 
     if (options.refreshBeforeDestroy) {
