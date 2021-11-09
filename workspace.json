@@ -10,7 +10,8 @@
                     "executor": "@nrwl/linter:eslint",
                     "options": {
                         "lintFilePatterns": ["libs/nx-esbuild/**/*.ts"]
-                    }
+                    },
+                    "outputs": ["{options.outputFile}"]
                 },
                 "test": {
                     "executor": "@nrwl/jest:jest",
@@ -57,7 +58,8 @@
                     "executor": "@nrwl/linter:eslint",
                     "options": {
                         "lintFilePatterns": ["libs/nx-vite/**/*.ts"]
-                    }
+                    },
+                    "outputs": ["{options.outputFile}"]
                 },
                 "test": {
                     "executor": "@nrwl/jest:jest",
@@ -104,7 +106,8 @@
                     "executor": "@nrwl/linter:eslint",
                     "options": {
                         "lintFilePatterns": ["libs/pulumi/**/*.ts"]
-                    }
+                    },
+                    "outputs": ["{options.outputFile}"]
                 },
                 "test": {
                     "executor": "@nrwl/jest:jest",
@@ -153,7 +156,8 @@
                         "lintFilePatterns": [
                             "libs/typescript-project-references/**/*.ts"
                         ]
-                    }
+                    },
+                    "outputs": ["{options.outputFile}"]
                 },
                 "test": {
                     "executor": "@nrwl/jest:jest",
