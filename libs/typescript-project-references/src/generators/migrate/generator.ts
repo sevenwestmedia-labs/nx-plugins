@@ -7,7 +7,7 @@ import {
     ProjectGraph,
     Tree,
     updateJson,
-    writeJson
+    writeJson,
 } from '@nrwl/devkit'
 import { createProjectGraphAsync } from '@nrwl/workspace/src/core/project-graph'
 import { MigrateSchema } from './schema'
