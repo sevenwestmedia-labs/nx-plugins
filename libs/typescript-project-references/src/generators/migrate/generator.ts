@@ -9,8 +9,8 @@ import {
     updateJson,
     writeJson,
 } from '@nrwl/devkit'
+import { createProjectGraphAsync } from '@nrwl/workspace/src/core/project-graph'
 import { MigrateSchema } from './schema'
-import { createProjectGraph } from '@nrwl/workspace/src/core/project-graph'
 
 export default async function (host: Tree, _options: MigrateSchema) {
     writeJson(host, `./tsconfig.json`, {
@@ -34,7 +34,7 @@ export default async function (host: Tree, _options: MigrateSchema) {
     }
 
     const projects = getProjects(host)
-    const graph = createProjectGraph()
+    const graph = await createProjectGraphAsync()
 
     projects.forEach((project, name) =>
         migrateProject(host, name, project, graph, projects),
