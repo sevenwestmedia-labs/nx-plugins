@@ -1,5 +1,11 @@
 # @wanews/nx-typescript-project-references
 
+## 0.14.2
+
+### Patch Changes
+
+- [#54](https://github.com/sevenwestmedia-labs/nx-plugins/pull/54) [`ec894e1`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/ec894e17592fa091ff5ec3837ce1268d0022aa94) Thanks [@JakeGinnivan](https://github.com/JakeGinnivan)! - Fixed usage in NX 13
+
 ## 0.14.1
 
 ### Patch Changes
