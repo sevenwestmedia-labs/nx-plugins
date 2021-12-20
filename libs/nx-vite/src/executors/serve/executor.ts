@@ -5,7 +5,7 @@ import execa from 'execa'
 import { ServeExecutorSchema } from './schema'
 
 export default async function runExecutor(
-    _options: ServeExecutorSchema,
+    options: ServeExecutorSchema,
     context: ExecutorContext,
 ) {
     if (!context.projectName) {
@@ -15,9 +15,12 @@ export default async function runExecutor(
     const tree = new FsTree(context.cwd, context.isVerbose)
     const appRoot = context.workspace.projects[context.projectName].root
 
+    const root = `${tree.root}/${appRoot}`
+    const configFile = options.configFile || `${root}/vit.config.js`
+
     const vite = execa(
         packageManager.exec,
-        ['vite', `${tree.root}/${appRoot}`, '--open'],
+        ['vite', root, '--config', configFile ,'--open'],
         {
             stdio: [process.stdin, process.stdout, 'pipe'],
         },

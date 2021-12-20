@@ -4,7 +4,7 @@ import { build } from 'vite'
 import { BuildExecutorSchema } from './schema'
 
 export default async function runExecutor(
-    _options: BuildExecutorSchema,
+    options: BuildExecutorSchema,
     context: ExecutorContext,
 ) {
     if (!context.projectName) {
@@ -13,8 +13,12 @@ export default async function runExecutor(
     const tree = new FsTree(context.cwd, context.isVerbose)
     const appRoot = context.workspace.projects[context.projectName].root
 
+    const root = tree.root + '/' + appRoot
+    const configFile = options.configFile || `${root}/vit.config.js`
+
     await build({
-        root: tree.root + '/' + appRoot,
+        root,
+        configFile
     })
 
     return {
