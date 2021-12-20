@@ -16,7 +16,7 @@ export default async function runExecutor(
     const appRoot = context.workspace.projects[context.projectName].root
 
     const root = `${tree.root}/${appRoot}`
-    const configFile = options.configFile || `${root}/vit.config.js`
+    const configFile = options.configFile || `${root}/vite.config.js`
 
     const vite = execa(
         packageManager.exec,
