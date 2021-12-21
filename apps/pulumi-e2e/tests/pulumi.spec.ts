@@ -1,6 +1,7 @@
 import {
     ensureNxProject,
     readJson,
+    runCommandAsync,
     runNxCommandAsync,
     uniq,
 } from '@nrwl/nx-plugin/testing'
@@ -16,6 +17,10 @@ describe('init e2e', () => {
         )
         await runNxCommandAsync(
             `generate @wanews/nx-pulumi:init --projectName ${app} --tags infrastructure`,
+        )
+        await runCommandAsyncHandlingError('npm install')
+        await runCommandAsyncHandlingError(
+            'npm add esbuild nodemon dotenv --dev',
         )
 
         const appProjectJson = readJson(`apps/${app}/project.json`)
@@ -67,3 +72,15 @@ describe('init e2e', () => {
         })
     }, 120000)
 })
+
+async function runCommandAsyncHandlingError(command: string) {
+    try {
+        await runCommandAsync(command)
+    } catch (err) {
+        console.error(
+            'Command failure',
+            await runCommandAsync(command, { silenceError: true }),
+        )
+        throw err
+    }
+}

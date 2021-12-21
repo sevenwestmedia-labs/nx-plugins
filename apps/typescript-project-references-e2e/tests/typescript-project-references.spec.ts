@@ -21,6 +21,10 @@ describe('typescript-project-references e2e', () => {
             '@wanews/nx-typescript-project-references',
             'libs/typescript-project-references',
         )
+        await runCommandAsyncHandlingError('npm install')
+        await runCommandAsyncHandlingError(
+            'npm add tsup esbuild nodemon dotenv --dev',
+        )
 
         await runNxCommandAsync(
             `generate @nrwl/workspace:library --name=${libName} --no-interactive`,
@@ -29,8 +33,6 @@ describe('typescript-project-references e2e', () => {
             `generate @nrwl/workspace:library --name=${lib2Name} --no-interactive`,
         )
         await runNxCommandAsync(`generate @wanews/nx-esbuild:node ${appName}`)
-
-        await runCommandAsyncHandlingError('npm add tsup esbuild --dev')
 
         await runNxCommandAsync(
             `generate @wanews/nx-typescript-project-references:migrate`,
