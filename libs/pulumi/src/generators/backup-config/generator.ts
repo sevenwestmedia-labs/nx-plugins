@@ -26,18 +26,15 @@ export default async function (
     if (backendUrl && backendUrl.startsWith('s3')) {
         const Bucket = backendUrl.replace('s3://', '')
         console.log(
-            `Restoring ${stack} config from ${backendUrl}/.pulumi/config-backups/${stack}`,
+            `Uploading ${stack} config to ${backendUrl}/.pulumi/config-backups/${stack}`,
         )
-        const response = await s3
-            .getObject({
+        await s3
+            .putObject({
                 Bucket,
                 Key: `.pulumi/config-backups/${stack}`,
+                Body: tree.read(stackFile)?.toString(),
             })
             .promise()
-
-        if (response.Body) {
-            tree.write(stackFile, response.Body.toString())
-        }
     } else {
         console.error('This generator only supports s3 backends currently')
     }
