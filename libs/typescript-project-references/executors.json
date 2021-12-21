@@ -1,10 +1,10 @@
 {
-  "$schema": "http://json-schema.org/schema",
-  "executors": {
-    "package": {
-      "implementation": "./src/executors/package/executor",
-      "schema": "./src/executors/package/schema.json",
-      "description": "package executor"
+    "$schema": "http://json-schema.org/schema",
+    "executors": {
+        "package": {
+            "implementation": "./src/executors/package/executor",
+            "schema": "./src/executors/package/schema.json",
+            "description": "package executor"
+        }
     }
-  }
 }

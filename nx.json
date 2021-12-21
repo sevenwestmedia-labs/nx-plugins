@@ -18,38 +18,9 @@
         "default": {
             "runner": "@nrwl/workspace/tasks-runners/default",
             "options": {
-                "cacheableOperations": ["build", "lint", "test", "e2e"]
+                "cacheableOperations": ["build", "lint", "test", "e2e"],
+                "parallel": 1
             }
-        }
-    },
-    "projects": {
-        "nx-esbuild": {
-            "tags": []
-        },
-        "nx-esbuild-e2e": {
-            "tags": [],
-            "implicitDependencies": ["nx-esbuild"]
-        },
-        "nx-vite": {
-            "tags": []
-        },
-        "nx-vite-e2e": {
-            "tags": [],
-            "implicitDependencies": ["nx-vite"]
-        },
-        "pulumi": {
-            "tags": []
-        },
-        "pulumi-e2e": {
-            "tags": [],
-            "implicitDependencies": ["pulumi"]
-        },
-        "typescript-project-references": {
-            "tags": []
-        },
-        "typescript-project-references-e2e": {
-            "tags": [],
-            "implicitDependencies": ["typescript-project-references"]
         }
     },
     "targetDependencies": {
@@ -59,5 +30,8 @@
                 "projects": "dependencies"
             }
         ]
+    },
+    "cli": {
+        "defaultCollection": "@nrwl/workspace"
     }
 }

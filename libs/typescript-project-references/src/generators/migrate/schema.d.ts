@@ -1,2 +1,1 @@
-export interface MigrateSchema {
-}
+export interface MigrateSchema {}
