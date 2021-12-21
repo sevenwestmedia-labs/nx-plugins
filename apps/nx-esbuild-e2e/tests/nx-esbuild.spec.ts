@@ -5,9 +5,7 @@ import {
     runNxCommandAsync,
     uniq,
 } from '@nrwl/nx-plugin/testing'
-import 'regenerator-runtime'
-
-jest.setTimeout(60000)
+import { describe, it } from 'vitest'
 
 describe('nx-esbuild e2e', () => {
     it('should create nx-esbuild', async () => {
@@ -20,12 +18,12 @@ describe('nx-esbuild e2e', () => {
 
         await runNxCommandAsync(`generate @wanews/nx-esbuild:node ${plugin}`)
 
-        const result = await runNxCommandAsync(`build ${plugin}`)
+        await runNxCommandAsync(`build ${plugin}`)
         // Ensure bundle exists on disk
         await new Promise((resolve) => setTimeout(resolve, 100))
 
         checkFilesExist(`apps/${plugin}/dist/bundle.js`)
-    })
+    }, 60000)
 })
 
 async function runNxCommandAsyncHandlingError(command: string) {

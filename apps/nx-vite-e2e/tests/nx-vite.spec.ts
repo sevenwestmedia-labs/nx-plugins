@@ -6,9 +6,7 @@ import {
     uniq,
     updateFile,
 } from '@nrwl/nx-plugin/testing'
-import 'regenerator-runtime'
-
-jest.setTimeout(120000)
+import { describe, expect, it } from 'vitest'
 
 describe('nx-vite e2e', () => {
     it('should create nx-vite', async () => {
@@ -40,20 +38,8 @@ it('passes', () => {
 
         expect(result.stderr).toEqual('')
         expect(testResult.stderr).toEqual('')
-    })
+    }, 120000)
 })
-
-async function runNxCommandAsyncHandlingError(command: string) {
-    try {
-        await runNxCommandAsync(command)
-    } catch (err) {
-        console.error(
-            'Command failure',
-            await runNxCommandAsync(command, { silenceError: true }),
-        )
-        throw err
-    }
-}
 
 async function runCommandAsyncHandlingError(command: string) {
     try {

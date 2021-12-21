@@ -1,16 +1,14 @@
-import 'regenerator-runtime'
 import {
-    ensureNxProject,
-    runNxCommandAsync,
-    runCommandAsync,
-    uniq,
     cleanup,
-    updateFile,
+    ensureNxProject,
     readFile,
     readJson,
+    runCommandAsync,
+    runNxCommandAsync,
+    uniq,
+    updateFile,
 } from '@nrwl/nx-plugin/testing'
-
-jest.setTimeout(200000)
+import { beforeAll, describe, it } from 'vitest'
 
 describe('typescript-project-references e2e', () => {
     it('should create typescript-project-references', async () => {
@@ -30,11 +28,10 @@ describe('typescript-project-references e2e', () => {
             `generate @nrwl/workspace:library --name=${lib2Name} --no-interactive`,
         )
         await runNxCommandAsync(
-            `generate @nrwl/node:application --name=${appName} --babelJest`,
+            `generate @nrwl/node:application --name=${appName}`,
         )
 
         await runCommandAsyncHandlingError('npm add tsup esbuild --dev')
-        // await runCommandAsyncHandlingError('npm remove ts-jest')
 
         await runNxCommandAsync(
             `generate @wanews/nx-typescript-project-references:migrate`,
@@ -95,14 +92,6 @@ export function ${libName}(): string {
             },
         }))
 
-        // Run the test in app which asserts against the latest library source.
-        await runNxCommandAsyncHandlingError(`test ${appName}`)
-
-        // Ensure the jest VSCode plugin can run tests
-        await runCommandAsyncHandlingError(
-            `node './node_modules/.bin/jest' './apps/${appName}/src/main.spec.ts' -c './apps/${appName}/jest.config.js' -t 'it looks at source, not built'`,
-        )
-
         updateWorkspaceConfig((workspace) => {
             workspace.projects[libName].targets.package = {
                 executor: '@wanews/nx-typescript-project-references:package',
@@ -115,7 +104,7 @@ export function ${libName}(): string {
         })
 
         await runNxCommandAsyncHandlingError(`run ${libName}:package`)
-    })
+    }, 120000)
 
     beforeAll(() => {
         cleanup()

@@ -4,10 +4,13 @@
     "sourceRoot": "apps/typescript-project-references-e2e/src",
     "targets": {
         "e2e": {
-            "executor": "@nrwl/nx-plugin:e2e",
+            "executor": "@nrwl/workspace:run-commands",
             "options": {
-                "target": "typescript-project-references:build",
-                "jestConfig": "apps/typescript-project-references-e2e/jest.config.js"
+                "commands": [
+                    "npx nx run typescript-project-references:build",
+                    "npx vitest --run apps/typescript-project-references-e2e/tests"
+                ],
+                "parallel": false
             }
         }
     }

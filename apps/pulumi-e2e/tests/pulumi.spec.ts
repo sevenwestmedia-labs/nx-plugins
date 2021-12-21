@@ -4,9 +4,7 @@ import {
     runNxCommandAsync,
     uniq,
 } from '@nrwl/nx-plugin/testing'
-import 'regenerator-runtime'
-
-jest.setTimeout(200000)
+import { describe, expect, it } from 'vitest'
 
 describe('init e2e', () => {
     it('should create infrastructure project', async () => {
@@ -67,5 +65,5 @@ describe('init e2e', () => {
                 },
             },
         })
-    })
+    }, 120000)
 })
