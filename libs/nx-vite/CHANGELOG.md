@@ -1,5 +1,11 @@
 # @wanews/nx-vite
 
+## 0.5.3
+
+### Patch Changes
+
+- [#56](https://github.com/sevenwestmedia-labs/nx-plugins/pull/56) [`0dccc9e`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/0dccc9eb622bc59089a53abe2d4ed9162ef4cacf) Thanks [@Hemesh-Unka](https://github.com/Hemesh-Unka)! - Fixed backup/restore pulumi config (they were reversed)
+
 ## 0.5.2
 
 ### Patch Changes
