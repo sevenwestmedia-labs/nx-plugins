@@ -17,8 +17,8 @@
         "test": {
             "executor": "@nrwl/workspace:run-commands",
             "options": {
-                "command": "npx vitest --run",
-                "cwd": "libs/pulumi/src"
+                "command": "npx vitest --run --passWithNoTests",
+                "cwd": "libs/pulumi"
             }
         },
         "build": {

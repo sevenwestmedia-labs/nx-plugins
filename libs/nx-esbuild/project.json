@@ -17,8 +17,7 @@
         "test": {
             "executor": "@nrwl/workspace:run-commands",
             "options": {
-                "command": "npx vitest --run",
-                "cwd": "libs/nx-esbuild/src"
+                "command": "npx vitest --run --root libs/nx-esbuild"
             }
         },
         "build": {

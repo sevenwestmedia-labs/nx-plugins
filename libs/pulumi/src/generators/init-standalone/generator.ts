@@ -76,7 +76,7 @@ export default async function (host: Tree, options: PulumiGeneratorSchema) {
                 executor: '@nrwl/workspace:run-commands',
                 options: {
                     command: 'npx vitest --run',
-                    cwd: `libs/${normalizedOptions.projectRoot}/src`,
+                    cwd: `libs/${normalizedOptions.projectRoot}`,
                 },
             },
         },

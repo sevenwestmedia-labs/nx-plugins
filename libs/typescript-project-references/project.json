@@ -18,7 +18,7 @@
             "executor": "@nrwl/workspace:run-commands",
             "options": {
                 "command": "npx vitest --run",
-                "cwd": "libs/typescript-project-references/src"
+                "cwd": "libs/typescript-project-references"
             }
         },
         "build": {

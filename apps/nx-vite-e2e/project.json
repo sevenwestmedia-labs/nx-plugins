@@ -8,7 +8,7 @@
             "options": {
                 "commands": [
                     "npx nx run nx-vite:build",
-                    "npx vitest --run apps/nx-vite-e2e/tests"
+                    "npx vitest --run --config apps/nx-vite-e2e/vitest.config.ts"
                 ],
                 "parallel": false
             }

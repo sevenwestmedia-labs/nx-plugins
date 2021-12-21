@@ -17,8 +17,8 @@
         "test": {
             "executor": "@nrwl/workspace:run-commands",
             "options": {
-                "command": "npx vitest --run",
-                "cwd": "libs/nx-vite/src"
+                "command": "npx vitest --run --passWithNoTests",
+                "cwd": "libs/nx-vite"
             }
         },
         "build": {

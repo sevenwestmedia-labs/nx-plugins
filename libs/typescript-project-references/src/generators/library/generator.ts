@@ -72,7 +72,7 @@ export default async function (host: Tree, options: LibraryGeneratorSchema) {
             executor: '@nrwl/workspace:run-commands',
             options: {
                 command: 'npx vitest --run',
-                cwd: `libs/${normalizedOptions.projectRoot}/src`,
+                cwd: `libs/${normalizedOptions.projectRoot}`,
             },
         },
     }

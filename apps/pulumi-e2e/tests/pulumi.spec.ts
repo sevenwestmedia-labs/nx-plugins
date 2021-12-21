@@ -48,7 +48,7 @@ describe('init e2e', () => {
                     executor: '@nrwl/workspace:run-commands',
                     options: {
                         command: 'npx vitest --run',
-                        cwd: `libs/${app}-infrastructure/src`,
+                        cwd: `libs/${app}-infrastructure`,
                     },
                 },
                 up: {
