@@ -1,0 +1,14 @@
+{
+    "projectType": "application",
+    "root": "apps/nx-esbuild-e2e",
+    "sourceRoot": "apps/nx-esbuild-e2e/src",
+    "targets": {
+        "e2e": {
+            "executor": "@nrwl/nx-plugin:e2e",
+            "options": {
+                "target": "nx-esbuild:build",
+                "jestConfig": "apps/nx-esbuild-e2e/jest.config.js"
+            }
+        }
+    }
+}
