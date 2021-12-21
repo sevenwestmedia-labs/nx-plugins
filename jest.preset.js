@@ -1,5 +1,5 @@
 const { compilerOptions } = require('./tsconfig.base')
-const { pathsToModuleNameMapper } = require('ts-jest/utils')
+const { pathsToModuleNameMapper } = require('ts-jest')
 
 module.exports = {
   testMatch: ['**/+(*.)+(spec|test).+(ts)?(x)'],

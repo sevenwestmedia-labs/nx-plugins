@@ -8,5 +8,6 @@
     "jestrunner.jestPath": "node_modules/jest/bin/jest.js",
     "editor.codeActionsOnSave": {
         "source.organizeImports": true
-    }
+    },
+    "cSpell.enabled": false
 }

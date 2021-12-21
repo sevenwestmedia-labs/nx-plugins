@@ -1,7 +1,6 @@
 import {
     formatFiles,
     getProjects,
-    NxJsonProjectConfiguration,
     offsetFromRoot,
     ProjectConfiguration,
     ProjectGraph,
@@ -45,9 +44,9 @@ export default async function (host: Tree, _options: MigrateSchema) {
 function migrateProject(
     host: Tree,
     name: string,
-    project: ProjectConfiguration & NxJsonProjectConfiguration,
+    project: ProjectConfiguration,
     graph: ProjectGraph,
-    projects: Map<string, ProjectConfiguration & NxJsonProjectConfiguration>,
+    projects: Map<string, ProjectConfiguration>,
 ) {
     host.write(
         `${project.root}/jest.config.js`,
@@ -61,7 +60,7 @@ coverageDirectory: '../../coverage/${project.root}',
     host.write(
         'jest.preset.js',
         `const { compilerOptions } = require('./tsconfig.base');
-const { pathsToModuleNameMapper } = require('ts-jest/utils');
+const { pathsToModuleNameMapper } = require('ts-jest');
 
 module.exports = {
     testMatch: ['**/+(*.)+(spec|test).+(ts|js)?(x)'],
@@ -128,8 +127,8 @@ module.exports = {
 function createTypeScriptConfig(
     host: Tree,
     name: string,
-    project: ProjectConfiguration & NxJsonProjectConfiguration,
-    projects: Map<string, ProjectConfiguration & NxJsonProjectConfiguration>,
+    project: ProjectConfiguration,
+    projects: Map<string, ProjectConfiguration>,
     graph: ProjectGraph,
 ) {
     const tsConfigPath = `./${project.root}/tsconfig.json`
@@ -187,7 +186,7 @@ function createTypeScriptConfig(
 
 function createOrUpdateLibProjectPackageJson(
     host: Tree,
-    project: ProjectConfiguration & NxJsonProjectConfiguration,
+    project: ProjectConfiguration,
     name: string,
 ) {
     // Only projects can be referenced, don't mess with applications
@@ -211,10 +210,7 @@ function createOrUpdateLibProjectPackageJson(
     }
 }
 
-function fixBabelrc(
-    host: Tree,
-    project: ProjectConfiguration & NxJsonProjectConfiguration,
-) {
+function fixBabelrc(host: Tree, project: ProjectConfiguration) {
     const babelRc = `${project.root}/.babelrc`
     if (host.exists(babelRc)) {
         updateJson(host, babelRc, (value) => {
