@@ -7,6 +7,7 @@ import {
     offsetFromRoot,
     Tree,
     updateJson,
+    writeJson,
 } from '@nrwl/devkit'
 import { addPropertyToJestConfig } from '@nrwl/jest'
 import * as path from 'path'
@@ -105,12 +106,11 @@ export default async function (host: Tree, options: NodeGeneratorSchema) {
                 },
             },
             test: {
-                executor: '@nrwl/jest:jest',
+                executor: '@nrwl/workspace:run-commands',
                 options: {
-                    jestConfig: `${normalizedOptions.projectRoot}/jest.config.js`,
-                    passWithNoTests: true,
+                    command: 'npx vitest --run',
+                    cwd: normalizedOptions.projectRoot,
                 },
-                outputs: [`coverage/${normalizedOptions.projectRoot}`],
             },
         },
         tags: normalizedOptions.parsedTags,
@@ -139,6 +139,20 @@ export default async function (host: Tree, options: NodeGeneratorSchema) {
             }
 
             return tsconfig
+        })
+    }
+
+    // Add project references config to workspace
+    if (!host.exists(`tsconfig.settings.json`)) {
+        writeJson(host, `tsconfig.settings.json`, {
+            extends: './tsconfig.base.json',
+            compilerOptions: {
+                declaration: true,
+                noEmit: false,
+                composite: true,
+                incremental: true,
+            },
+            exclude: ['node_modules', 'tmp'],
         })
     }
 

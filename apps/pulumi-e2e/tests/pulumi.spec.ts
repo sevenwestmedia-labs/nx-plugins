@@ -19,8 +19,8 @@ describe('init e2e', () => {
             `generate @wanews/nx-pulumi:init --projectName ${app} --tags infrastructure`,
         )
 
-        const workspaceJson = readJson('workspace.json')
-        expect(workspaceJson.projects[app].targets).toMatchObject({
+        const appProjectJson = readJson(`apps/${app}/project.json`)
+        expect(appProjectJson.targets).toMatchObject({
             deploy: {
                 executor: '@nrwl/workspace:run-commands',
                 options: {
@@ -28,10 +28,15 @@ describe('init e2e', () => {
                 },
             },
         })
-        expect(workspaceJson.projects[`${app}-infrastructure`]).toEqual({
+        const appInfrastructureProjectJson = readJson(
+            `apps/${app}-infrastructure/project.json`,
+        )
+        expect(appInfrastructureProjectJson).toEqual({
+            implicitDependencies: [app],
             projectType: 'application',
             root: `apps/${app}-infrastructure`,
             sourceRoot: `apps/${app}-infrastructure/src`,
+            tags: ['infrastructure'],
             targets: {
                 lint: {
                     executor: '@nrwl/linter:eslint',

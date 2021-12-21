@@ -7,8 +7,8 @@ import {
     offsetFromRoot,
     Tree,
     updateJson,
+    writeJson,
 } from '@nrwl/devkit'
-import { addPropertyToJestConfig } from '@nrwl/jest'
 import * as path from 'path'
 import { NodeGeneratorSchema } from './schema'
 
@@ -27,7 +27,7 @@ function normalizeOptions(
     const projectDirectory = options.directory
         ? `${names(options.directory).fileName}/${name}`
         : `${getWorkspaceLayout(host).appsDir}/${name}`
-    const projectName = name.replace(new RegExp('/', 'g'), '-')
+    const projectName = name.replace(/\//g, '-')
     const parsedTags = options.tags
         ? options.tags.split(',').map((s) => s.trim())
         : []
@@ -80,26 +80,16 @@ export default async function (host: Tree, options: NodeGeneratorSchema) {
                 },
             },
             test: {
-                executor: '@nrwl/jest:jest',
+                executor: '@nrwl/workspace:run-commands',
                 options: {
-                    jestConfig: `${normalizedOptions.projectRoot}/jest.config.js`,
-                    passWithNoTests: true,
+                    command: 'npx vitest --run',
+                    cwd: normalizedOptions.projectRoot,
                 },
-                outputs: [`coverage/${normalizedOptions.projectRoot}`],
             },
         },
         tags: normalizedOptions.parsedTags,
     })
     addFiles(host, normalizedOptions)
-
-    if (host.exists('jest.config.js')) {
-        addPropertyToJestConfig(
-            host,
-            'jest.config.js',
-            'projects',
-            `<rootDir>/${normalizedOptions.projectRoot}`,
-        )
-    }
 
     if (host.exists('tsconfig.json')) {
         updateJson(host, 'tsconfig.json', (tsconfig) => {
@@ -115,6 +105,20 @@ export default async function (host: Tree, options: NodeGeneratorSchema) {
             }
 
             return tsconfig
+        })
+    }
+
+    // Add project references config to workspace
+    if (!host.exists(`tsconfig.settings.json`)) {
+        writeJson(host, `tsconfig.settings.json`, {
+            extends: './tsconfig.base.json',
+            compilerOptions: {
+                declaration: true,
+                noEmit: false,
+                composite: true,
+                incremental: true,
+            },
+            exclude: ['node_modules', 'tmp'],
         })
     }
 
