@@ -1,6 +1,7 @@
 import {
     cleanup,
     ensureNxProject,
+    patchPackageJsonForPlugin,
     readFile,
     readJson,
     runCommandAsync,
@@ -16,26 +17,29 @@ describe('typescript-project-references e2e', () => {
         // This will flush out issues like https://github.com/aleclarson/vite-tsconfig-paths/issues/12
         const lib2Name = uniq('lib')
         const appName = uniq('app')
-        ensureNxProject('@wanews/nx-esbuild', 'libs/nx-esbuild')
         ensureNxProject(
             '@wanews/nx-typescript-project-references',
             'libs/typescript-project-references',
         )
         await runCommandAsyncHandlingError('npm install')
-        await runCommandAsyncHandlingError(
-            'npm add tsup esbuild nodemon dotenv --dev',
-        )
-
         await runNxCommandAsync(
             `generate @nrwl/workspace:library --name=${libName} --no-interactive`,
         )
         await runNxCommandAsync(
             `generate @nrwl/workspace:library --name=${lib2Name} --no-interactive`,
         )
-        await runNxCommandAsync(`generate @wanews/nx-esbuild:node ${appName}`)
-
-        await runNxCommandAsync(
-            `generate @wanews/nx-typescript-project-references:migrate`,
+        patchPackageJsonForPlugin('@wanews/nx-esbuild', 'libs/nx-esbuild')
+        await runCommandAsyncHandlingError('npm install')
+        await runCommandAsyncHandlingError(
+            `npx nx generate @wanews/nx-esbuild:node ${appName}`,
+        )
+        await runCommandAsyncHandlingError('npm install')
+        await runCommandAsyncHandlingError(
+            `npx nx generate @wanews/nx-typescript-project-references:migrate`,
+        )
+        await runCommandAsyncHandlingError('npm install')
+        await runCommandAsyncHandlingError(
+            'npm add tsup esbuild nodemon dotenv --dev',
         )
 
         updateFile(

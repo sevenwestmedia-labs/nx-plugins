@@ -1,5 +1,5 @@
 export default {
     test: {
-        include: ['apps/nx-vite-e2e/tests/**/*.{test,spec}.{ts,mts,cts,tsx}'],
+        include: ['apps/pulumi-e2e/tests/**/*.{test,spec}.{ts,mts,cts,tsx}'],
     },
 }

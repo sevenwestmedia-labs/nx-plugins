@@ -1,8 +1,8 @@
 import {
     ensureNxProject,
+    patchPackageJsonForPlugin,
     readJson,
     runCommandAsync,
-    runNxCommandAsync,
     uniq,
 } from '@nrwl/nx-plugin/testing'
 import { describe, expect, it } from 'vitest'
@@ -11,14 +11,16 @@ describe('init e2e', () => {
     it('should create infrastructure project', async () => {
         const app = uniq('app')
         ensureNxProject('@wanews/nx-esbuild', 'libs/nx-esbuild')
-        ensureNxProject('@wanews/nx-pulumi', 'libs/pulumi')
-        await runNxCommandAsync(
-            `generate @wanews/nx-esbuild:node ${app} --no-interactive`,
-        )
-        await runNxCommandAsync(
-            `generate @wanews/nx-pulumi:init --projectName ${app} --tags infrastructure`,
-        )
         await runCommandAsyncHandlingError('npm install')
+        await runCommandAsyncHandlingError(
+            `npx nx generate @wanews/nx-esbuild:node ${app}`,
+        )
+
+        patchPackageJsonForPlugin('@wanews/nx-pulumi', 'libs/pulumi')
+        await runCommandAsyncHandlingError('npm install')
+        await runCommandAsyncHandlingError(
+            `npx nx generate @wanews/nx-pulumi:init --projectName ${app} --tags infrastructure`,
+        )
         await runCommandAsyncHandlingError(
             'npm add esbuild nodemon dotenv --dev',
         )
@@ -35,12 +37,10 @@ describe('init e2e', () => {
         const appInfrastructureProjectJson = readJson(
             `apps/${app}-infrastructure/project.json`,
         )
-        expect(appInfrastructureProjectJson).toEqual({
-            implicitDependencies: [app],
-            projectType: 'application',
+        expect(appInfrastructureProjectJson).toMatchObject({
             root: `apps/${app}-infrastructure`,
+            projectType: 'application',
             sourceRoot: `apps/${app}-infrastructure/src`,
-            tags: ['infrastructure'],
             targets: {
                 lint: {
                     executor: '@nrwl/linter:eslint',
@@ -54,7 +54,7 @@ describe('init e2e', () => {
                     executor: '@nrwl/workspace:run-commands',
                     options: {
                         command: 'npx vitest --run',
-                        cwd: `libs/${app}-infrastructure`,
+                        cwd: `libs/apps/${app}-infrastructure`,
                     },
                 },
                 up: {
@@ -69,6 +69,8 @@ describe('init e2e', () => {
                     },
                 },
             },
+            tags: ['infrastructure'],
+            implicitDependencies: [app],
         })
     }, 120000)
 })
