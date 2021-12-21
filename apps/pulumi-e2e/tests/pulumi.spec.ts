@@ -9,9 +9,10 @@ import { describe, expect, it } from 'vitest'
 describe('init e2e', () => {
     it('should create infrastructure project', async () => {
         const app = uniq('app')
+        ensureNxProject('@wanews/nx-esbuild', 'libs/nx-esbuild')
         ensureNxProject('@wanews/nx-pulumi', 'libs/pulumi')
         await runNxCommandAsync(
-            `generate @nrwl/node:application --name=${app} --no-interactive`,
+            `generate @wanews/nx-esbuild:node ${app} --no-interactive`,
         )
         await runNxCommandAsync(
             `generate @wanews/nx-pulumi:init --projectName ${app} --tags infrastructure`,

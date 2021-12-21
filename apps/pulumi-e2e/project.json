@@ -7,6 +7,7 @@
             "executor": "@nrwl/workspace:run-commands",
             "options": {
                 "commands": [
+                    "npx nx run nx-esbuild:build",
                     "npx nx run pulumi:build",
                     "npx vitest --run --config apps/pulumi-e2e/vitest.config.ts"
                 ],

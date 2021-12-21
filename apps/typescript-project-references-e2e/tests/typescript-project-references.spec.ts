@@ -16,6 +16,7 @@ describe('typescript-project-references e2e', () => {
         // This will flush out issues like https://github.com/aleclarson/vite-tsconfig-paths/issues/12
         const lib2Name = uniq('lib')
         const appName = uniq('app')
+        ensureNxProject('@wanews/nx-esbuild', 'libs/nx-esbuild')
         ensureNxProject(
             '@wanews/nx-typescript-project-references',
             'libs/typescript-project-references',
@@ -27,9 +28,7 @@ describe('typescript-project-references e2e', () => {
         await runNxCommandAsync(
             `generate @nrwl/workspace:library --name=${lib2Name} --no-interactive`,
         )
-        await runNxCommandAsync(
-            `generate @nrwl/node:application --name=${appName}`,
-        )
+        await runNxCommandAsync(`generate @wanews/nx-esbuild:node ${appName}`)
 
         await runCommandAsyncHandlingError('npm add tsup esbuild --dev')
 
