@@ -87,6 +87,14 @@ export function ${libName}(): string {
 }`,
         )
 
+        updateLibraryPackageJson(libName, (packageJson) => ({
+            ...packageJson,
+            dependencies: {
+                ...(packageJson.dependencies || {}),
+                [`@proj/${lib2Name}`]: '*',
+            },
+        }))
+
         // Run the test in app which asserts against the latest library source.
         await runNxCommandAsyncHandlingError(`test ${appName}`)
 
@@ -150,5 +158,19 @@ export function updateWorkspaceConfig(
     updateFile(
         'workspace.json',
         JSON.stringify(callback(readJson('workspace.json')), null, 2),
+    )
+}
+
+export function updateLibraryPackageJson(
+    libName: string,
+    callback: (json: { [key: string]: any }) => Object,
+) {
+    updateFile(
+        `libs/${libName}/package.json`,
+        JSON.stringify(
+            callback(readJson(`libs/${libName}/package.json`)),
+            null,
+            2,
+        ),
     )
 }
