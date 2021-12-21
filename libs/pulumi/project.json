@@ -6,16 +6,19 @@
         "lint": {
             "executor": "@nrwl/linter:eslint",
             "options": {
-                "lintFilePatterns": ["libs/pulumi/**/*.ts"]
+                "lintFilePatterns": [
+                    "libs/pulumi/**/*.ts"
+                ]
             },
-            "outputs": ["{options.outputFile}"]
+            "outputs": [
+                "{options.outputFile}"
+            ]
         },
         "test": {
-            "executor": "@nrwl/jest:jest",
-            "outputs": ["coverage/libs/pulumi"],
+            "executor": "@nrwl/workspace:run-commands",
             "options": {
-                "jestConfig": "libs/pulumi/jest.config.js",
-                "passWithNoTests": true
+                "command": "npx vitest --run",
+                "cwd": "libs/pulumi/src"
             }
         },
         "build": {

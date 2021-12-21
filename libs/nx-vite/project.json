@@ -6,16 +6,19 @@
         "lint": {
             "executor": "@nrwl/linter:eslint",
             "options": {
-                "lintFilePatterns": ["libs/nx-vite/**/*.ts"]
+                "lintFilePatterns": [
+                    "libs/nx-vite/**/*.ts"
+                ]
             },
-            "outputs": ["{options.outputFile}"]
+            "outputs": [
+                "{options.outputFile}"
+            ]
         },
         "test": {
-            "executor": "@nrwl/jest:jest",
-            "outputs": ["coverage/libs/nx-vite"],
+            "executor": "@nrwl/workspace:run-commands",
             "options": {
-                "jestConfig": "libs/nx-vite/jest.config.js",
-                "passWithNoTests": true
+                "command": "npx vitest --run",
+                "cwd": "libs/nx-vite/src"
             }
         },
         "build": {

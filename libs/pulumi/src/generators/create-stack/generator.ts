@@ -1,5 +1,5 @@
 import { readProjectConfiguration, Tree } from '@nrwl/devkit'
-import execa from 'execa'
+import { execa } from 'execa'
 import { getPulumiArgs } from '../../helpers/get-pulumi-args'
 import { CreateStackGeneratorSchema } from './schema'
 

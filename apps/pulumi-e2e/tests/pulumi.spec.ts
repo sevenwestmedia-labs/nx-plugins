@@ -45,12 +45,11 @@ describe('init e2e', () => {
                     },
                 },
                 test: {
-                    executor: '@nrwl/jest:jest',
+                    executor: '@nrwl/workspace:run-commands',
                     options: {
-                        jestConfig: `apps/${app}-infrastructure/jest.config.js`,
-                        passWithNoTests: true,
+                        command: 'npx vitest --run',
+                        cwd: `libs/${app}-infrastructure/src`,
                     },
-                    outputs: [`coverage/apps/${app}-infrastructure`],
                 },
                 up: {
                     executor: '@wanews/nx-pulumi:up',

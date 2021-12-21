@@ -10,14 +10,15 @@
                     "libs/typescript-project-references/**/*.ts"
                 ]
             },
-            "outputs": ["{options.outputFile}"]
+            "outputs": [
+                "{options.outputFile}"
+            ]
         },
         "test": {
-            "executor": "@nrwl/jest:jest",
-            "outputs": ["coverage/libs/typescript-project-references"],
+            "executor": "@nrwl/workspace:run-commands",
             "options": {
-                "jestConfig": "libs/typescript-project-references/jest.config.js",
-                "passWithNoTests": true
+                "command": "npx vitest --run",
+                "cwd": "libs/typescript-project-references/src"
             }
         },
         "build": {

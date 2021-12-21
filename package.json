@@ -38,40 +38,30 @@
         "@nrwl/cli": "13.3.11",
         "@nrwl/devkit": "13.3.11",
         "@nrwl/eslint-plugin-nx": "13.3.11",
-        "@nrwl/jest": "13.3.11",
         "@nrwl/linter": "13.3.11",
         "@nrwl/node": "13.3.11",
         "@nrwl/nx-plugin": "13.3.11",
         "@nrwl/tao": "13.3.11",
         "@nrwl/workspace": "13.3.11",
-        "@types/jest": "27.0.3",
         "@types/js-yaml": "^4.0.5",
         "@types/node": "17.0.2",
         "@typescript-eslint/eslint-plugin": "5.8.0",
         "@typescript-eslint/parser": "5.8.0",
         "aws-sdk": "^2.1047.0",
-        "babel-jest": "27.4.5",
         "dotenv": "10.0.0",
         "esbuild": "^0.14.6",
         "eslint": "8.5.0",
         "eslint-config-prettier": "8.3.0",
-        "jest": "27.4.5",
         "json": "^11.0.0",
         "prettier": "2.5.1",
-        "ts-jest": "27.1.2",
-        "ts-node": "~9.1.1",
+        "ts-node": "~10.4.0",
         "tslib": "^2.3.1",
         "typescript": "4.5.4",
         "typescript-json-schema": "^0.52.0",
         "vite": "^2.7.4",
-        "vitest": "^0.0.102"
+        "vitest": "^0.0.103"
     },
     "dependencies": {
-        "@babel/core": "^7.16.5",
-        "@babel/plugin-syntax-optional-chaining": "^7.8.3",
-        "@babel/preset-env": "^7.16.5",
-        "@babel/preset-typescript": "^7.16.5",
-        "execa": "^5.1.1",
-        "regenerator-runtime": "^0.13.9"
+        "execa": "^6.0.0"
     }
 }

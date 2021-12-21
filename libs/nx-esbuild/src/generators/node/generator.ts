@@ -9,7 +9,6 @@ import {
     updateJson,
     writeJson,
 } from '@nrwl/devkit'
-import { addPropertyToJestConfig } from '@nrwl/jest'
 import * as path from 'path'
 import { NodeGeneratorSchema } from './schema'
 
@@ -116,15 +115,6 @@ export default async function (host: Tree, options: NodeGeneratorSchema) {
         tags: normalizedOptions.parsedTags,
     })
     addFiles(host, normalizedOptions)
-    if (host.exists('jest.config.js')) {
-        addPropertyToJestConfig(
-            host,
-            'jest.config.js',
-            'projects',
-            `<rootDir>/${normalizedOptions.projectRoot}`,
-        )
-    }
-
     if (host.exists('tsconfig.json')) {
         updateJson(host, 'tsconfig.json', (tsconfig) => {
             if (tsconfig.references) {

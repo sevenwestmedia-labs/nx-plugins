@@ -8,7 +8,7 @@
     "generators": "./generators.json",
     "executors": "./executors.json",
     "dependencies": {
-        "execa": "^5.1.1",
+        "execa": "^6.0.0",
         "js-yaml": "^4.1.0"
     },
     "peerDependencies": {

@@ -1,5 +1,6 @@
 import { readProjectConfiguration, Tree } from '@nrwl/devkit'
 import { createTreeWithEmptyWorkspace } from '@nrwl/devkit/testing'
+import { beforeEach, describe, expect, it } from 'vitest'
 import generator from './generator'
 import { LibraryGeneratorSchema } from './schema'
 
