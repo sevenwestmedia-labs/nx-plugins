@@ -63,14 +63,15 @@
         "tslib": "^2.3.1",
         "typescript": "4.5.4",
         "typescript-json-schema": "^0.52.0",
-        "vite": "^2.7.4"
+        "vite": "^2.7.4",
+        "vitest": "^0.0.102"
     },
     "dependencies": {
         "@babel/core": "^7.16.5",
         "@babel/plugin-syntax-optional-chaining": "^7.8.3",
         "@babel/preset-env": "^7.16.5",
         "@babel/preset-typescript": "^7.16.5",
-        "execa": "^5.0.0",
+        "execa": "^5.1.1",
         "regenerator-runtime": "^0.13.9"
     }
 }
