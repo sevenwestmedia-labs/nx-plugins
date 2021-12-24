@@ -16,11 +16,11 @@ export default async function runExecutor(
     const appRoot = context.workspace.projects[context.projectName].root
 
     const root = `${tree.root}/${appRoot}`
-    const configFile = options.configFile || `${root}/vite.config.js`
+    const configFile = options.configFile
 
     const vite = execa(
         packageManager.exec,
-        ['vite', root, '--config', configFile ,'--open'],
+        ['vite', root, ...(configFile ? ['--config', configFile] : []), '--open'],
         {
             stdio: [process.stdin, process.stdout, 'pipe'],
         },
