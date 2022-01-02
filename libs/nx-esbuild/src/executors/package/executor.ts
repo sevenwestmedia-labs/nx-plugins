@@ -1,6 +1,6 @@
 import { ExecutorContext } from '@nrwl/devkit'
 import { detectPackageManager } from '@nrwl/tao/src/shared/package-manager'
-import { execa } from 'execa'
+import execa from 'execa'
 import { existsSync } from 'fs'
 import fs from 'fs/promises'
 import path from 'path'

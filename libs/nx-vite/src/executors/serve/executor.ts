@@ -1,7 +1,7 @@
 import { ExecutorContext } from '@nrwl/devkit'
 import { getPackageManagerCommand } from '@nrwl/tao/src/shared/package-manager'
 import { FsTree } from '@nrwl/tao/src/shared/tree'
-import { execa } from 'execa'
+import execa from 'execa'
 import { ServeExecutorSchema } from './schema'
 
 export default async function runExecutor(

@@ -6,7 +6,7 @@ import {
     calculateProjectDependencies,
     updateBuildableProjectPackageJsonDependencies,
 } from '@nrwl/workspace/src/utilities/buildable-libs-utils'
-import { execa } from 'execa'
+import execa from 'execa'
 import { PackageExecutorSchema } from './schema'
 
 export async function packageExecutor(

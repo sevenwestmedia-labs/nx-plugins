@@ -48,14 +48,6 @@ describe('typescript-project-references e2e', () => {
 
 console.log(${libName}())`,
         )
-        //         updateFile(
-        //             `./apps/${appName}/src/main.spec.ts`,
-        //             `import { ${libName} } from '@proj/${libName}'
-
-        // it('it looks at source, not built', () => {
-        //     expect(${libName}()).toEqual('updated')
-        // })`,
-        //         )
 
         // Update TS Project references so app -> lib
         addTsConfigReference(
