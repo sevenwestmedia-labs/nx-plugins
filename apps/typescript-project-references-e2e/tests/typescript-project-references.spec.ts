@@ -89,15 +89,15 @@ export function ${libName}(): string {
             },
         }))
 
-        updateWorkspaceConfig((workspace) => {
-            workspace.projects[libName].targets.package = {
+        updateProjectConfig('libs', libName, (config) => {
+            config.targets.package = {
                 executor: '@wanews/nx-typescript-project-references:package',
                 options: {
                     main: `libs/${libName}/src/index.ts`,
                     tsConfig: `libs/${libName}/tsconfig.json`,
                 },
             }
-            return workspace
+            return config
         })
 
         await runNxCommandAsyncHandlingError(`run ${libName}:package`)
@@ -138,13 +138,13 @@ async function runCommandAsyncHandlingError(command: string) {
     }
 }
 
-export function updateWorkspaceConfig(
+export function updateProjectConfig(
+    type: 'libs' | 'apps',
+    project: string,
     callback: (json: { [key: string]: any }) => Object,
 ) {
-    updateFile(
-        'workspace.json',
-        JSON.stringify(callback(readJson('workspace.json')), null, 2),
-    )
+    const file = `${type}/${project}/project.json`
+    updateFile(file, JSON.stringify(callback(readJson(file)), null, 2))
 }
 
 export function updateLibraryPackageJson(
