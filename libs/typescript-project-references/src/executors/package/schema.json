@@ -8,6 +8,15 @@
             "type": "string",
             "description": "The name of the main entry-point file."
         },
+        "entryPoints": {
+            "type": {
+                "items": {
+                    "type": "string"
+                },
+                "type": "array"
+            },
+            "description": "The name of the entry-point files."
+        },
         "tsConfig": {
             "type": "string",
             "description": "The name of the Typescript configuration file."
@@ -17,6 +26,11 @@
             "description": "Output sourcemaps.",
             "default": true
         },
+        "legacyOutput": {
+            "type": "boolean",
+            "description": "Update buildable project dependencies in package.json",
+            "default": false
+        },
         "updateBuildableProjectDepsInPackageJson": {
             "type": "boolean",
             "description": "Update buildable project dependencies in package.json",
@@ -25,7 +39,10 @@
         "buildableProjectDepsInPackageJsonType": {
             "type": "string",
             "description": "When updateBuildableProjectDepsInPackageJson is true, this adds dependencies to either `peerDependencies` or `dependencies`",
-            "enum": ["dependencies", "peerDependencies"],
+            "enum": [
+                "dependencies",
+                "peerDependencies"
+            ],
             "default": "dependencies"
         },
         "packageJson": {
@@ -39,5 +56,7 @@
             "type": "array"
         }
     },
-    "required": ["tsConfig", "main"]
+    "required": [
+        "tsConfig"
+    ]
 }

@@ -1,5 +1,5 @@
 import { ExecutorContext, readJson } from '@nrwl/devkit'
-import { detectPackageManager } from '@nrwl/tao/src/shared/package-manager'
+import { getPackageManagerCommand } from '@nrwl/tao/src/shared/package-manager'
 import { FsTree } from '@nrwl/tao/src/shared/tree'
 import { createProjectGraphAsync } from '@nrwl/workspace/src/core/project-graph'
 import {
@@ -20,13 +20,7 @@ export async function packageExecutor(
         throw new Error('No targetName')
     }
 
-    const packageManager = detectPackageManager()
-    const packageManagerCmd =
-        packageManager === 'pnpm'
-            ? 'pnpx'
-            : packageManager === 'yarn'
-            ? 'yarn'
-            : 'npx'
+    const packageManagerCmd = getPackageManagerCommand().exec
     const projGraph = await createProjectGraphAsync()
     const libRoot = context.workspace.projects[context.projectName].root
     const tree = new FsTree(context.cwd, context.isVerbose)
@@ -43,7 +37,7 @@ export async function packageExecutor(
 
     const tsup = execa(packageManagerCmd, [
         'tsup',
-        options.main,
+        ...(options.main ? [options.main] : options.entryPoints || []),
         '-d',
         `${libRoot}/dist`,
         ...[
@@ -59,7 +53,7 @@ export async function packageExecutor(
         '--sourcemap',
         '--format',
         'esm,cjs',
-        '--legacy-output',
+        ...(options.legacyOutput ? ['--legacy-output'] : []),
     ])
     tsup.stdout?.pipe(process.stdout)
     await tsup
