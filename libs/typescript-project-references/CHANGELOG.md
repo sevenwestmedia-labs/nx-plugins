@@ -1,5 +1,11 @@
 # @wanews/nx-typescript-project-references
 
+## 0.15.0
+
+### Minor Changes
+
+- [#61](https://github.com/sevenwestmedia-labs/nx-plugins/pull/61) [`240b901`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/240b9018b59ce41221935d41e3538d21758d0c1d) Thanks [@JakeGinnivan](https://github.com/JakeGinnivan)! - Turn off legacyOutput by default & allow multiple entrypoints for package step
+
 ## 0.14.3
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @wanews/nx-esbuild
 
+## 0.17.0
+
+### Minor Changes
+
+- [#61](https://github.com/sevenwestmedia-labs/nx-plugins/pull/61) [`240b901`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/240b9018b59ce41221935d41e3538d21758d0c1d) Thanks [@JakeGinnivan](https://github.com/JakeGinnivan)! - Upgrate nx from 12.x to 13.x
+
 ## 0.16.2
 
 ### Patch Changes
