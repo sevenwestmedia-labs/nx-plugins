@@ -1,7 +1,6 @@
 import {
     formatFiles,
     getProjects,
-    NxJsonProjectConfiguration,
     offsetFromRoot,
     ProjectConfiguration,
     ProjectGraph,
@@ -45,48 +44,10 @@ export default async function (host: Tree, _options: MigrateSchema) {
 function migrateProject(
     host: Tree,
     name: string,
-    project: ProjectConfiguration & NxJsonProjectConfiguration,
+    project: ProjectConfiguration,
     graph: ProjectGraph,
-    projects: Map<string, ProjectConfiguration & NxJsonProjectConfiguration>,
+    projects: Map<string, ProjectConfiguration>,
 ) {
-    host.write(
-        `${project.root}/jest.config.js`,
-        `module.exports = {
-displayName: '${name}',
-preset: '../../jest.preset.js',
-coverageDirectory: '../../coverage/${project.root}',
-}`,
-    )
-
-    host.write(
-        'jest.preset.js',
-        `const { compilerOptions } = require('./tsconfig.base');
-const { pathsToModuleNameMapper } = require('ts-jest/utils');
-
-module.exports = {
-    testMatch: ['**/+(*.)+(spec|test).+(ts|js)?(x)'],
-    moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'html'],
-    coverageReporters: ['html'],
-    transform: {
-        '^.+\\.(tsx?|jsx?|html)$': 'babel-jest',
-    },
-    testPathIgnorePatterns: ['/node_modules/', '/dist/', '/tsc-out/'],
-    modulePathIgnorePatterns: ['/dist/', '/tsc-out/'],
-    moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: __dirname } )
-};`,
-    )
-
-    if (!host.exists('babel.config.json')) {
-        host.write(
-            'babel.config.json',
-            `{
-    "presets": ["@babel/preset-env", "@babel/preset-typescript"],
-    "babelrcRoots": ["*"]
-}
-`,
-        )
-    }
-
     if (host.exists(`${project.root}/.eslintrc.json`)) {
         updateJson(host, `${project.root}/.eslintrc.json`, (eslint) => {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -104,9 +65,8 @@ module.exports = {
     if (project.projectType === 'application') {
         host.delete(`${project.root}/tsconfig.app.json`)
     }
-    // NOTE This means we cannot use @nrwl/jest resolver, we have to use typescript -> jest path mapping instead
+
     host.delete(`${project.root}/tsconfig.spec.json`)
-    fixBabelrc(host, project)
     createTypeScriptConfig(host, name, project, projects, graph)
     createOrUpdateLibProjectPackageJson(host, project, name)
 
@@ -128,8 +88,8 @@ module.exports = {
 function createTypeScriptConfig(
     host: Tree,
     name: string,
-    project: ProjectConfiguration & NxJsonProjectConfiguration,
-    projects: Map<string, ProjectConfiguration & NxJsonProjectConfiguration>,
+    project: ProjectConfiguration,
+    projects: Map<string, ProjectConfiguration>,
     graph: ProjectGraph,
 ) {
     const tsConfigPath = `./${project.root}/tsconfig.json`
@@ -159,11 +119,8 @@ function createTypeScriptConfig(
                 project.root,
             )}tsconfig.settings.json`
             tsConfig.compilerOptions = tsConfig.compilerOptions || {}
-            tsConfig.compilerOptions.outDir = './tsc-out'
+            tsConfig.compilerOptions.outDir = './out-tsc'
             tsConfig.compilerOptions.rootDir = './src'
-            if (!tsConfig.compilerOptions.types?.includes('jest')) {
-                tsConfig.compilerOptions.types?.push('jest')
-            }
             if (!tsConfig.include) {
                 tsConfig.include = ['src/**/*.ts', 'src/**/*.tsx']
             }
@@ -175,9 +132,9 @@ function createTypeScriptConfig(
         writeJson(host, tsConfigPath, {
             extends: `${offsetFromRoot(project.root)}tsconfig.settings.json`,
             compilerOptions: {
-                outDir: './tsc-out',
+                outDir: './out-tsc',
                 rootDir: './src',
-                types: ['jest', 'node'],
+                types: ['node'],
             },
             include: ['src/**/*.ts', 'src/**/*.tsx'],
             references: typescriptReferences,
@@ -187,7 +144,7 @@ function createTypeScriptConfig(
 
 function createOrUpdateLibProjectPackageJson(
     host: Tree,
-    project: ProjectConfiguration & NxJsonProjectConfiguration,
+    project: ProjectConfiguration,
     name: string,
 ) {
     // Only projects can be referenced, don't mess with applications
@@ -197,7 +154,7 @@ function createOrUpdateLibProjectPackageJson(
 
     if (host.exists(`${project.root}/package.json`)) {
         updateJson(host, `${project.root}/package.json`, (value) => {
-            value.main = 'tsc-out/index.js'
+            value.main = 'out-tsc/index.js'
 
             return value
         })
@@ -206,33 +163,7 @@ function createOrUpdateLibProjectPackageJson(
             name,
             private: true,
             version: '0.0.1',
-            main: 'tsc-out/index.js',
-        })
-    }
-}
-
-function fixBabelrc(
-    host: Tree,
-    project: ProjectConfiguration & NxJsonProjectConfiguration,
-) {
-    const babelRc = `${project.root}/.babelrc`
-    if (host.exists(babelRc)) {
-        updateJson(host, babelRc, (value) => {
-            // The @nrwl projects comes with too many assumptions, we need to
-            // drop back to basics
-            value.presets = (value.presets || []).filter(
-                (preset: string) =>
-                    preset !== '@nrwl/web/babel' &&
-                    preset[0] !== '@nrwl/web/babel',
-            )
-            if (!value.presets.includes('@babel/preset-typescript')) {
-                value.presets.splice(0, 0, '@babel/preset-typescript')
-            }
-            if (!value.presets.includes('@babel/preset-env')) {
-                value.presets.splice(0, 0, '@babel/preset-env')
-            }
-
-            return value
+            main: 'out-tsc/index.js',
         })
     }
 }

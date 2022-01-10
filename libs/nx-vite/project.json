@@ -1,0 +1,37 @@
+{
+    "root": "libs/nx-vite",
+    "sourceRoot": "libs/nx-vite/src",
+    "projectType": "library",
+    "targets": {
+        "lint": {
+            "executor": "@nrwl/linter:eslint",
+            "options": {
+                "lintFilePatterns": [
+                    "libs/nx-vite/**/*.ts"
+                ]
+            },
+            "outputs": [
+                "{options.outputFile}"
+            ]
+        },
+        "test": {
+            "executor": "@nrwl/workspace:run-commands",
+            "options": {
+                "command": "npx vitest --run --passWithNoTests",
+                "cwd": "libs/nx-vite"
+            }
+        },
+        "build": {
+            "executor": "@nrwl/workspace:run-commands",
+            "options": {
+                "commands": [
+                    {
+                        "command": "tsc -b libs/nx-vite",
+                        "forwardAllArgs": true
+                    }
+                ],
+                "parallel": false
+            }
+        }
+    }
+}

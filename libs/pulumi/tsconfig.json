@@ -2,7 +2,7 @@
     "extends": "../../tsconfig.settings.json",
     "compilerOptions": {
         "rootDir": "./src",
-        "types": ["jest", "node"]
+        "types": ["node"]
     },
     "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

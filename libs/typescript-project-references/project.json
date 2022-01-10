@@ -1,0 +1,37 @@
+{
+    "root": "libs/typescript-project-references",
+    "sourceRoot": "libs/typescript-project-references/src",
+    "projectType": "library",
+    "targets": {
+        "lint": {
+            "executor": "@nrwl/linter:eslint",
+            "options": {
+                "lintFilePatterns": [
+                    "libs/typescript-project-references/**/*.ts"
+                ]
+            },
+            "outputs": [
+                "{options.outputFile}"
+            ]
+        },
+        "test": {
+            "executor": "@nrwl/workspace:run-commands",
+            "options": {
+                "command": "npx vitest --run",
+                "cwd": "libs/typescript-project-references"
+            }
+        },
+        "build": {
+            "executor": "@nrwl/workspace:run-commands",
+            "options": {
+                "commands": [
+                    {
+                        "command": "tsc -b libs/typescript-project-references",
+                        "forwardAllArgs": true
+                    }
+                ],
+                "parallel": false
+            }
+        }
+    }
+}

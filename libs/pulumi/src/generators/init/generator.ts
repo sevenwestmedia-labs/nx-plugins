@@ -8,7 +8,6 @@ import {
     updateJson,
     updateProjectConfiguration,
 } from '@nrwl/devkit'
-import { addPropertyToJestConfig } from '@nrwl/jest'
 import * as path from 'path'
 import { PulumiGeneratorSchema } from './schema'
 
@@ -99,12 +98,11 @@ export default async function (host: Tree, options: PulumiGeneratorSchema) {
                 },
             },
             test: {
-                executor: '@nrwl/jest:jest',
+                executor: '@nrwl/workspace:run-commands',
                 options: {
-                    jestConfig: `${normalizedOptions.projectRoot}/jest.config.js`,
-                    passWithNoTests: true,
+                    command: 'npx vitest --run',
+                    cwd: `libs/${normalizedOptions.projectRoot}`,
                 },
-                outputs: [`coverage/${normalizedOptions.projectRoot}`],
             },
             up: {
                 executor: '@wanews/nx-pulumi:up',
@@ -141,15 +139,6 @@ export default async function (host: Tree, options: PulumiGeneratorSchema) {
     )
 
     addFiles(host, normalizedOptions)
-
-    if (host.exists('jest.config.js')) {
-        addPropertyToJestConfig(
-            host,
-            'jest.config.js',
-            'projects',
-            `<rootDir>/${normalizedOptions.projectRoot}`,
-        )
-    }
 
     if (host.exists('tsconfig.json')) {
         updateJson(host, 'tsconfig.json', (tsconfig) => {

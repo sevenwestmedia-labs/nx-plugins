@@ -1,0 +1,17 @@
+{
+    "projectType": "application",
+    "root": "apps/nx-vite-e2e",
+    "sourceRoot": "apps/nx-vite-e2e/src",
+    "targets": {
+        "e2e": {
+            "executor": "@nrwl/workspace:run-commands",
+            "options": {
+                "commands": [
+                    "npx nx run nx-vite:build",
+                    "npx vitest --run --config apps/nx-vite-e2e/vitest.config.ts"
+                ],
+                "parallel": false
+            }
+        }
+    }
+}

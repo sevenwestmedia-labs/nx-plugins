@@ -1,0 +1,18 @@
+{
+    "projectType": "application",
+    "root": "apps/typescript-project-references-e2e",
+    "sourceRoot": "apps/typescript-project-references-e2e/src",
+    "targets": {
+        "e2e": {
+            "executor": "@nrwl/workspace:run-commands",
+            "options": {
+                "commands": [
+                    "npx nx run nx-esbuild:build",
+                    "npx nx run typescript-project-references:build",
+                    "npx vitest --run --config apps/typescript-project-references-e2e/vitest.config.ts"
+                ],
+                "parallel": false
+            }
+        }
+    }
+}

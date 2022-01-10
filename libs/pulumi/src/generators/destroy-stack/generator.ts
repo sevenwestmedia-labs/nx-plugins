@@ -1,9 +1,9 @@
 import { readProjectConfiguration, Tree, updateJson } from '@nrwl/devkit'
 import S3 from 'aws-sdk/clients/s3'
 import execa from 'execa'
+import path from 'path'
 import { getPulumiArgs } from '../../helpers/get-pulumi-args'
 import { CreateStackGeneratorSchema } from './schema'
-import path from 'path'
 
 const s3 = new S3({})
 

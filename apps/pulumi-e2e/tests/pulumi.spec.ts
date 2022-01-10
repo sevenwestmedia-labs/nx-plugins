@@ -1,26 +1,32 @@
 import {
     ensureNxProject,
+    patchPackageJsonForPlugin,
     readJson,
-    runNxCommandAsync,
+    runCommandAsync,
     uniq,
 } from '@nrwl/nx-plugin/testing'
-import 'regenerator-runtime'
-
-jest.setTimeout(200000)
+import { describe, expect, it } from 'vitest'
 
 describe('init e2e', () => {
     it('should create infrastructure project', async () => {
         const app = uniq('app')
-        ensureNxProject('@wanews/nx-pulumi', 'libs/pulumi')
-        await runNxCommandAsync(
-            `generate @nrwl/node:application --name=${app} --no-interactive`,
-        )
-        await runNxCommandAsync(
-            `generate @wanews/nx-pulumi:init --projectName ${app} --tags infrastructure`,
+        ensureNxProject('@wanews/nx-esbuild', 'libs/nx-esbuild')
+        await runCommandAsyncHandlingError('npm install')
+        await runCommandAsyncHandlingError(
+            `npx nx generate @wanews/nx-esbuild:node ${app}`,
         )
 
-        const workspaceJson = readJson('workspace.json')
-        expect(workspaceJson.projects[app].targets).toMatchObject({
+        patchPackageJsonForPlugin('@wanews/nx-pulumi', 'libs/pulumi')
+        await runCommandAsyncHandlingError('npm install')
+        await runCommandAsyncHandlingError(
+            `npx nx generate @wanews/nx-pulumi:init --projectName ${app} --tags infrastructure`,
+        )
+        await runCommandAsyncHandlingError(
+            'npm add esbuild nodemon dotenv --dev',
+        )
+
+        const appProjectJson = readJson(`apps/${app}/project.json`)
+        expect(appProjectJson.targets).toMatchObject({
             deploy: {
                 executor: '@nrwl/workspace:run-commands',
                 options: {
@@ -28,9 +34,12 @@ describe('init e2e', () => {
                 },
             },
         })
-        expect(workspaceJson.projects[`${app}-infrastructure`]).toEqual({
-            projectType: 'application',
+        const appInfrastructureProjectJson = readJson(
+            `apps/${app}-infrastructure/project.json`,
+        )
+        expect(appInfrastructureProjectJson).toMatchObject({
             root: `apps/${app}-infrastructure`,
+            projectType: 'application',
             sourceRoot: `apps/${app}-infrastructure/src`,
             targets: {
                 lint: {
@@ -42,12 +51,11 @@ describe('init e2e', () => {
                     },
                 },
                 test: {
-                    executor: '@nrwl/jest:jest',
+                    executor: '@nrwl/workspace:run-commands',
                     options: {
-                        jestConfig: `apps/${app}-infrastructure/jest.config.js`,
-                        passWithNoTests: true,
+                        command: 'npx vitest --run',
+                        cwd: `libs/apps/${app}-infrastructure`,
                     },
-                    outputs: [`coverage/apps/${app}-infrastructure`],
                 },
                 up: {
                     executor: '@wanews/nx-pulumi:up',
@@ -61,6 +69,20 @@ describe('init e2e', () => {
                     },
                 },
             },
+            tags: ['infrastructure'],
+            implicitDependencies: [app],
         })
-    })
+    }, 120000)
 })
+
+async function runCommandAsyncHandlingError(command: string) {
+    try {
+        await runCommandAsync(command)
+    } catch (err) {
+        console.error(
+            'Command failure',
+            await runCommandAsync(command, { silenceError: true }),
+        )
+        throw err
+    }
+}

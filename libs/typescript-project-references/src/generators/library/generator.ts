@@ -9,7 +9,6 @@ import {
     Tree,
     updateJson,
 } from '@nrwl/devkit'
-import { addPropertyToJestConfig } from '@nrwl/jest'
 import * as path from 'path'
 import { LibraryGeneratorSchema } from './schema'
 
@@ -70,12 +69,11 @@ export default async function (host: Tree, options: LibraryGeneratorSchema) {
             },
         },
         test: {
-            executor: '@nrwl/jest:jest',
+            executor: '@nrwl/workspace:run-commands',
             options: {
-                jestConfig: `${normalizedOptions.projectRoot}/jest.config.js`,
-                passWithNoTests: true,
+                command: 'npx vitest --run',
+                cwd: `libs/${normalizedOptions.projectRoot}`,
             },
-            outputs: [`coverage/${normalizedOptions.projectRoot}`],
         },
     }
     addProjectConfiguration(host, normalizedOptions.projectName, {
@@ -111,15 +109,6 @@ export default async function (host: Tree, options: LibraryGeneratorSchema) {
 
         return value
     })
-
-    if (host.exists('jest.config.js')) {
-        addPropertyToJestConfig(
-            host,
-            'jest.config.js',
-            'projects',
-            `<rootDir>/${normalizedOptions.projectRoot}`,
-        )
-    }
 
     if (host.exists('tsconfig.json')) {
         updateJson(host, 'tsconfig.json', (tsconfig) => {

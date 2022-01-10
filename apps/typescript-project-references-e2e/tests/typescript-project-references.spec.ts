@@ -1,16 +1,15 @@
-import 'regenerator-runtime'
 import {
-    ensureNxProject,
-    runNxCommandAsync,
-    runCommandAsync,
-    uniq,
     cleanup,
-    updateFile,
+    ensureNxProject,
+    patchPackageJsonForPlugin,
     readFile,
     readJson,
+    runCommandAsync,
+    runNxCommandAsync,
+    uniq,
+    updateFile,
 } from '@nrwl/nx-plugin/testing'
-
-jest.setTimeout(200000)
+import { beforeAll, describe, it } from 'vitest'
 
 describe('typescript-project-references e2e', () => {
     it('should create typescript-project-references', async () => {
@@ -22,22 +21,25 @@ describe('typescript-project-references e2e', () => {
             '@wanews/nx-typescript-project-references',
             'libs/typescript-project-references',
         )
-
+        await runCommandAsyncHandlingError('npm install')
         await runNxCommandAsync(
             `generate @nrwl/workspace:library --name=${libName} --no-interactive`,
         )
         await runNxCommandAsync(
             `generate @nrwl/workspace:library --name=${lib2Name} --no-interactive`,
         )
-        await runNxCommandAsync(
-            `generate @nrwl/node:application --name=${appName} --babelJest`,
+        patchPackageJsonForPlugin('@wanews/nx-esbuild', 'libs/nx-esbuild')
+        await runCommandAsyncHandlingError('npm install')
+        await runCommandAsyncHandlingError(
+            `npx nx generate @wanews/nx-esbuild:node ${appName}`,
         )
-
-        await runCommandAsyncHandlingError('npm add tsup esbuild --dev')
-        // await runCommandAsyncHandlingError('npm remove ts-jest')
-
-        await runNxCommandAsync(
-            `generate @wanews/nx-typescript-project-references:migrate`,
+        await runCommandAsyncHandlingError('npm install')
+        await runCommandAsyncHandlingError(
+            `npx nx generate @wanews/nx-typescript-project-references:migrate`,
+        )
+        await runCommandAsyncHandlingError('npm install')
+        await runCommandAsyncHandlingError(
+            'npm add tsup esbuild nodemon dotenv --dev',
         )
 
         updateFile(
@@ -45,14 +47,6 @@ describe('typescript-project-references e2e', () => {
             `import { ${libName} } from '@proj/${libName}'
 
 console.log(${libName}())`,
-        )
-        updateFile(
-            `./apps/${appName}/src/main.spec.ts`,
-            `import { ${libName} } from '@proj/${libName}'
-
-it('it looks at source, not built', () => {
-    expect(${libName}()).toEqual('updated')
-})`,
         )
 
         // Update TS Project references so app -> lib
@@ -95,27 +89,19 @@ export function ${libName}(): string {
             },
         }))
 
-        // Run the test in app which asserts against the latest library source.
-        await runNxCommandAsyncHandlingError(`test ${appName}`)
-
-        // Ensure the jest VSCode plugin can run tests
-        await runCommandAsyncHandlingError(
-            `node './node_modules/.bin/jest' './apps/${appName}/src/main.spec.ts' -c './apps/${appName}/jest.config.js' -t 'it looks at source, not built'`,
-        )
-
-        updateWorkspaceConfig((workspace) => {
-            workspace.projects[libName].targets.package = {
+        updateProjectConfig('libs', libName, (config) => {
+            config.targets.package = {
                 executor: '@wanews/nx-typescript-project-references:package',
                 options: {
                     main: `libs/${libName}/src/index.ts`,
                     tsConfig: `libs/${libName}/tsconfig.json`,
                 },
             }
-            return workspace
+            return config
         })
 
         await runNxCommandAsyncHandlingError(`run ${libName}:package`)
-    })
+    }, 120000)
 
     beforeAll(() => {
         cleanup()
@@ -152,13 +138,13 @@ async function runCommandAsyncHandlingError(command: string) {
     }
 }
 
-export function updateWorkspaceConfig(
+export function updateProjectConfig(
+    type: 'libs' | 'apps',
+    project: string,
     callback: (json: { [key: string]: any }) => Object,
 ) {
-    updateFile(
-        'workspace.json',
-        JSON.stringify(callback(readJson('workspace.json')), null, 2),
-    )
+    const file = `${type}/${project}/project.json`
+    updateFile(file, JSON.stringify(callback(readJson(file)), null, 2))
 }
 
 export function updateLibraryPackageJson(

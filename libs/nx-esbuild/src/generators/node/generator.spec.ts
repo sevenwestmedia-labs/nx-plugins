@@ -1,7 +1,6 @@
-import 'regenerator-runtime'
+import { readProjectConfiguration, Tree } from '@nrwl/devkit'
 import { createTreeWithEmptyWorkspace } from '@nrwl/devkit/testing'
-import { Tree, readProjectConfiguration } from '@nrwl/devkit'
-
+import { beforeEach, describe, expect, it } from 'vitest'
 import generator from './generator'
 import { NodeGeneratorSchema } from './schema'
 
