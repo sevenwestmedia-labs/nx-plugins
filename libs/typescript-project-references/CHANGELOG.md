@@ -1,5 +1,11 @@
 # @wanews/nx-typescript-project-references
 
+## 0.17.1
+
+### Patch Changes
+
+- [`b23a569`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/b23a5699e8523b9de33c6fa312f08a26d796ee70) Thanks [@JakeGinnivan](https://github.com/JakeGinnivan)! - Fixed package manager command
+
 ## 0.17.0
 
 ### Minor Changes
