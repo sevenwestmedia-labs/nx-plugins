@@ -1,5 +1,11 @@
 # @wanews/nx-typescript-project-references
 
+## 0.16.0
+
+### Minor Changes
+
+- [`f81bd77`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/f81bd77328db20a35e951a864fd3e658ac847395) Thanks [@JakeGinnivan](https://github.com/JakeGinnivan)! - Upgrate nx from 12.x to 13.x
+
 ## 0.15.0
 
 ### Minor Changes
