@@ -1,5 +1,11 @@
 # @wanews/nx-typescript-project-references
 
+## 0.17.0
+
+### Minor Changes
+
+- [`0a300b6`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/0a300b66d8433b96af9e18e5c1cd2757765fede4) Thanks [@JakeGinnivan](https://github.com/JakeGinnivan)! - Fixed entrypoint schema & added tsup as a dependency
+
 ## 0.16.0
 
 ### Minor Changes
