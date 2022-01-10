@@ -9,12 +9,10 @@
             "description": "The name of the main entry-point file."
         },
         "entryPoints": {
-            "type": {
-                "items": {
-                    "type": "string"
-                },
-                "type": "array"
+            "items": {
+                "type": "string"
             },
+            "type": "array",
             "description": "The name of the entry-point files."
         },
         "tsConfig": {
