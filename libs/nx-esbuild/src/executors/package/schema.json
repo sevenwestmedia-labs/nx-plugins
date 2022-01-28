@@ -291,5 +291,5 @@
     },
     "type": "object",
     "cli": "nx",
-    "title": "ESBuild Build Executor"
+    "title": "ESBuild Package Executor"
 }
