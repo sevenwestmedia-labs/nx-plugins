@@ -32,12 +32,11 @@ export default async function runExecutor(
         sourcemap: true,
         logLevel: 'info',
         metafile: true,
-        ...options,
         external: [
-            ...(options.external || []),
             ...Object.keys(packageJson?.dependencies || {}),
             ...Object.keys(packageJson?.devDependencies || {}),
         ],
+        ...options,
         plugins: options.plugins?.map((plugin) => {
             // eslint-disable-next-line @typescript-eslint/no-var-requires
             const pluginPkg = require(plugin.package)
