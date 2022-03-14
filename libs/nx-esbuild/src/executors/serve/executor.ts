@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { ExecutorContext, readJson } from '@nrwl/devkit'
 import { detectPackageManager } from '@nrwl/tao/src/shared/package-manager'
 import { FsTree } from '@nrwl/tao/src/shared/tree'
@@ -12,7 +13,8 @@ export default async function runExecutor(
     if (!context.projectName) {
         throw new Error('No projectName')
     }
-    if (!options.outfile) {
+    // Only require a single entrypoint when no custom serve command is specfied
+    if (!options.outfile && !options.serveCommand) {
         throw new Error('Need to specify outfile in watch mode')
     }
 
@@ -71,9 +73,9 @@ export default async function runExecutor(
                   '-r',
                   'dotenv/config',
                   '--enable-source-maps',
-                  options.outfile,
+                  options.outfile!,
                   `--watch`,
-                  options.outfile,
+                  options.outfile!,
               ],
               {
                   stdio: [process.stdin, process.stdout, 'pipe'],
