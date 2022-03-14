@@ -2,11 +2,18 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "definitions": {
         "Charset": {
-            "enum": ["ascii", "utf8"],
+            "enum": [
+                "ascii",
+                "utf8"
+            ],
             "type": "string"
         },
         "Format": {
-            "enum": ["cjs", "esm", "iife"],
+            "enum": [
+                "cjs",
+                "esm",
+                "iife"
+            ],
             "type": "string"
         },
         "Loader": {
@@ -27,11 +34,22 @@
             "type": "string"
         },
         "LogLevel": {
-            "enum": ["debug", "error", "info", "silent", "verbose", "warning"],
+            "enum": [
+                "debug",
+                "error",
+                "info",
+                "silent",
+                "verbose",
+                "warning"
+            ],
             "type": "string"
         },
         "Platform": {
-            "enum": ["browser", "neutral", "node"],
+            "enum": [
+                "browser",
+                "neutral",
+                "node"
+            ],
             "type": "string"
         },
         "Record<string,string>": {
@@ -149,7 +167,13 @@
             "type": "boolean"
         },
         "legalComments": {
-            "enum": ["eof", "external", "inline", "linked", "none"],
+            "enum": [
+                "eof",
+                "external",
+                "inline",
+                "linked",
+                "none"
+            ],
             "type": "string"
         },
         "loader": {
@@ -227,8 +251,12 @@
             "items": {
                 "type": "object",
                 "properties": {
-                    "package": { "type": "string" },
-                    "args": { "type": "object" }
+                    "package": {
+                        "type": "string"
+                    },
+                    "args": {
+                        "type": "object"
+                    }
                 }
             },
             "type": "array"
@@ -255,7 +283,13 @@
             "type": "string"
         },
         "sourcemap": {
-            "enum": ["both", "external", false, "inline", true]
+            "enum": [
+                "both",
+                "external",
+                false,
+                "inline",
+                true
+            ]
         },
         "sourcesContent": {
             "type": "boolean"
@@ -280,13 +314,20 @@
             ]
         },
         "treeShaking": {
-            "enum": ["ignore-annotations", true]
+            "enum": [
+                "ignore-annotations",
+                true
+            ]
         },
         "tsconfig": {
             "type": "string"
         },
         "write": {
             "type": "boolean"
+        },
+        "beforeZip": {
+            "type": "string",
+            "description": "A command to run before creating the zip packages"
         }
     },
     "type": "object",

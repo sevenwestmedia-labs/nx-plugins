@@ -32,6 +32,10 @@ NOTE: Currently only supports pnpm
 
 If you create a package.json next to the entrypoint, it will be used instead of the project package.json. This is useful when you have a specific lambda have less dependencies installed than the project has. Externals will only ever use the root package.json (so it should always be a superset of the lambda entrypoint package.json)
 
+#### beforeZip hook
+
+If there is additional preparation you need to do before zipping, you can use the beforeZip hook. It will be run with a CWD of the output folder.
+
 #### Options
 
 The available options are listed in libs/nx-esbuild/src/executors/build/schema.json
