@@ -23,10 +23,12 @@ export default async function runExecutor(
     }
 
     const beforeZipHook = options.beforeZip
+    const afterZipHook = options.afterZip
     const singleZip = options.singleZip
     // Need to remove off build options
     delete options.beforeZip
     delete options.singleZip
+    delete options.afterZip
 
     const outdir =
         options.outdir || (options.outfile && path.dirname(options.outfile))
@@ -93,6 +95,13 @@ export default async function runExecutor(
                 cwd: entrypointOutDir,
                 stdio: [process.stdin, process.stdout, 'pipe'],
             })
+
+            if (afterZipHook) {
+                await execa.command(afterZipHook, {
+                    cwd: outdir,
+                    stdio: [process.stdin, process.stdout, 'pipe'],
+                })
+            }
         }
     }
 
@@ -106,17 +115,27 @@ export default async function runExecutor(
 
         // This prob needs to check platform to make it cross platform
         // But need to instruct it to keep symlinks
-        const relativeZipLocation = `../${path.dirname(outdir)}.zip`
+        const relativeZipLocation = `../${outdir
+            .split('/')
+            .slice(-1)
+            .pop()}.zip`
         console.log(
             `> Writing ${path.relative(
                 process.cwd(),
-                path.resolve(outbase, relativeZipLocation),
+                path.resolve(outdir, relativeZipLocation),
             )}`,
         )
         await execa('zip', ['-rqy', relativeZipLocation, `.`], {
-            cwd: outbase,
+            cwd: outdir,
             stdio: [process.stdin, process.stdout, 'pipe'],
         })
+
+        if (afterZipHook) {
+            await execa.command(afterZipHook, {
+                cwd: outdir,
+                stdio: [process.stdin, process.stdout, 'pipe'],
+            })
+        }
     }
 
     return {

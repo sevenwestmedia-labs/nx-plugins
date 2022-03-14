@@ -329,6 +329,10 @@
             "type": "string",
             "description": "A command to run before creating the zip packages"
         },
+        "afterZip": {
+            "type": "string",
+            "description": "A command to run before after the zip packages"
+        },
         "singleZip": {
             "type": "boolean",
             "description": "Create a single zip package of the entire dist folder rather than per entrypoint, each entrypoint will still be prepared"
