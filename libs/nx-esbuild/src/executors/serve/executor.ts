@@ -10,12 +10,21 @@ export default async function runExecutor(
     options: ServeExecutorSchema,
     context: ExecutorContext,
 ) {
+    const customServeCommand = options.serveCommand
+    const customServeCommandCwd = options.serveCommandCwd
+    delete options.serveCommand
+    delete options.serveCommandCwd
     if (!context.projectName) {
         throw new Error('No projectName')
     }
     // Only require a single entrypoint when no custom serve command is specfied
-    if (!options.outfile && !options.serveCommand) {
+    if (!options.outfile && !customServeCommand) {
         throw new Error('Need to specify outfile in watch mode')
+    }
+    if (customServeCommandCwd && !customServeCommand) {
+        throw new Error(
+            'Need to specify serveCommand when serveCommandCwd is specified',
+        )
     }
 
     const packageManager = detectPackageManager()
@@ -62,9 +71,10 @@ export default async function runExecutor(
         }),
     })
 
-    const serveProcess = options.serveCommand
-        ? execa.command(options.serveCommand, {
+    const serveProcess = customServeCommand
+        ? execa.command(customServeCommand, {
               stdio: [process.stdin, process.stdout, 'pipe'],
+              cwd: customServeCommandCwd,
           })
         : execa(
               packageManagerCmd,

@@ -328,6 +328,10 @@
         "serveCommand": {
             "type": "string",
             "description": "A custom command to run instead of nodemon"
+        },
+        "serveCommandCwd": {
+            "type": "string",
+            "description": "Working directory for custom serve command"
         }
     },
     "type": "object",
