@@ -1,5 +1,13 @@
 # @wanews/nx-esbuild
 
+## 0.19.0
+
+### Minor Changes
+
+- [#66](https://github.com/sevenwestmedia-labs/nx-plugins/pull/66) [`3092877`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/30928777dc2ea63840c1121f7748b7fe3358a3e0) Thanks [@JakeGinnivan](https://github.com/JakeGinnivan)! - Add beforeZip command hook for pacakge executor
+
+* [#65](https://github.com/sevenwestmedia-labs/nx-plugins/pull/65) [`9a4ad20`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/9a4ad20c2f53057cb426690789482afa656003ca) Thanks [@JakeGinnivan](https://github.com/JakeGinnivan)! - Allow custom serveCommand for esbuild serve executor
+
 ## 0.18.0
 
 ### Minor Changes
