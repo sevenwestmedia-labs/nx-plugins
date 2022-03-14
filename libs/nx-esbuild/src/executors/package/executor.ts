@@ -23,8 +23,10 @@ export default async function runExecutor(
     }
 
     const beforeZipHook = options.beforeZip
+    const singleZip = options.singleZip
     // Need to remove off build options
     delete options.beforeZip
+    delete options.singleZip
 
     const outdir =
         options.outdir || (options.outfile && path.dirname(options.outfile))
@@ -70,24 +72,49 @@ export default async function runExecutor(
             workspaceRoot,
         )
 
+        if (!singleZip) {
+            if (beforeZipHook) {
+                await execa.command(beforeZipHook, {
+                    cwd: entrypointOutDir,
+                    stdio: [process.stdin, process.stdout, 'pipe'],
+                })
+            }
+
+            // This prob needs to check platform to make it cross platform
+            // But need to instruct it to keep symlinks
+            const relativeZipLocation = `../${dir || name}.zip`
+            console.log(
+                `> Writing ${path.relative(
+                    process.cwd(),
+                    path.resolve(entrypointOutDir, relativeZipLocation),
+                )}`,
+            )
+            await execa('zip', ['-rqy', relativeZipLocation, `.`], {
+                cwd: entrypointOutDir,
+                stdio: [process.stdin, process.stdout, 'pipe'],
+            })
+        }
+    }
+
+    if (singleZip) {
         if (beforeZipHook) {
             await execa.command(beforeZipHook, {
-                cwd: entrypointOutDir,
+                cwd: outdir,
                 stdio: [process.stdin, process.stdout, 'pipe'],
             })
         }
 
         // This prob needs to check platform to make it cross platform
         // But need to instruct it to keep symlinks
-        const relativeZipLocation = `../${dir || name}.zip`
+        const relativeZipLocation = `../${path.dirname(outdir)}.zip`
         console.log(
             `> Writing ${path.relative(
                 process.cwd(),
-                path.resolve(entrypointOutDir, relativeZipLocation),
+                path.resolve(outbase, relativeZipLocation),
             )}`,
         )
         await execa('zip', ['-rqy', relativeZipLocation, `.`], {
-            cwd: entrypointOutDir,
+            cwd: outbase,
             stdio: [process.stdin, process.stdout, 'pipe'],
         })
     }
