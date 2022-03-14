@@ -22,6 +22,10 @@ export default async function runExecutor(
         throw new Error('Currently only pnpm and yarn are supported')
     }
 
+    const beforeZipHook = options.beforeZip
+    // Need to remove off build options
+    delete options.beforeZip
+
     const outdir =
         options.outdir || (options.outfile && path.dirname(options.outfile))
     if (!outdir) {
@@ -66,8 +70,8 @@ export default async function runExecutor(
             workspaceRoot,
         )
 
-        if (options.beforeZip) {
-            await execa.command(options.beforeZip, {
+        if (beforeZipHook) {
+            await execa.command(beforeZipHook, {
                 cwd: entrypointOutDir,
                 stdio: [process.stdin, process.stdout, 'pipe'],
             })
