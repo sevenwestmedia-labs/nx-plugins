@@ -60,24 +60,28 @@ export default async function runExecutor(
         }),
     })
 
-    const nodemon = execa(
-        packageManagerCmd,
-        [
-            'nodemon',
-            '-r',
-            'dotenv/config',
-            '--enable-source-maps',
-            options.outfile,
-            `--watch`,
-            options.outfile,
-        ],
-        {
-            stdio: [process.stdin, process.stdout, 'pipe'],
-        },
-    )
-    await nodemon
-    if (nodemon.connected) {
-        nodemon.cancel()
+    const serveProcess = options.serveCommand
+        ? execa.command(options.serveCommand, {
+              stdio: [process.stdin, process.stdout, 'pipe'],
+          })
+        : execa(
+              packageManagerCmd,
+              [
+                  'nodemon',
+                  '-r',
+                  'dotenv/config',
+                  '--enable-source-maps',
+                  options.outfile,
+                  `--watch`,
+                  options.outfile,
+              ],
+              {
+                  stdio: [process.stdin, process.stdout, 'pipe'],
+              },
+          )
+    await serveProcess
+    if (serveProcess.connected) {
+        serveProcess.cancel()
     }
 
     return {
