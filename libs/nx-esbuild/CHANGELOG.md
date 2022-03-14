@@ -1,5 +1,11 @@
 # @wanews/nx-esbuild
 
+## 0.19.1
+
+### Patch Changes
+
+- [`3f8e869`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/3f8e869717d3481944581c79939eab4183b218d2) Thanks [@JakeGinnivan](https://github.com/JakeGinnivan)! - Fixed beforeZip validation issue
+
 ## 0.19.0
 
 ### Minor Changes
