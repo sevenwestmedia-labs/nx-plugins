@@ -1,5 +1,11 @@
 # @wanews/nx-esbuild
 
+## 0.21.0
+
+### Minor Changes
+
+- [`6ad101a`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/6ad101a52f4a102b2083033d957b00eebc7e5b4b) Thanks [@JakeGinnivan](https://github.com/JakeGinnivan)! - Allow specify cwd for custom serve command
+
 ## 0.20.1
 
 ### Patch Changes
