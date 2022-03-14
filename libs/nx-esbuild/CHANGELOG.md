@@ -1,5 +1,15 @@
 # @wanews/nx-esbuild
 
+## 0.20.0
+
+### Minor Changes
+
+- [`64fba7b`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/64fba7b4dcb7667271e75537ea53aba521553ba5) Thanks [@JakeGinnivan](https://github.com/JakeGinnivan)! - Add singleZip option
+
+### Patch Changes
+
+- [`23526c1`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/23526c122db6b5c13ccfaa2ba9255e38fa5a5436) Thanks [@JakeGinnivan](https://github.com/JakeGinnivan)! - Allow multiple serve entrypoints if user is providing serve command
+
 ## 0.19.1
 
 ### Patch Changes
