@@ -1,5 +1,11 @@
 # @wanews/nx-esbuild
 
+## 0.20.1
+
+### Patch Changes
+
+- [`b185362`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/b18536240ce0a52ac299df1b08a95414ecfea6a9) Thanks [@JakeGinnivan](https://github.com/JakeGinnivan)! - Fixed single zip file creation
+
 ## 0.20.0
 
 ### Minor Changes
