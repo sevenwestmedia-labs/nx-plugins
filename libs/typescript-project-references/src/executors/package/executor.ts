@@ -1,11 +1,11 @@
 import { detectPackageManager, ExecutorContext, readJson } from '@nrwl/devkit'
-import { FsTree } from '@nrwl/tao/src/shared/tree'
 import { createProjectGraphAsync } from '@nrwl/workspace/src/core/project-graph'
 import {
     calculateProjectDependencies,
     updateBuildableProjectPackageJsonDependencies,
 } from '@nrwl/workspace/src/utilities/buildable-libs-utils'
 import execa from 'execa'
+import { FsTree } from 'nx/src/shared/tree'
 import { PackageExecutorSchema } from './schema'
 
 export async function packageExecutor(

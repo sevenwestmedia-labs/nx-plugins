@@ -1,5 +1,5 @@
+import { S3 } from '@aws-sdk/client-s3'
 import { readProjectConfiguration, Tree, updateJson } from '@nrwl/devkit'
-import S3 from 'aws-sdk/clients/s3'
 import execa from 'execa'
 import path from 'path'
 import { getPulumiArgs } from '../../helpers/get-pulumi-args'
@@ -28,21 +28,17 @@ export default async function (
     // Currently only support S3 locks
     if (options.removeLock && backendUrl && backendUrl.startsWith('s3')) {
         const Bucket = backendUrl.replace('s3://', '')
-        const locksResponse = await s3
-            .listObjectsV2({
-                Bucket,
-                Prefix: `.pulumi/locks/${stack}`,
-            })
-            .promise()
+        const locksResponse = await s3.listObjectsV2({
+            Bucket,
+            Prefix: `.pulumi/locks/${stack}`,
+        })
 
         for (const lockObject of locksResponse.Contents || []) {
             console.log(`Deleting ${lockObject}`)
-            await s3
-                .deleteObject({
-                    Bucket,
-                    Key: `${lockObject.Key}`,
-                })
-                .promise()
+            await s3.deleteObject({
+                Bucket,
+                Key: `${lockObject.Key}`,
+            })
         }
     }
 
@@ -130,12 +126,10 @@ export default async function (
             console.log(
                 `Deleting ${backendUrl}/.pulumi/config-backups/${stack}`,
             )
-            await s3
-                .deleteObject({
-                    Bucket,
-                    Key: `.pulumi/config-backups/${stack}`,
-                })
-                .promise()
+            await s3.deleteObject({
+                Bucket,
+                Key: `.pulumi/config-backups/${stack}`,
+            })
         }
     }
 }

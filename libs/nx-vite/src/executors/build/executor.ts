@@ -1,5 +1,5 @@
 import { ExecutorContext } from '@nrwl/devkit'
-import { FsTree } from '@nrwl/tao/src/shared/tree'
+import { FsTree } from 'nx/src/shared/tree'
 import { build } from 'vite'
 import { BuildExecutorSchema } from './schema'
 

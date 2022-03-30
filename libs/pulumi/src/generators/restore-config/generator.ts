@@ -1,5 +1,5 @@
+import { S3 } from '@aws-sdk/client-s3'
 import { readProjectConfiguration, Tree } from '@nrwl/devkit'
-import S3 from 'aws-sdk/clients/s3'
 import { getPulumiArgs } from '../../helpers/get-pulumi-args'
 import { BackupConfigGeneratorSchema } from './schema'
 
@@ -28,12 +28,10 @@ export default async function (
         console.log(
             `Restoring ${stack} config from ${backendUrl}/.pulumi/config-backups/${stack}`,
         )
-        const response = await s3
-            .getObject({
-                Bucket,
-                Key: `.pulumi/config-backups/${stack}`,
-            })
-            .promise()
+        const response = await s3.getObject({
+            Bucket,
+            Key: `.pulumi/config-backups/${stack}`,
+        })
 
         if (response.Body) {
             tree.write(stackFile, response.Body.toString())

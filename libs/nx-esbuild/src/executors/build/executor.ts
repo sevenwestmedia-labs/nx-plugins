@@ -1,6 +1,6 @@
 import { ExecutorContext, readJson } from '@nrwl/devkit'
-import { FsTree } from '@nrwl/tao/src/shared/tree'
 import { build } from 'esbuild'
+import { FsTree } from 'nx/src/shared/tree'
 import { BuildExecutorSchema } from './schema'
 
 export default async function runExecutor(
