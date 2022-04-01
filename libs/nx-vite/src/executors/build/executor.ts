@@ -2,6 +2,7 @@ import { ExecutorContext } from '@nrwl/devkit'
 import { FsTree } from '@nrwl/tao/src/shared/tree'
 import { build } from 'vite'
 import { BuildExecutorSchema } from './schema'
+import { join } from 'path';
 
 export default async function runExecutor(
     _options: BuildExecutorSchema,
@@ -14,7 +15,10 @@ export default async function runExecutor(
     const appRoot = context.workspace.projects[context.projectName].root
 
     await build({
-        root: tree.root + '/' + appRoot,
+        root: join(tree.root, appRoot),
+        build: {
+            outputDir: join(tree.root, ('dist/apps/' + context.projectName)),
+        },
     })
 
     return {
