@@ -12,8 +12,8 @@
         "execa": "^5.1.1"
     },
     "peerDependencies": {
-        "@nrwl/devkit": ">12.0.0",
-        "@nrwl/tao": ">12.0.0",
+        "@nrwl/devkit": ">13.0.0",
+        "@nrwl/nx": ">13.0.0",
         "dotenv": ">8.0.0",
         "esbuild": ">0.11.0",
         "nodemon": ">2.0.0"

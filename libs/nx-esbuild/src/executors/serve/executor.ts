@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { ExecutorContext, readJson } from '@nrwl/devkit'
-import { detectPackageManager } from '@nrwl/tao/src/shared/package-manager'
-import { FsTree } from '@nrwl/tao/src/shared/tree'
 import { build } from 'esbuild'
 import execa from 'execa'
+import { detectPackageManager } from 'nx/src/shared/package-manager'
+import { FsTree } from 'nx/src/shared/tree'
 import { ServeExecutorSchema } from './schema'
 
 export default async function runExecutor(
