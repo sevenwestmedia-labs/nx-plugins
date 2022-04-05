@@ -1,5 +1,11 @@
 # @wanews/nx-typescript-project-references
 
+## 0.18.0
+
+### Minor Changes
+
+- [#67](https://github.com/sevenwestmedia-labs/nx-plugins/pull/67) [`3b4eff0`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/3b4eff08f19a77ec4c9088f0ae8a78c9e28780d5) Thanks [@JakeGinnivan](https://github.com/JakeGinnivan)! - Switch from @nrwl/tao to nx and aws-sdk to aws sdk v3
+
 ## 0.17.1
 
 ### Patch Changes
