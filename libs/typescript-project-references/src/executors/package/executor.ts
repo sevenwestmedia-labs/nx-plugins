@@ -5,7 +5,7 @@ import {
     updateBuildableProjectPackageJsonDependencies,
 } from '@nrwl/workspace/src/utilities/buildable-libs-utils'
 import execa from 'execa'
-import { FsTree } from 'nx/src/shared/tree'
+import { FsTree } from 'nx/src/config/tree'
 import { PackageExecutorSchema } from './schema'
 
 export async function packageExecutor(
