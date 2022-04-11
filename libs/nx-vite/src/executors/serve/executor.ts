@@ -1,7 +1,7 @@
 import { ExecutorContext } from '@nrwl/devkit'
 import execa from 'execa'
-import { getPackageManagerCommand } from 'nx/src/shared/package-manager'
-import { FsTree } from 'nx/src/shared/tree'
+import { FsTree } from 'nx/src/config/tree'
+import { getPackageManagerCommand } from 'nx/src/utils/package-manager'
 import { ServeExecutorSchema } from './schema'
 
 export default async function runExecutor(

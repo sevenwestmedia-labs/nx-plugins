@@ -9,11 +9,11 @@
     "executors": "./executors.json",
     "dependencies": {
         "execa": "^5.1.1",
-        "tsup": "^5.11.11"
+        "tsup": "^5.12.4"
     },
     "peerDependencies": {
-        "@nrwl/devkit": ">13.0.0",
-        "nx": ">13.0.0",
-        "@nrwl/workspace": ">12.0.0"
+        "@nrwl/devkit": ">13.10.0",
+        "@nrwl/workspace": ">13.10.0",
+        "nx": ">13.10.0"
     }
 }
