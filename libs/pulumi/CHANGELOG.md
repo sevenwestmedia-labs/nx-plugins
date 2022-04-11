@@ -1,5 +1,11 @@
 # @wanews/nx-pulumi
 
+## 0.20.0
+
+### Minor Changes
+
+- [#70](https://github.com/sevenwestmedia-labs/nx-plugins/pull/70) [`44b8aa1`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/44b8aa181e74bd153c28a270a0ac23fb60212a3e) Thanks [@JakeGinnivan](https://github.com/JakeGinnivan)! - Bumped minimum NX version due to internal structure changes
+
 ## 0.19.0
 
 ### Minor Changes

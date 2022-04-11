@@ -1,5 +1,15 @@
 # @wanews/nx-vite
 
+## 0.8.0
+
+### Minor Changes
+
+- [#70](https://github.com/sevenwestmedia-labs/nx-plugins/pull/70) [`44b8aa1`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/44b8aa181e74bd153c28a270a0ac23fb60212a3e) Thanks [@JakeGinnivan](https://github.com/JakeGinnivan)! - Bumped minimum NX version due to internal structure changes
+
+### Patch Changes
+
+- [#70](https://github.com/sevenwestmedia-labs/nx-plugins/pull/70) [`44b8aa1`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/44b8aa181e74bd153c28a270a0ac23fb60212a3e) Thanks [@JakeGinnivan](https://github.com/JakeGinnivan)! - Fixed some internal modules in NX being moved
+
 ## 0.7.0
 
 ### Minor Changes
