@@ -1,5 +1,11 @@
 # @wanews/nx-esbuild
 
+## 0.23.1
+
+### Patch Changes
+
+- [`23c520f`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/23c520ff2bfce210563bcfde5897637c416c39d8) Thanks [@JakeGinnivan](https://github.com/JakeGinnivan)! - Fixed incorrect peerDependency
+
 ## 0.23.0
 
 ### Minor Changes
