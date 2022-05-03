@@ -9,7 +9,7 @@
     "executors": "./executors.json",
     "dependencies": {
         "execa": "^5.1.1",
-        "tsup": "^5.12.4"
+        "tsup": "^5.12.6"
     },
     "peerDependencies": {
         "@nrwl/devkit": ">13.10.0",

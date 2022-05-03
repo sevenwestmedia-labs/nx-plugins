@@ -5,18 +5,49 @@
     "description": "",
     "type": "object",
     "properties": {
+        "yes": {
+            "description": "",
+            "type": "boolean"
+        },
+        "env": {
+            "description": "",
+            "type": "string",
+            "aliases": [
+                "environment"
+            ]
+        },
         "buildTargets": {
             "type": "array",
             "items": {
                 "type": "object",
                 "properties": {
-                    "project": { "type": "string" },
-                    "target": { "type": "string" },
-                    "configuration": { "type": "string" }
+                    "project": {
+                        "type": "string"
+                    },
+                    "target": {
+                        "type": "string"
+                    },
+                    "configuration": {
+                        "type": "string"
+                    }
                 },
-                "required": ["project", "target"]
+                "required": [
+                    "project",
+                    "target"
+                ]
             }
         },
-        "configurationStackFormat": { "type": "string" }
+        "configurationStackFormat": {
+            "type": "string"
+        },
+        "disableIntegrityChecking": {
+            "type": "boolean"
+        },
+        "nonInteractive": {
+            "type": "boolean"
+        },
+        "secretsProvider": {
+            "type": "string"
+        }
     }
 }
