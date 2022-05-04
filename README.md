@@ -8,7 +8,7 @@ Most of the packages are just lightwieght wrappers over a CLI tool, just making 
 
 ![npm (@wanews/nx-esbuild)](https://img.shields.io/npm/v/@wanews/nx-typescript-project-references)
 
-Can convert an exising NX repo to take advantage of TS Project References and generate a siple library.
+Can convert an exising NX repo to take advantage of TS Project References and generate a simple library.
 
 ## @wanews/nx-esbuild
 
