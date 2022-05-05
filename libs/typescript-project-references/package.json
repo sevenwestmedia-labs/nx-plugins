@@ -1,6 +1,6 @@
 {
     "name": "@wanews/nx-typescript-project-references",
-    "version": "0.19.0",
+    "version": "0.20.0",
     "license": "MIT",
     "repository": "https://github.com/sevenwestmedia-labs/nx-plugins",
     "author": "Seven West Media WA",

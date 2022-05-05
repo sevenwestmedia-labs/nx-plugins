@@ -1,5 +1,11 @@
 # @wanews/nx-esbuild
 
+## 0.24.0
+
+### Minor Changes
+
+- [#72](https://github.com/sevenwestmedia-labs/nx-plugins/pull/72) [`4848093`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/4848093ffb894fbbc3265acfde9463046e716cd7) Thanks [@JakeGinnivan](https://github.com/JakeGinnivan)! - Upgraded dependencies
+
 ## 0.23.1
 
 ### Patch Changes
