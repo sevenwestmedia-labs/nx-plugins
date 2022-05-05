@@ -1,6 +1,5 @@
 {
     "projectType": "application",
-    "root": "apps/pulumi-e2e",
     "sourceRoot": "apps/pulumi-e2e/src",
     "targets": {
         "e2e": {

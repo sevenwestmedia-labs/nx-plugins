@@ -1,6 +1,5 @@
 {
     "projectType": "application",
-    "root": "apps/nx-vite-e2e",
     "sourceRoot": "apps/nx-vite-e2e/src",
     "targets": {
         "e2e": {

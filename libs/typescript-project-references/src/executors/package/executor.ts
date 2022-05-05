@@ -1,11 +1,11 @@
-import { detectPackageManager, ExecutorContext, readJson } from '@nrwl/devkit'
+import { detectPackageManager, ExecutorContext } from '@nrwl/devkit'
 import { createProjectGraphAsync } from '@nrwl/workspace/src/core/project-graph'
 import {
     calculateProjectDependencies,
     updateBuildableProjectPackageJsonDependencies,
 } from '@nrwl/workspace/src/utilities/buildable-libs-utils'
 import execa from 'execa'
-import { FsTree } from 'nx/src/config/tree'
+import fs from 'node:fs'
 import { PackageExecutorSchema } from './schema'
 
 export async function packageExecutor(
@@ -28,7 +28,6 @@ export async function packageExecutor(
             : 'npx'
     const projGraph = await createProjectGraphAsync()
     const libRoot = context.workspace.projects[context.projectName].root
-    const tree = new FsTree(context.cwd, context.isVerbose)
     const { target, dependencies } = calculateProjectDependencies(
         projGraph,
         context.root,
@@ -36,8 +35,9 @@ export async function packageExecutor(
         context.targetName,
         context.configurationName || 'production',
     )
-    const packageJson = tree.exists(`${libRoot}/package.json`)
-        ? readJson(tree, `${libRoot}/package.json`)
+
+    const packageJson = fs.existsSync(`${libRoot}/package.json`)
+        ? JSON.parse(fs.readFileSync(`${libRoot}/package.json`).toString())
         : {}
 
     const tsup = execa(packageManagerCmd, [

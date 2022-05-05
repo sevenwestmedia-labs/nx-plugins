@@ -1,6 +1,6 @@
-import { ExecutorContext, readJson } from '@nrwl/devkit'
+import { ExecutorContext } from '@nrwl/devkit'
 import { build } from 'esbuild'
-import { FsTree } from 'nx/src/config/tree'
+import fs from 'node:fs'
 import { BuildExecutorSchema } from './schema'
 
 export default async function runExecutor(
@@ -11,10 +11,9 @@ export default async function runExecutor(
         throw new Error('No projectName')
     }
     const appRoot = context.workspace.projects[context.projectName].root
-    const tree = new FsTree(context.cwd, context.isVerbose)
 
-    const packageJson = tree.exists(`${appRoot}/package.json`)
-        ? readJson(tree, `${appRoot}/package.json`)
+    const packageJson = fs.existsSync(`${appRoot}/package.json`)
+        ? JSON.parse(fs.readFileSync(`${appRoot}/package.json`).toString())
         : {}
 
     Object.keys(options).forEach((key) => {

@@ -1,5 +1,4 @@
 {
-    "root": "libs/typescript-project-references",
     "sourceRoot": "libs/typescript-project-references/src",
     "projectType": "library",
     "targets": {
@@ -10,9 +9,7 @@
                     "libs/typescript-project-references/**/*.ts"
                 ]
             },
-            "outputs": [
-                "{options.outputFile}"
-            ]
+            "outputs": ["{options.outputFile}"]
         },
         "test": {
             "executor": "@nrwl/workspace:run-commands",

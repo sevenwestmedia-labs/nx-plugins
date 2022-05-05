@@ -1,6 +1,5 @@
 {
     "projectType": "application",
-    "root": "apps/typescript-project-references-e2e",
     "sourceRoot": "apps/typescript-project-references-e2e/src",
     "targets": {
         "e2e": {
