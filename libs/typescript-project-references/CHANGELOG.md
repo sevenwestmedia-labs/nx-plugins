@@ -1,5 +1,11 @@
 # @wanews/nx-typescript-project-references
 
+## 0.20.1
+
+### Patch Changes
+
+- [`34f9100`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/34f910056a8e6d7b8cfc084997e13210b22f39fe) Thanks [@JakeGinnivan](https://github.com/JakeGinnivan)! - Fixed incompatibility with latest NX release
+
 ## 0.20.0
 
 ### Minor Changes
