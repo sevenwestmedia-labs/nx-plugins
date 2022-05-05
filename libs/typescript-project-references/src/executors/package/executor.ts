@@ -22,7 +22,7 @@ export async function packageExecutor(
     const packageManager = detectPackageManager()
     const packageManagerCmd =
         packageManager === 'pnpm'
-            ? 'pnpx'
+            ? 'pnpm'
             : packageManager === 'yarn'
             ? 'yarn'
             : 'npx'

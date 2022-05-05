@@ -153,7 +153,7 @@ async function installNodeModulesIntoPackageDir(
     if (packageManager === 'pnpm') {
         // This creates a lockfile based on the lambda/project package.json
         // https://github.com/pnpm/pnpm/issues/2198#issuecomment-669623478
-        await execa('pnpx', ['make-dedicated-lockfile'], {
+        await execa('pnpm', ['make-dedicated-lockfile'], {
             cwd: entrypointOutDir,
             stdio: [process.stdin, process.stdout, 'pipe'],
         })
@@ -172,7 +172,7 @@ async function installNodeModulesIntoPackageDir(
             stdio: [process.stdin, process.stdout, 'pipe'],
         })
     } else if (packageManager === 'yarn') {
-        // similar to pnpx make-dedicated-lockfile, just use the project lockfile
+        // similar to pnpm make-dedicated-lockfile, just use the project lockfile
         if (existsSync(path.join(entryPointDir, 'yarn.lock'))) {
             await fs.copyFile(
                 path.join(entryPointDir, 'yarn.lock'),

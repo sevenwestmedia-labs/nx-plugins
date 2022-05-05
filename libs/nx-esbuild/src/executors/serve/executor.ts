@@ -30,7 +30,7 @@ export default async function runExecutor(
     const packageManager = detectPackageManager()
     const packageManagerCmd =
         packageManager === 'pnpm'
-            ? 'pnpx'
+            ? 'pnpm'
             : packageManager === 'yarn'
             ? 'yarn'
             : 'npx'

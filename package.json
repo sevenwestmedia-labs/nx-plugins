@@ -26,8 +26,8 @@
         "help": "nx help",
         "preinstall": "npx only-allow pnpm",
         "changesets": "changesets",
-        "generate:esbuild-options:build": "pnpx typescript-json-schema node_modules/esbuild/lib/main.d.ts BuildOptions -o libs/nx-esbuild/src/executors/build/schema.json && pnpx json -I -f libs/nx-esbuild/src/executors/build/schema.json -e 'this.cli=\"nx\"' && pnpx json -I -f libs/nx-esbuild/src/executors/build/schema.json -e 'this.title=\"ESBuild Build Executor\"'",
-        "generate:esbuild-options:serve": "pnpx typescript-json-schema node_modules/esbuild/lib/main.d.ts BuildOptions -o libs/nx-esbuild/src/executors/serve/schema.json && pnpx json -I -f libs/nx-esbuild/src/executors/serve/schema.json -e 'this.cli=\"nx\"' && pnpx json -I -f libs/nx-esbuild/src/executors/serve/schema.json -e 'this.title=\"ESBuild Serve Executor\"'",
+        "generate:esbuild-options:build": "pnpm typescript-json-schema node_modules/esbuild/lib/main.d.ts BuildOptions -o libs/nx-esbuild/src/executors/build/schema.json && pnpm json -I -f libs/nx-esbuild/src/executors/build/schema.json -e 'this.cli=\"nx\"' && pnpm json -I -f libs/nx-esbuild/src/executors/build/schema.json -e 'this.title=\"ESBuild Build Executor\"'",
+        "generate:esbuild-options:serve": "pnpm typescript-json-schema node_modules/esbuild/lib/main.d.ts BuildOptions -o libs/nx-esbuild/src/executors/serve/schema.json && pnpm json -I -f libs/nx-esbuild/src/executors/serve/schema.json -e 'this.cli=\"nx\"' && pnpm json -I -f libs/nx-esbuild/src/executors/serve/schema.json -e 'this.title=\"ESBuild Serve Executor\"'",
         "~~~NOTE~~~": "entryPoints and watch dont work properly and need manual changes -- see 44808fb",
         "generate:esbuild-options": "pnpm run generate:esbuild-options:build && pnpm run generate:esbuild-options:serve"
     },
