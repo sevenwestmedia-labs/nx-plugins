@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { ExecutorContext, readJson } from '@nrwl/devkit'
+import { ExecutorContext } from '@nrwl/devkit'
 import { build } from 'esbuild'
 import execa from 'execa'
-import { FsTree } from 'nx/src/config/tree'
+import fs from 'node:fs'
 import { detectPackageManager } from 'nx/src/utils/package-manager'
 import { ServeExecutorSchema } from './schema'
 
@@ -30,15 +30,14 @@ export default async function runExecutor(
     const packageManager = detectPackageManager()
     const packageManagerCmd =
         packageManager === 'pnpm'
-            ? 'pnpx'
+            ? 'pnpm'
             : packageManager === 'yarn'
             ? 'yarn'
             : 'npx'
     const appRoot = context.workspace.projects[context.projectName].root
-    const tree = new FsTree(context.cwd, context.isVerbose)
 
-    const packageJson = tree.exists(`${appRoot}/package.json`)
-        ? readJson(tree, `${appRoot}/package.json`)
+    const packageJson = fs.existsSync(`${appRoot}/package.json`)
+        ? JSON.parse(fs.readFileSync(`${appRoot}/package.json`).toString())
         : {}
 
     Object.keys(options).forEach((key) => {

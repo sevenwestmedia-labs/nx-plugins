@@ -1,6 +1,5 @@
 {
     "projectType": "application",
-    "root": "apps/nx-esbuild-e2e",
     "sourceRoot": "apps/nx-esbuild-e2e/src",
     "targets": {
         "e2e": {

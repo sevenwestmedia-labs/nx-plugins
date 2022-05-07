@@ -1,5 +1,17 @@
 # @wanews/nx-pulumi
 
+## 0.21.1
+
+### Patch Changes
+
+- [`34f9100`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/34f910056a8e6d7b8cfc084997e13210b22f39fe) Thanks [@JakeGinnivan](https://github.com/JakeGinnivan)! - Fixed incompatibility with latest NX release
+
+## 0.21.0
+
+### Minor Changes
+
+- [#72](https://github.com/sevenwestmedia-labs/nx-plugins/pull/72) [`4848093`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/4848093ffb894fbbc3265acfde9463046e716cd7) Thanks [@JakeGinnivan](https://github.com/JakeGinnivan)! - Upgraded dependencies
+
 ## 0.20.0
 
 ### Minor Changes

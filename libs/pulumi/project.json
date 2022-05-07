@@ -1,18 +1,13 @@
 {
-    "root": "libs/pulumi",
     "sourceRoot": "libs/pulumi/src",
     "projectType": "library",
     "targets": {
         "lint": {
             "executor": "@nrwl/linter:eslint",
             "options": {
-                "lintFilePatterns": [
-                    "libs/pulumi/**/*.ts"
-                ]
+                "lintFilePatterns": ["libs/pulumi/**/*.ts"]
             },
-            "outputs": [
-                "{options.outputFile}"
-            ]
+            "outputs": ["{options.outputFile}"]
         },
         "test": {
             "executor": "@nrwl/workspace:run-commands",

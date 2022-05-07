@@ -38,7 +38,6 @@ describe('init e2e', () => {
             `apps/${app}-infrastructure/project.json`,
         )
         expect(appInfrastructureProjectJson).toMatchObject({
-            root: `apps/${app}-infrastructure`,
             projectType: 'application',
             sourceRoot: `apps/${app}-infrastructure/src`,
             targets: {

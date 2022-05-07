@@ -13,13 +13,13 @@ pnpm add -WD @wanews/nx-typescript-project-references
 ### Upgrade a repo
 
 ```
-pnpx nx generate @wanews/nx-typescript-project-references:migrate
+pnpm nx generate @wanews/nx-typescript-project-references:migrate
 ```
 
 ### Library generator
 
 ```
-pnpx nx generate @wanews/nx-typescript-project-references:library
+pnpm nx generate @wanews/nx-typescript-project-references:library
 ```
 
 If you want to publish the library remove `"private": true` from package.json.

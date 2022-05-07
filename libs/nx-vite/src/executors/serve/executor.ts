@@ -1,6 +1,5 @@
 import { ExecutorContext } from '@nrwl/devkit'
 import execa from 'execa'
-import { FsTree } from 'nx/src/config/tree'
 import { getPackageManagerCommand } from 'nx/src/utils/package-manager'
 import { ServeExecutorSchema } from './schema'
 
@@ -12,12 +11,11 @@ export default async function runExecutor(
         throw new Error('No projectName')
     }
     const packageManager = getPackageManagerCommand()
-    const tree = new FsTree(context.cwd, context.isVerbose)
     const appRoot = context.workspace.projects[context.projectName].root
 
     const vite = execa(
         packageManager.exec,
-        ['vite', `${tree.root}/${appRoot}`, '--open'],
+        ['vite', `${context.cwd}/${appRoot}`, '--open'],
         {
             stdio: [process.stdin, process.stdout, 'pipe'],
         },
