@@ -1,5 +1,6 @@
 export interface BackupConfigGeneratorSchema {
     projectName: string
-    env: string
+    environment?: string
+    stack?: string
     configurationStackFormat?: string
 }

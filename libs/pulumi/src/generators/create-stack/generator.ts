@@ -1,6 +1,6 @@
 import { readProjectConfiguration, Tree } from '@nrwl/devkit'
 import execa from 'execa'
-import { getPulumiArgs } from '../../helpers/get-pulumi-args'
+import { getStackInfo } from '../../helpers/get-pulumi-args'
 import { CreateStackGeneratorSchema } from './schema'
 
 export default async function (
@@ -16,12 +16,24 @@ export default async function (
         options.projectName,
     )
 
-    const { pulumiArguments } = getPulumiArgs(
+    const { stack } = getStackInfo(
         targetProjectConfig.root,
+        options.environment,
+        options.stack,
         options.configurationStackFormat,
     )
 
-    const pulumiArgs = ['stack', 'init', ...pulumiArguments]
+    const pulumiArgs = [
+        'stack',
+        'init',
+        '--stack',
+        stack,
+        '--cwd',
+        targetProjectConfig.root,
+        ...(options.secretsProvider
+            ? ['--secrets-provider', options.secretsProvider]
+            : []),
+    ]
 
     console.log(`> pulumi ${pulumiArgs.join(' ')}`)
     const pulumi = execa('pulumi', pulumiArgs, {

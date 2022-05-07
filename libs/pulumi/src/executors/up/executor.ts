@@ -1,7 +1,7 @@
 import { ExecutorContext, runExecutor } from '@nrwl/devkit'
 import execa from 'execa'
 import fs from 'fs'
-import { getPulumiArgs } from '../../helpers/get-pulumi-args'
+import { getStackInfo } from '../../helpers/get-pulumi-args'
 import { BuildExecutorSchema } from './schema'
 
 export default async function runUpExecutor(
@@ -22,23 +22,23 @@ export default async function runUpExecutor(
         }
     }
 
-    const { env, stackFile, pulumiArguments } = getPulumiArgs(
+    const { stackFile, stack } = getStackInfo(
         infrastructureRoot,
+        options.environment,
+        options.stack,
         options.configurationStackFormat,
     )
 
     // Don't fail if using --env and that stack doesn't exist
-    if (env) {
-        if (!fs.existsSync(stackFile)) {
-            console.warn(
-                `${
-                    context.projectName || 'unknown project'
-                } skipped due to no stack configuration matching --env convention`,
-            )
+    if (options.environment && !fs.existsSync(stackFile)) {
+        console.warn(
+            `${
+                context.projectName || 'unknown project'
+            } skipped due to no stack configuration matching --env convention`,
+        )
 
-            return {
-                success: true,
-            }
+        return {
+            success: true,
         }
     }
 
@@ -64,7 +64,21 @@ export default async function runUpExecutor(
         }
     }
 
-    const pulumiArgs = ['up', ...pulumiArguments]
+    const pulumiArgs = [
+        'up',
+        '--cwd',
+        infrastructureRoot,
+        ...(options.yes ? ['--yes'] : []),
+        '--stack',
+        stack,
+        ...(options.nonInteractive ? ['--non-interactive'] : []),
+        ...(options.secretsProvider
+            ? ['--secrets-provider', options.secretsProvider]
+            : []),
+        ...(options.disableIntegrityChecking
+            ? ['--disable-integrity-check']
+            : []),
+    ]
 
     console.log(`> pulumi ${pulumiArgs.join(' ')}`)
     const pulumi = execa('pulumi', pulumiArgs, {

@@ -1,6 +1,7 @@
 export interface CreateStackGeneratorSchema {
     projectName: string
-    env: string
+    environment?: string
+    stack?: string
     configurationStackFormat?: string
     secretsProvider?: string
 }

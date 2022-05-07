@@ -9,4 +9,6 @@ export interface BuildExecutorSchema {
     disableIntegrityChecking?: boolean
     nonInteractive?: boolean
     secretsProvider?: string
+    environment?: string
+    stack?: string
 }

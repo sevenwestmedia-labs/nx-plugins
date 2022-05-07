@@ -9,12 +9,16 @@
             "description": "",
             "type": "boolean"
         },
-        "env": {
+        "environment": {
             "description": "",
             "type": "string",
             "aliases": [
-                "environment"
+                "env"
             ]
+        },
+        "stack": {
+            "description": "Pulumi stack name",
+            "type": "string"
         },
         "buildTargets": {
             "type": "array",

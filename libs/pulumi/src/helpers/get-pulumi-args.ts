@@ -2,12 +2,12 @@ import fs from 'fs'
 import yaml from 'js-yaml'
 import path from 'path'
 
-export function getPulumiArgs(
+export function getStackInfo(
     root: string,
+    environmentArg: string | undefined,
+    stackArg: string | undefined,
     stackFormat = '[projectName].[environment]',
 ): {
-    env: string | undefined
-    pulumiArguments: string[]
     pulumiProjectName: string
     stack: string
     pulumiConfigFolder: string | undefined
@@ -22,78 +22,31 @@ export function getPulumiArgs(
     const pulumiConfigFolder: string | undefined = configFile.config
     const backendUrl: string | undefined = configFile.backend?.url
 
-    const commandLineMap: Record<string, string> = {
-        '--disableIntegrityChecking': '--disable-integrity-checking',
-        '--nonInteractive': '--non-interactive',
-        '--targetDependents': '--target-dependents',
-        '--targetReplace': '--target-replace',
-        '--secretsProvider': '--secrets-provider',
-    }
-
-    const generatorOptions = [
-        '--projectName',
-        '--configurationStackFormat',
-        '--dryRun',
-        '--skip-nx-cache',
-        '--ignorePendingCreateOperations',
-        '--removeStack',
-        '--removeLock',
-        '--removePendingOperations',
-        '--refreshBeforeDestroy',
-    ]
-
-    let env: string | undefined
-
-    // NX Mangles command line args. Let's fix them back.
-    // https://github.com/nrwl/nx/issues/5710
-    // This is an incomplete list, should do all args
-    const pulumiArguments = process.argv
-        .slice(4)
-        .map((arg) => {
-            const mangled = Object.keys(commandLineMap).find((mangled) =>
-                arg.startsWith(mangled),
-            )
-            if (mangled) {
-                return arg.replace(mangled, commandLineMap[mangled])
-            }
-            return arg
-        })
-        .filter((arg) => {
-            if (arg.startsWith('--env')) {
-                env = arg.replace('--env=', '')
-                return false
-            }
-            if (arg.startsWith('--environment')) {
-                env = arg.replace('--environment=', '')
-                return false
-            }
-            // only return non generator specific args
-            return !generatorOptions.some((option) => arg.startsWith(option))
-        })
-
     let stack: string | undefined
-    if (env && !pulumiArguments.includes('--stack')) {
+    if (environmentArg && !stackArg) {
         stack = stackFormat
             .replace('[projectName]', pulumiProjectName)
-            .replace('[environment]', env)
-        pulumiArguments.push('--stack', stack)
+            .replace('[environment]', environmentArg)
     } else {
-        stack = pulumiArguments[pulumiArguments.indexOf('--stack') + 1]
+        stack = stackArg
     }
+    if (!stack) {
+        throw new Error(
+            'No stack name provided, use --env or --stack to provide stack name',
+        )
+    }
+
     const stackFile = path.join(
         ...[root, pulumiConfigFolder, `Pulumi.${stack}.yaml`].filter(
             (x): x is string => !!x,
         ),
     )
 
-    pulumiArguments.push('--cwd', root)
     return {
         pulumiProjectName,
-        env,
-        pulumiArguments,
-        stack,
         pulumiConfigFolder,
         stackFile,
         backendUrl,
+        stack,
     }
 }
