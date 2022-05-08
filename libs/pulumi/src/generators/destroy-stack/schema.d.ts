@@ -1,7 +1,10 @@
 export interface CreateStackGeneratorSchema {
     projectName: string
-    env: string
+    environment?: string
+    stack?: string
     configurationStackFormat?: string
+
+    target?: string[]
 
     ignorePendingCreateOperations?: boolean
     removeLock?: boolean

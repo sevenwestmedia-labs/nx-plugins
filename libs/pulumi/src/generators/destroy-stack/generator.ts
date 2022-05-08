@@ -2,7 +2,7 @@ import { S3 } from '@aws-sdk/client-s3'
 import { readProjectConfiguration, Tree, updateJson } from '@nrwl/devkit'
 import execa from 'execa'
 import path from 'path'
-import { getPulumiArgs } from '../../helpers/get-pulumi-args'
+import { getStackInfo } from '../../helpers/get-pulumi-args'
 import { CreateStackGeneratorSchema } from './schema'
 
 const s3 = new S3({})
@@ -20,8 +20,10 @@ export default async function (
         options.projectName,
     )
 
-    const { pulumiArguments, backendUrl, stack } = getPulumiArgs(
+    const { backendUrl, stack } = getStackInfo(
         targetProjectConfig.root,
+        options.environment,
+        options.stack,
         options.configurationStackFormat,
     )
 
@@ -48,10 +50,10 @@ export default async function (
         const pulumiExportArgs = [
             'stack',
             'export',
+            '--stack',
+
             '--file',
             path.basename(stateFile),
-            // need to filter out --yes since export/import doesn't like it
-            ...pulumiArguments.filter((arg) => arg !== '--yes'),
         ]
         console.log(`> pulumi ${pulumiExportArgs.join(' ')}`)
         await execa('pulumi', pulumiExportArgs, {
@@ -84,10 +86,10 @@ export default async function (
         const pulumiImportArgs = [
             'stack',
             'import',
+            '--stack',
+            stack,
             '--file',
             path.basename(stateFile),
-            // need to filter out --yes since export/import doesn't like it
-            ...pulumiArguments.filter((arg) => arg !== '--yes'),
         ]
         console.log(`> pulumi ${pulumiImportArgs.join(' ')}`)
         await execa('pulumi', pulumiImportArgs, {
@@ -98,7 +100,14 @@ export default async function (
     }
 
     if (options.refreshBeforeDestroy) {
-        const pulumiRefreshArgs = ['refresh', ...pulumiArguments]
+        const pulumiRefreshArgs = [
+            'refresh',
+            '--stack',
+            stack,
+            ...(options.target
+                ? options.target.map((target) => `--target=${target}`)
+                : []),
+        ]
         console.log(`> pulumi ${pulumiRefreshArgs.join(' ')}`)
         await execa('pulumi', pulumiRefreshArgs, {
             stdio: [process.stdin, process.stdout, process.stderr],
@@ -106,7 +115,14 @@ export default async function (
     }
 
     // delete the resources in the stack
-    const pulumiDestroyArgs = ['destroy', ...pulumiArguments]
+    const pulumiDestroyArgs = [
+        'destroy',
+        '--stack',
+        stack,
+        ...(options.target
+            ? options.target.map((target) => `--target=${target}`)
+            : []),
+    ]
     console.log(`> pulumi ${pulumiDestroyArgs.join(' ')}`)
     await execa('pulumi', pulumiDestroyArgs, {
         stdio: [process.stdin, process.stdout, process.stderr],
@@ -114,7 +130,7 @@ export default async function (
 
     if (options.removeStack) {
         // remove the stack
-        const pulumiRemoveArgs = ['stack', 'rm', ...pulumiArguments]
+        const pulumiRemoveArgs = ['stack', 'rm', '--stack', stack]
         console.log(`> pulumi ${pulumiRemoveArgs.join(' ')}`)
         await execa('pulumi', pulumiRemoveArgs, {
             stdio: [process.stdin, process.stdout, process.stderr],

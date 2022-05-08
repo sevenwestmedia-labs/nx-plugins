@@ -14,8 +14,22 @@
             },
             "x-prompt": "The name of the project containing the stack?"
         },
-        "env": { "type": "string" },
-        "configurationStackFormat": { "type": "string" }
+        "environment": {
+            "description": "",
+            "type": "string",
+            "aliases": [
+                "env"
+            ]
+        },
+        "stack": {
+            "description": "Pulumi stack name",
+            "type": "string"
+        },
+        "configurationStackFormat": {
+            "type": "string"
+        }
     },
-    "required": ["projectName", "env"]
+    "required": [
+        "projectName"
+    ]
 }
