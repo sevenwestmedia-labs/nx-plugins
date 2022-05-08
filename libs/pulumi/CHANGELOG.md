@@ -1,5 +1,17 @@
 # @wanews/nx-pulumi
 
+## 0.22.0
+
+### Minor Changes
+
+- [#76](https://github.com/sevenwestmedia-labs/nx-plugins/pull/76) [`59f45ed`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/59f45ed2ef6ef6ca11e207af99d2e02ca7cd806c) Thanks [@JakeGinnivan](https://github.com/JakeGinnivan)! - BREAKING: Explicitly specify Pulumi options as NX arguments, removed transparent passthrough
+
+  This means if you were passing Pulumi arguments through which are not explicitly defined in the NX config, they will no longer be passed through to the CLI.
+
+  NX 14.0 has furthered the behaviour of not passing through arguments to executors which are not in NX config forcing this plugin to be explicit. This means the CLI flags may differ slightly when using the NX executor vs the Pulumi CLI.
+
+  NOTE: This change will make the affected behavior in NX work more reliably
+
 ## 0.21.1
 
 ### Patch Changes
