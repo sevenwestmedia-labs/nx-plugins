@@ -12,9 +12,9 @@ export default async function runExecutor(
         throw new Error('No projectName')
     }
     const appRoot = context.workspace.projects[context.projectName].root
-    const outputPath = _options.outputPath
+    const outputPath = _options?.outputPath
         ? join(context.root, _options.outputPath)
-        : 'dist'
+        : undefined
 
     await build({
         root: tree.root + '/' + appRoot,
