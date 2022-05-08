@@ -1,5 +1,11 @@
 # @wanews/nx-vite
 
+## 0.10.1
+
+### Patch Changes
+
+- [#77](https://github.com/sevenwestmedia-labs/nx-plugins/pull/77) [`8f14fee`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/8f14fee6102154d2bccdd6099a87e480de508682) Thanks [@bacarybruno](https://github.com/bacarybruno)! - remove fstree
+
 ## 0.10.0
 
 ### Minor Changes
