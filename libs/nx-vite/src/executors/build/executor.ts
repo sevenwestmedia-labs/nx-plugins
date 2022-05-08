@@ -1,6 +1,6 @@
 import { ExecutorContext } from '@nrwl/devkit'
 import * as path from 'path'
-import { build } from 'vite'
+import { build, InlineConfig } from 'vite'
 import { BuildExecutorSchema } from './schema'
 
 export default async function runExecutor(
@@ -12,17 +12,18 @@ export default async function runExecutor(
     }
 
     const appRoot = context.workspace.projects[context.projectName].root
-    const outputPath =
-        context.root && _options?.outputPath
-            ? path.join(context.root, _options.outputPath)
-            : undefined
 
-    await build({
+    const buildConfig: InlineConfig = {
         root: context.cwd + '/' + appRoot,
-        build: {
-            outDir: outputPath,
-        },
-    })
+    }
+
+    if (_options?.outputPath) {
+        buildConfig.build = {
+            outDir: path.join(context.cwd, _options.outputPath),
+        }
+    }
+
+    await build(buildConfig)
 
     return {
         success: true,
