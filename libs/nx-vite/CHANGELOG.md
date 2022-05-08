@@ -1,5 +1,11 @@
 # @wanews/nx-vite
 
+## 0.10.0
+
+### Minor Changes
+
+- [#74](https://github.com/sevenwestmedia-labs/nx-plugins/pull/74) [`505cac4`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/505cac47a928c600e78745c88cd96353a635f8d6) Thanks [@bacarybruno](https://github.com/bacarybruno)! - add outputPath option to specify vite output directory
+
 ## 0.9.1
 
 ### Patch Changes
