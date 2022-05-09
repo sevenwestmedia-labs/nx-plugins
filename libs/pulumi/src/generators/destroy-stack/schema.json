@@ -53,6 +53,6 @@
     },
     "required": [
         "projectName",
-        "env"
+        "environment"
     ]
 }
