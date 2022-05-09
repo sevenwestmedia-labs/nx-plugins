@@ -1,5 +1,11 @@
 # @wanews/nx-pulumi
 
+## 0.22.1
+
+### Patch Changes
+
+- [#78](https://github.com/sevenwestmedia-labs/nx-plugins/pull/78) [`4796baf`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/4796baf6921f3a556491ae7040e44b86a024586b) Thanks [@spike008t](https://github.com/spike008t)! - fix(generators): wrong required field name
+
 ## 0.22.0
 
 ### Minor Changes
