@@ -1,6 +1,5 @@
 import { S3 } from '@aws-sdk/client-s3'
 import { readProjectConfiguration, Tree, updateJson } from '@nrwl/devkit'
-import execa from 'execa'
 import path from 'path'
 import { getStackInfo } from '../../helpers/get-pulumi-args'
 import { execPulumi } from '../../helpers/exec-pulumi';
