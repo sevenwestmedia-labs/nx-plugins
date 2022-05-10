@@ -47,7 +47,7 @@ export default async function (
     if (options.removePendingOperations) {
         const stateFile = `${targetProjectConfig.root}/${stack}-state.json`
 
-        const pulumiExportArgs = [
+        const pulumiExportArgs: string[] = [
             'stack',
             'export',
             '--stack',
@@ -80,7 +80,7 @@ export default async function (
             return state
         })
 
-        const pulumiImportArgs = [
+        const pulumiImportArgs: string[] = [
             'stack',
             'import',
             '--stack', stack,
@@ -94,7 +94,7 @@ export default async function (
     }
 
     if (options.refreshBeforeDestroy) {
-        const pulumiRefreshArgs = [
+        const pulumiRefreshArgs: string[] = [
             'refresh',
             '--stack', stack,
             '--cwd', targetProjectConfig.root,
@@ -106,7 +106,7 @@ export default async function (
     }
 
     // delete the resources in the stack
-    const pulumiDestroyArgs = [
+    const pulumiDestroyArgs: string[] = [
         'destroy',
         '--stack', stack,
         '--cwd', targetProjectConfig.root,
@@ -118,7 +118,7 @@ export default async function (
 
     if (options.removeStack) {
         // remove the stack
-        const pulumiRemoveArgs = [
+        const pulumiRemoveArgs: string[] = [
             'stack', 
             'rm', 
             '--stack', stack,
