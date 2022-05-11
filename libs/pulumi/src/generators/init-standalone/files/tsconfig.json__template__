@@ -1,5 +1,5 @@
 {
-  "extends": "<%= offsetFromRoot %>tsconfig.settings.json",
+  "extends": "<%= offsetFromRoot %>tsconfig.base.json",
   "compilerOptions": {
     "outDir": "./bin",
     "rootDir": "./src",

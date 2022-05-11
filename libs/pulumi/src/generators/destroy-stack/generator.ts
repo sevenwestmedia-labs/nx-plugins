@@ -1,8 +1,8 @@
 import { S3 } from '@aws-sdk/client-s3'
 import { readProjectConfiguration, Tree, updateJson } from '@nrwl/devkit'
-import execa from 'execa'
 import path from 'path'
 import { getStackInfo } from '../../helpers/get-pulumi-args'
+import { execPulumi } from '../../helpers/exec-pulumi';
 import { CreateStackGeneratorSchema } from './schema'
 
 const s3 = new S3({})
@@ -47,7 +47,7 @@ export default async function (
     if (options.removePendingOperations) {
         const stateFile = `${targetProjectConfig.root}/${stack}-state.json`
 
-        const pulumiExportArgs = [
+        const pulumiExportArgs: string[] = [
             'stack',
             'export',
             '--stack',
@@ -55,10 +55,7 @@ export default async function (
             '--file',
             path.basename(stateFile),
         ]
-        console.log(`> pulumi ${pulumiExportArgs.join(' ')}`)
-        await execa('pulumi', pulumiExportArgs, {
-            stdio: [process.stdin, process.stdout, process.stderr],
-        })
+        await execPulumi(pulumiExportArgs);
 
         // remove the pending operations from the state
         updateJson(tree, stateFile, (state) => {
@@ -83,58 +80,51 @@ export default async function (
             return state
         })
 
-        const pulumiImportArgs = [
+        const pulumiImportArgs: string[] = [
             'stack',
             'import',
-            '--stack',
-            stack,
+            '--stack', stack,
+            '--cwd', targetProjectConfig.root,
             '--file',
             path.basename(stateFile),
         ]
-        console.log(`> pulumi ${pulumiImportArgs.join(' ')}`)
-        await execa('pulumi', pulumiImportArgs, {
-            stdio: [process.stdin, process.stdout, process.stderr],
-        })
+        await execPulumi(pulumiImportArgs);
 
         tree.delete(stateFile)
     }
 
     if (options.refreshBeforeDestroy) {
-        const pulumiRefreshArgs = [
+        const pulumiRefreshArgs: string[] = [
             'refresh',
-            '--stack',
-            stack,
+            '--stack', stack,
+            '--cwd', targetProjectConfig.root,
             ...(options.target
                 ? options.target.map((target) => `--target=${target}`)
                 : []),
         ]
-        console.log(`> pulumi ${pulumiRefreshArgs.join(' ')}`)
-        await execa('pulumi', pulumiRefreshArgs, {
-            stdio: [process.stdin, process.stdout, process.stderr],
-        })
+        await execPulumi(pulumiRefreshArgs);
     }
 
     // delete the resources in the stack
-    const pulumiDestroyArgs = [
+    const pulumiDestroyArgs: string[] = [
         'destroy',
-        '--stack',
-        stack,
+        '--stack', stack,
+        '--cwd', targetProjectConfig.root,
         ...(options.target
             ? options.target.map((target) => `--target=${target}`)
             : []),
     ]
-    console.log(`> pulumi ${pulumiDestroyArgs.join(' ')}`)
-    await execa('pulumi', pulumiDestroyArgs, {
-        stdio: [process.stdin, process.stdout, process.stderr],
-    })
+    await execPulumi(pulumiDestroyArgs);
 
     if (options.removeStack) {
         // remove the stack
-        const pulumiRemoveArgs = ['stack', 'rm', '--stack', stack]
-        console.log(`> pulumi ${pulumiRemoveArgs.join(' ')}`)
-        await execa('pulumi', pulumiRemoveArgs, {
-            stdio: [process.stdin, process.stdout, process.stderr],
-        })
+        const pulumiRemoveArgs: string[] = [
+            'stack', 
+            'rm', 
+            '--stack', stack,
+            '--cwd', targetProjectConfig.root,
+        ]
+        await execPulumi(pulumiRemoveArgs);
 
         // remove the config
         if (backendUrl && backendUrl.startsWith('s3://')) {
