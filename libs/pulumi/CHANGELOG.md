@@ -1,5 +1,11 @@
 # @wanews/nx-pulumi
 
+## 0.22.2
+
+### Patch Changes
+
+- [#79](https://github.com/sevenwestmedia-labs/nx-plugins/pull/79) [`ee7a533`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/ee7a533aba5e222499af2f2e92adfbe506e808a9) Thanks [@spike008t](https://github.com/spike008t)! - fix: add cwd arg on pulumi command for destroy generator
+
 ## 0.22.1
 
 ### Patch Changes
