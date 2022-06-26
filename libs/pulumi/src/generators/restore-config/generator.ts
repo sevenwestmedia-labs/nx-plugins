@@ -1,5 +1,6 @@
 import { S3 } from '@aws-sdk/client-s3'
 import { readProjectConfiguration, Tree } from '@nrwl/devkit'
+import { Readable } from 'node:stream'
 import { getStackInfo } from '../../helpers/get-pulumi-args'
 import { BackupConfigGeneratorSchema } from './schema'
 
@@ -36,9 +37,21 @@ export default async function (
         })
 
         if (response.Body) {
-            tree.write(stackFile, response.Body.toString())
+            tree.write(
+                stackFile,
+                await streamToString(response.Body as Readable),
+            )
         }
     } else {
         console.error('This generator only supports s3 backends currently')
     }
+}
+
+async function streamToString(stream: Readable): Promise<string> {
+    return await new Promise((resolve, reject) => {
+        const chunks: Uint8Array[] = []
+        stream.on('data', (chunk) => chunks.push(chunk))
+        stream.on('error', reject)
+        stream.on('end', () => resolve(Buffer.concat(chunks).toString('utf-8')))
+    })
 }
