@@ -13,7 +13,7 @@ nx g @wanews/nx-pulumi:init
 ### create-stack
 
 ```
-nx @wanews/nx-pulumi:create-stack --projectName=my-app-infrastructure --env=dev
+nx g @wanews/nx-pulumi:create-stack --projectName=my-app-infrastructure --env=dev
 ```
 
 #### env
@@ -25,7 +25,7 @@ Will create the stack name by prefixing the pulumi project name. ie `--env=prod`
 ### destroy-stack
 
 ```
-nx wanews/nx-pulumi:destroy-stack --projectName=my-app-infrastructure --env=dev
+nx g @wanews/nx-pulumi:destroy-stack --projectName=my-app-infrastructure --env=dev
 ```
 
 #### env
@@ -39,7 +39,7 @@ Will create the stack name by prefixing the pulumi project name. ie `--env=prod`
 Config files have the secret provider hashes so as an alternative to checking them into git you can use this command to put the config files into s3, then optionally restore them before doing an up
 
 ```
-nx wanews/nx-pulumi:backup-config --projectName=my-app-infrastructure --env=dev
+nx g @wanews/nx-pulumi:backup-config --projectName=my-app-infrastructure --env=dev
 ```
 
 ### config-restore
@@ -47,7 +47,7 @@ nx wanews/nx-pulumi:backup-config --projectName=my-app-infrastructure --env=dev
 Config files have the secret provider hashes so as an alternative to checking them into git you can use this command to put the config files into s3, then optionally restore them before doing an up
 
 ```
-nx wanews/nx-pulumi:restore-config --projectName=my-app-infrastructure --env=dev
+nx g @wanews/nx-pulumi:restore-config --projectName=my-app-infrastructure --env=dev
 ```
 
 ## Executors
