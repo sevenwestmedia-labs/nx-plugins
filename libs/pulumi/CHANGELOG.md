@@ -1,5 +1,11 @@
 # @wanews/nx-pulumi
 
+## 0.22.4
+
+### Patch Changes
+
+- [#81](https://github.com/sevenwestmedia-labs/nx-plugins/pull/81) [`f95fba8`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/f95fba8f96ebe450a88851ecfa285ff699c734e9) Thanks [@mattfysh](https://github.com/mattfysh)! - Fix readme commands
+
 ## 0.22.3
 
 ### Patch Changes
