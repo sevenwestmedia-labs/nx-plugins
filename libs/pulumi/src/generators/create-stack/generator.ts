@@ -36,15 +36,18 @@ export default async function (
     ]
 
     console.log(`> pulumi ${pulumiArgs.join(' ')}`)
-    const pulumi = execa('pulumi', pulumiArgs, {
-        stdio: [process.stdin, process.stdout, process.stderr],
-    })
-    try {
-        const res = await pulumi
-        if (res.exitCode !== 0) {
+
+    return async () => {
+        const pulumi = execa('pulumi', pulumiArgs, {
+            stdio: [process.stdin, process.stdout, process.stderr],
+        })
+        try {
+            const res = await pulumi
+            if (res.exitCode !== 0) {
+                return { success: false }
+            }
+        } catch {
             return { success: false }
         }
-    } catch {
-        return { success: false }
     }
 }
