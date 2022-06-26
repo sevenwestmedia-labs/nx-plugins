@@ -1,5 +1,11 @@
 # @wanews/nx-pulumi
 
+## 0.22.5
+
+### Patch Changes
+
+- [#85](https://github.com/sevenwestmedia-labs/nx-plugins/pull/85) [`9736ca4`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/9736ca44dddf7318b81217fc4dfe0648e871d835) Thanks [@JakeGinnivan](https://github.com/JakeGinnivan)! - Fixed restore config not writing the file correctly
+
 ## 0.22.4
 
 ### Patch Changes
