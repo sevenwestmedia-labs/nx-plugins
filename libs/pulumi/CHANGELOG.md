@@ -1,5 +1,11 @@
 # @wanews/nx-pulumi
 
+## 0.22.3
+
+### Patch Changes
+
+- [#84](https://github.com/sevenwestmedia-labs/nx-plugins/pull/84) [`980834e`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/980834e1b473e2f826c18e869a22433db18eac11) Thanks [@JakeGinnivan](https://github.com/JakeGinnivan)! - Fixed create-stack generator not respecting --dry-run
+
 ## 0.22.2
 
 ### Patch Changes
