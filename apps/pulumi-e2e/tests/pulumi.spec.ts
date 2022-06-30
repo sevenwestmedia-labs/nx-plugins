@@ -3,7 +3,7 @@ import {
     patchPackageJsonForPlugin,
     readJson,
     runCommandAsync,
-    uniq,
+    uniq
 } from '@nrwl/nx-plugin/testing'
 import { describe, expect, it } from 'vitest'
 
@@ -53,7 +53,7 @@ describe('init e2e', () => {
                     executor: '@nrwl/workspace:run-commands',
                     options: {
                         command: 'npx vitest --run',
-                        cwd: `libs/apps/${app}-infrastructure`,
+                        cwd: `apps/${app}-infrastructure`,
                     },
                 },
                 up: {
