@@ -1,5 +1,11 @@
 # @wanews/nx-pulumi
 
+## 0.22.6
+
+### Patch Changes
+
+- [#86](https://github.com/sevenwestmedia-labs/nx-plugins/pull/86) [`4597df7`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/4597df7e3de94c2e17caff1acf208adddb565424) Thanks [@eemelipa](https://github.com/eemelipa)! - Fix test command path in generate init template
+
 ## 0.22.5
 
 ### Patch Changes
