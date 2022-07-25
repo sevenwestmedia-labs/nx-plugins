@@ -47,6 +47,9 @@
         "disableIntegrityChecking": {
             "type": "boolean"
         },
+        "skipPreview": {
+            "type": "boolean"
+        },
         "nonInteractive": {
             "type": "boolean"
         },

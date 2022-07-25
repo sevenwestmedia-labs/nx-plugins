@@ -71,6 +71,7 @@ export default async function runUpExecutor(
         ...(options.yes ? ['--yes'] : []),
         '--stack',
         stack,
+        ...(options.skipPreview ? ['--skip-preview'] : []),
         ...(options.nonInteractive ? ['--non-interactive'] : []),
         ...(options.secretsProvider
             ? ['--secrets-provider', options.secretsProvider]
