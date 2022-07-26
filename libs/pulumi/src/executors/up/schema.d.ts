@@ -7,6 +7,7 @@ export interface BuildExecutorSchema {
     }>
     yes?: boolean
     disableIntegrityChecking?: boolean
+    skipPreview?: boolean
     nonInteractive?: boolean
     secretsProvider?: string
     environment?: string
