@@ -1,5 +1,11 @@
 # @wanews/nx-pulumi
 
+## 0.23.0
+
+### Minor Changes
+
+- [#88](https://github.com/sevenwestmedia-labs/nx-plugins/pull/88) [`e8a452f`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/e8a452fbe2cf8970d08154c138cf69effd676109) Thanks [@eemelipa](https://github.com/eemelipa)! - Add skip preview configuration to Pulumi up executor
+
 ## 0.22.6
 
 ### Patch Changes
