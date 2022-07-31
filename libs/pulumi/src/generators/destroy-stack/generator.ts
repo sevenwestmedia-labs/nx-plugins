@@ -113,16 +113,19 @@ export default async function (
         ...(options.target
             ? options.target.map((target) => `--target=${target}`)
             : []),
+        ...(options.yes ? ['--yes'] : []),
+        ...(options.skipPreview ? ['--skip-preview'] : []),
     ]
     await execPulumi(pulumiDestroyArgs);
 
     if (options.removeStack) {
         // remove the stack
         const pulumiRemoveArgs: string[] = [
-            'stack', 
-            'rm', 
+            'stack',
+            'rm',
             '--stack', stack,
             '--cwd', targetProjectConfig.root,
+            ...(options.yes ? ['--yes'] : []),
         ]
         await execPulumi(pulumiRemoveArgs);
 

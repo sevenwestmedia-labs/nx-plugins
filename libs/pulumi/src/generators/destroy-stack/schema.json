@@ -28,6 +28,12 @@
         "configurationStackFormat": {
             "type": "string"
         },
+        "yes": {
+            "type": "boolean"
+        },
+        "skipPreview": {
+            "type": "boolean"
+        },
         "ignorePendingCreateOperations": {
             "type": "boolean"
         },

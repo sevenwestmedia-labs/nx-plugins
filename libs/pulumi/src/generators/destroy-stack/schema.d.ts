@@ -6,6 +6,8 @@ export interface DestroyStackGeneratorSchema {
 
     target?: string[]
 
+    yes?: boolean
+    skipPreview?: boolean
     ignorePendingCreateOperations?: boolean
     removeLock?: boolean
     removeStack?: boolean
