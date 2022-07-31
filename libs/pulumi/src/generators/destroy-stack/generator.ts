@@ -3,13 +3,13 @@ import { readProjectConfiguration, Tree, updateJson } from '@nrwl/devkit'
 import path from 'path'
 import { getStackInfo } from '../../helpers/get-pulumi-args'
 import { execPulumi } from '../../helpers/exec-pulumi';
-import { CreateStackGeneratorSchema } from './schema'
+import { DestroyStackGeneratorSchema } from './schema'
 
 const s3 = new S3({})
 
 export default async function (
     tree: Tree,
-    options: CreateStackGeneratorSchema,
+    options: DestroyStackGeneratorSchema,
 ) {
     if (!options.projectName) {
         throw new Error('No projectName')

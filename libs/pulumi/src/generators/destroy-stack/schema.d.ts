@@ -1,4 +1,4 @@
-export interface CreateStackGeneratorSchema {
+export interface DestroyStackGeneratorSchema {
     projectName: string
     environment?: string
     stack?: string
