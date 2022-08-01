@@ -1,5 +1,11 @@
 # @wanews/nx-pulumi
 
+## 0.24.0
+
+### Minor Changes
+
+- [#89](https://github.com/sevenwestmedia-labs/nx-plugins/pull/89) [`63571c0`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/63571c09fa7aec3a29f7f4fd31d64791a5e581e0) Thanks [@eemelipa](https://github.com/eemelipa)! - Add yes and skipPreview flags to Pulumi destroy-stack generator
+
 ## 0.23.0
 
 ### Minor Changes
