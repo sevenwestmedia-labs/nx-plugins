@@ -1,4 +1,4 @@
-export interface CreateStackGeneratorSchema {
+export interface DestroyStackGeneratorSchema {
     projectName: string
     environment?: string
     stack?: string
@@ -6,6 +6,8 @@ export interface CreateStackGeneratorSchema {
 
     target?: string[]
 
+    yes?: boolean
+    skipPreview?: boolean
     ignorePendingCreateOperations?: boolean
     removeLock?: boolean
     removeStack?: boolean
