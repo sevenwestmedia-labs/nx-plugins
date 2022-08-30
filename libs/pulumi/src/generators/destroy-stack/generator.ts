@@ -1,11 +1,8 @@
-import { S3 } from '@aws-sdk/client-s3'
 import { readProjectConfiguration, Tree, updateJson } from '@nrwl/devkit'
 import path from 'path'
+import { execPulumi } from '../../helpers/exec-pulumi'
 import { getStackInfo } from '../../helpers/get-pulumi-args'
-import { execPulumi } from '../../helpers/exec-pulumi';
 import { DestroyStackGeneratorSchema } from './schema'
-
-const s3 = new S3({})
 
 export default async function (
     tree: Tree,
@@ -29,6 +26,8 @@ export default async function (
 
     // Currently only support S3 locks
     if (options.removeLock && backendUrl && backendUrl.startsWith('s3')) {
+        const { S3 } = await import('@aws-sdk/client-s3')
+        const s3 = new S3({})
         const Bucket = backendUrl.replace('s3://', '')
         const locksResponse = await s3.listObjectsV2({
             Bucket,
@@ -55,7 +54,7 @@ export default async function (
             '--file',
             path.basename(stateFile),
         ]
-        await execPulumi(pulumiExportArgs);
+        await execPulumi(pulumiExportArgs)
 
         // remove the pending operations from the state
         updateJson(tree, stateFile, (state) => {
@@ -83,12 +82,14 @@ export default async function (
         const pulumiImportArgs: string[] = [
             'stack',
             'import',
-            '--stack', stack,
-            '--cwd', targetProjectConfig.root,
+            '--stack',
+            stack,
+            '--cwd',
+            targetProjectConfig.root,
             '--file',
             path.basename(stateFile),
         ]
-        await execPulumi(pulumiImportArgs);
+        await execPulumi(pulumiImportArgs)
 
         tree.delete(stateFile)
     }
@@ -96,41 +97,49 @@ export default async function (
     if (options.refreshBeforeDestroy) {
         const pulumiRefreshArgs: string[] = [
             'refresh',
-            '--stack', stack,
-            '--cwd', targetProjectConfig.root,
+            '--stack',
+            stack,
+            '--cwd',
+            targetProjectConfig.root,
             ...(options.target
                 ? options.target.map((target) => `--target=${target}`)
                 : []),
         ]
-        await execPulumi(pulumiRefreshArgs);
+        await execPulumi(pulumiRefreshArgs)
     }
 
     // delete the resources in the stack
     const pulumiDestroyArgs: string[] = [
         'destroy',
-        '--stack', stack,
-        '--cwd', targetProjectConfig.root,
+        '--stack',
+        stack,
+        '--cwd',
+        targetProjectConfig.root,
         ...(options.target
             ? options.target.map((target) => `--target=${target}`)
             : []),
         ...(options.yes ? ['--yes'] : []),
         ...(options.skipPreview ? ['--skip-preview'] : []),
     ]
-    await execPulumi(pulumiDestroyArgs);
+    await execPulumi(pulumiDestroyArgs)
 
     if (options.removeStack) {
         // remove the stack
         const pulumiRemoveArgs: string[] = [
             'stack',
             'rm',
-            '--stack', stack,
-            '--cwd', targetProjectConfig.root,
+            '--stack',
+            stack,
+            '--cwd',
+            targetProjectConfig.root,
             ...(options.yes ? ['--yes'] : []),
         ]
-        await execPulumi(pulumiRemoveArgs);
+        await execPulumi(pulumiRemoveArgs)
 
         // remove the config
         if (backendUrl && backendUrl.startsWith('s3://')) {
+            const { S3 } = await import('@aws-sdk/client-s3')
+            const s3 = new S3({})
             const Bucket = backendUrl.replace('s3://', '')
             console.log(
                 `Deleting ${backendUrl}/.pulumi/config-backups/${stack}`,

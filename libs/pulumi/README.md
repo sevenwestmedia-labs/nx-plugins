@@ -38,6 +38,8 @@ Will create the stack name by prefixing the pulumi project name. ie `--env=prod`
 
 Config files have the secret provider hashes so as an alternative to checking them into git you can use this command to put the config files into s3, then optionally restore them before doing an up
 
+If you use this feature you will need to install `@aws-sdk/client-s3`
+
 ```
 nx g @wanews/nx-pulumi:backup-config --projectName=my-app-infrastructure --env=dev
 ```
