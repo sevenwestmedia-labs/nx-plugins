@@ -11,10 +11,10 @@
         "execa": "^5.1.1"
     },
     "peerDependencies": {
-        "@nrwl/devkit": ">13.10.0",
-        "nx": ">13.10.0",
-        "vite": ">2.0.0",
+        "@nrwl/devkit": ">14.5.0",
+        "nx": ">14.5.0",
+        "vite": ">3.0.0",
         "vite-tsconfig-paths": ">3.0.0",
-        "vitest": "^0.0.102"
+        "vitest": "^0.22.0"
     }
 }

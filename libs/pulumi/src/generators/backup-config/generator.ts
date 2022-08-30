@@ -1,9 +1,6 @@
-import { S3 } from '@aws-sdk/client-s3'
 import { readProjectConfiguration, Tree } from '@nrwl/devkit'
 import { getStackInfo } from '../../helpers/get-pulumi-args'
 import { BackupConfigGeneratorSchema } from './schema'
-
-const s3 = new S3({})
 
 export default async function (
     tree: Tree,
@@ -26,6 +23,8 @@ export default async function (
     )
 
     if (backendUrl && backendUrl.startsWith('s3')) {
+        const { S3 } = await import('@aws-sdk/client-s3')
+        const s3 = new S3({})
         const Bucket = backendUrl.replace('s3://', '')
         console.log(
             `Uploading ${stack} config to ${backendUrl}/.pulumi/config-backups/${stack}`,
