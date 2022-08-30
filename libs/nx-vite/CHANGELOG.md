@@ -1,5 +1,11 @@
 # @wanews/nx-vite
 
+## 0.11.0
+
+### Minor Changes
+
+- [#90](https://github.com/sevenwestmedia-labs/nx-plugins/pull/90) [`4408cd2`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/4408cd2c6c47de3152a5afb9311f5aed986a619e) Thanks [@JakeGinnivan](https://github.com/JakeGinnivan)! - Upgrade depedencies
+
 ## 0.10.1
 
 ### Patch Changes

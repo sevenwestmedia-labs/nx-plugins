@@ -1,5 +1,11 @@
 # @wanews/nx-typescript-project-references
 
+## 0.21.0
+
+### Minor Changes
+
+- [#90](https://github.com/sevenwestmedia-labs/nx-plugins/pull/90) [`4408cd2`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/4408cd2c6c47de3152a5afb9311f5aed986a619e) Thanks [@JakeGinnivan](https://github.com/JakeGinnivan)! - Upgrade depedencies
+
 ## 0.20.1
 
 ### Patch Changes

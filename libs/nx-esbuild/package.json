@@ -1,6 +1,6 @@
 {
     "name": "@wanews/nx-esbuild",
-    "version": "0.24.1",
+    "version": "0.25.0",
     "license": "MIT",
     "repository": "https://github.com/sevenwestmedia-labs/nx-plugins",
     "author": "Seven West Media WA",
