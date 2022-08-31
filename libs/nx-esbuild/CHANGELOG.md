@@ -1,5 +1,11 @@
 # @wanews/nx-esbuild
 
+## 0.26.1
+
+### Patch Changes
+
+- [#93](https://github.com/sevenwestmedia-labs/nx-plugins/pull/93) [`0a1efb2`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/0a1efb21e78ea678afcd9cb6c37ab5c9644f8486) Thanks [@matthewfleming](https://github.com/matthewfleming)! - Fix another package detect
+
 ## 0.26.0
 
 ### Minor Changes
