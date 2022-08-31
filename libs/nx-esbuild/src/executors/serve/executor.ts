@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { ExecutorContext } from '@nrwl/devkit'
+import { detectPackageManager, ExecutorContext } from '@nrwl/devkit'
 import { build } from 'esbuild'
 import execa from 'execa'
 import fs from 'node:fs'
-import { detectPackageManager } from 'nx/src/utils/package-manager'
 import { ServeExecutorSchema } from './schema'
 
 export default async function runExecutor(
@@ -32,8 +31,8 @@ export default async function runExecutor(
         packageManager === 'pnpm'
             ? 'pnpm'
             : packageManager === 'yarn'
-            ? 'yarn'
-            : 'npx'
+                ? 'yarn'
+                : 'npx'
     const appRoot = context.workspace.projects[context.projectName].root
 
     const packageJson = fs.existsSync(`${appRoot}/package.json`)
@@ -72,24 +71,24 @@ export default async function runExecutor(
 
     const serveProcess = customServeCommand
         ? execa.command(customServeCommand, {
-              stdio: [process.stdin, process.stdout, 'pipe'],
-              cwd: customServeCommandCwd,
-          })
+            stdio: [process.stdin, process.stdout, 'pipe'],
+            cwd: customServeCommandCwd,
+        })
         : execa(
-              packageManagerCmd,
-              [
-                  'nodemon',
-                  '-r',
-                  'dotenv/config',
-                  '--enable-source-maps',
-                  options.outfile!,
-                  `--watch`,
-                  options.outfile!,
-              ],
-              {
-                  stdio: [process.stdin, process.stdout, 'pipe'],
-              },
-          )
+            packageManagerCmd,
+            [
+                'nodemon',
+                '-r',
+                'dotenv/config',
+                '--enable-source-maps',
+                options.outfile!,
+                `--watch`,
+                options.outfile!,
+            ],
+            {
+                stdio: [process.stdin, process.stdout, 'pipe'],
+            },
+        )
     await serveProcess
     if (serveProcess.connected) {
         serveProcess.cancel()
