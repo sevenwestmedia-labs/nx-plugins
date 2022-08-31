@@ -14,7 +14,7 @@
     "peerDependencies": {
         "@nrwl/devkit": ">13.10.0",
         "dotenv": ">8.0.0",
-        "esbuild": ">0.11.0",
+        "esbuild": "^0.15.6",
         "nodemon": ">2.0.0"
     }
 }
