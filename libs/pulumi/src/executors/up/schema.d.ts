@@ -1,4 +1,4 @@
-export interface BuildExecutorSchema {
+export interface UpExecutorSchema {
     configurationStackFormat?: string
     buildTargets?: Array<{
         project: string
@@ -12,4 +12,5 @@ export interface BuildExecutorSchema {
     secretsProvider?: string
     environment?: string
     stack?: string
+    refresh?: boolean
 }

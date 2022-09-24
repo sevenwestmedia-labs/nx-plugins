@@ -2,10 +2,10 @@ import { ExecutorContext, runExecutor } from '@nrwl/devkit'
 import execa from 'execa'
 import fs from 'fs'
 import { getStackInfo } from '../../helpers/get-pulumi-args'
-import { BuildExecutorSchema } from './schema'
+import { UpExecutorSchema } from './schema'
 
 export default async function runUpExecutor(
-    options: BuildExecutorSchema,
+    options: UpExecutorSchema,
     context: ExecutorContext,
 ) {
     if (!context.projectName) {
@@ -79,6 +79,7 @@ export default async function runUpExecutor(
         ...(options.disableIntegrityChecking
             ? ['--disable-integrity-check']
             : []),
+        ...(options.refresh ? ['--refresh'] : []),
     ]
 
     console.log(`> pulumi ${pulumiArgs.join(' ')}`)
