@@ -5,6 +5,16 @@
             "implementation": "./src/executors/up/executor",
             "schema": "./src/executors/up/schema.json",
             "description": "Run pulumi up"
+        },
+        "refresh": {
+            "implementation": "./src/executors/refresh/executor",
+            "schema": "./src/executors/refresh/schema.json",
+            "description": "Run pulumi refresh"
+        },
+        "destroy": {
+            "implementation": "./src/executors/destroy/executor",
+            "schema": "./src/executors/destroy/schema.json",
+            "description": "Run pulumi destroy"
         }
     }
 }

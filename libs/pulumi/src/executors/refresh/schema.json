@@ -1,0 +1,39 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "cli": "nx",
+    "title": "Pulumi refresh executor",
+    "description": "",
+    "type": "object",
+    "properties": {
+        "yes": {
+            "description": "",
+            "type": "boolean"
+        },
+        "environment": {
+            "description": "",
+            "type": "string",
+            "aliases": [
+                "env"
+            ]
+        },
+        "stack": {
+            "description": "Pulumi stack name",
+            "type": "string"
+        },
+        "configurationStackFormat": {
+            "type": "string"
+        },
+        "disableIntegrityChecking": {
+            "type": "boolean"
+        },
+        "skipPreview": {
+            "type": "boolean"
+        },
+        "nonInteractive": {
+            "type": "boolean"
+        },
+        "secretsProvider": {
+            "type": "string"
+        }
+    }
+}

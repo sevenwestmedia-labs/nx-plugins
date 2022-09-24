@@ -115,6 +115,12 @@ export default async function (host: Tree, options: PulumiGeneratorSchema) {
                     ],
                 },
             },
+            destroy: {
+                executor: '@wanews/nx-pulumi:destroy',
+            },
+            refresh: {
+                executor: '@wanews/nx-pulumi:refresh',
+            },
         },
         tags: normalizedOptions.parsedTags,
         implicitDependencies: [normalizedOptions.targetProjectName],
