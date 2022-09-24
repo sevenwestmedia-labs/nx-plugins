@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/schema",
     "cli": "nx",
-    "title": "Pulumi up executor",
+    "title": "Pulumi destroy executor",
     "description": "",
     "type": "object",
     "properties": {
@@ -19,27 +19,6 @@
         "stack": {
             "description": "Pulumi stack name",
             "type": "string"
-        },
-        "buildTargets": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "project": {
-                        "type": "string"
-                    },
-                    "target": {
-                        "type": "string"
-                    },
-                    "configuration": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "project",
-                    "target"
-                ]
-            }
         },
         "configurationStackFormat": {
             "type": "string"

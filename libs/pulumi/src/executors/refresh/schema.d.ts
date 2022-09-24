@@ -1,10 +1,5 @@
-export interface UpExecutorSchema {
+export interface RefreshExecutorSchema {
     configurationStackFormat?: string
-    buildTargets?: Array<{
-        project: string
-        target: string
-        configuration?: string
-    }>
     yes?: boolean
     disableIntegrityChecking?: boolean
     skipPreview?: boolean
@@ -12,5 +7,4 @@ export interface UpExecutorSchema {
     secretsProvider?: string
     environment?: string
     stack?: string
-    refresh?: boolean
 }

@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/schema",
     "cli": "nx",
-    "title": "Pulumi up executor",
+    "title": "Pulumi refresh executor",
     "description": "",
     "type": "object",
     "properties": {
@@ -20,27 +20,6 @@
             "description": "Pulumi stack name",
             "type": "string"
         },
-        "buildTargets": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "project": {
-                        "type": "string"
-                    },
-                    "target": {
-                        "type": "string"
-                    },
-                    "configuration": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "project",
-                    "target"
-                ]
-            }
-        },
         "configurationStackFormat": {
             "type": "string"
         },
@@ -55,9 +34,6 @@
         },
         "secretsProvider": {
             "type": "string"
-        },
-        "refresh": {
-            "type": "boolean"
         }
     }
 }

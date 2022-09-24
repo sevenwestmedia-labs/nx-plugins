@@ -1,10 +1,5 @@
-export interface UpExecutorSchema {
+export interface DestroyExecutorSchema {
     configurationStackFormat?: string
-    buildTargets?: Array<{
-        project: string
-        target: string
-        configuration?: string
-    }>
     yes?: boolean
     disableIntegrityChecking?: boolean
     skipPreview?: boolean

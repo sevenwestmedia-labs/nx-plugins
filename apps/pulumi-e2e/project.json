@@ -4,7 +4,7 @@
     "sourceRoot": "apps/pulumi-e2e/src",
     "targets": {
         "e2e": {
-            "executor": "@nrwl/workspace:run-commands",
+            "executor": "nx:run-commands",
             "options": {
                 "commands": [
                     "npx nx run nx-esbuild:build",
