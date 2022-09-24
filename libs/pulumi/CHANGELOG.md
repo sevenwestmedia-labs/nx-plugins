@@ -1,5 +1,13 @@
 # @wanews/nx-pulumi
 
+## 0.26.0
+
+### Minor Changes
+
+- [#95](https://github.com/sevenwestmedia-labs/nx-plugins/pull/95) [`153fb56`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/153fb5659c3037625f855e7b039567fc5f1a034d) Thanks [@JakeGinnivan](https://github.com/JakeGinnivan)! - Add refresh flag to up executor
+
+- [#95](https://github.com/sevenwestmedia-labs/nx-plugins/pull/95) [`153fb56`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/153fb5659c3037625f855e7b039567fc5f1a034d) Thanks [@JakeGinnivan](https://github.com/JakeGinnivan)! - Add refresh and destroy executors
+
 ## 0.25.0
 
 ### Minor Changes
