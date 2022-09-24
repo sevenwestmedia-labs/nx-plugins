@@ -79,6 +79,12 @@ export default async function (host: Tree, options: PulumiGeneratorSchema) {
                     cwd: `libs/${normalizedOptions.projectRoot}`,
                 },
             },
+            up: {
+                executor: '@wanews/nx-pulumi:up',
+                options: {
+                    buildTargets: [],
+                },
+            },
         },
         tags: normalizedOptions.parsedTags,
     })
