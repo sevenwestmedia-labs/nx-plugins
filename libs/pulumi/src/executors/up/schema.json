@@ -12,9 +12,7 @@
         "environment": {
             "description": "",
             "type": "string",
-            "aliases": [
-                "env"
-            ]
+            "aliases": ["env"]
         },
         "stack": {
             "description": "Pulumi stack name",
@@ -35,10 +33,7 @@
                         "type": "string"
                     }
                 },
-                "required": [
-                    "project",
-                    "target"
-                ]
+                "required": ["project", "target"]
             }
         },
         "configurationStackFormat": {
@@ -58,6 +53,13 @@
         },
         "refresh": {
             "type": "boolean"
+        },
+        "envVars": {
+            "description": "Array of Environment Variables",
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
         }
     }
 }
