@@ -1,5 +1,11 @@
 # @wanews/nx-pulumi
 
+## 0.27.0
+
+### Minor Changes
+
+- [#101](https://github.com/sevenwestmedia-labs/nx-plugins/pull/101) [`0bdd538`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/0bdd5385399e380cbebaebbc613d2a965a91daaf) Thanks [@PatrickMilroy](https://github.com/PatrickMilroy)! - Allow passing in Environment Variables by `--envVars=` arguement
+
 ## 0.26.0
 
 ### Minor Changes
