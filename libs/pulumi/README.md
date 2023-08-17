@@ -66,6 +66,14 @@ nx up my-app-infrastructure --stack dev
 
 Will create the stack name by prefixing the pulumi project name. ie `--env=prod` is the same as `--stack=<projectname>.prod`.
 
+#### Environment Variables
+
+`--envVars="KEY=value`
+
+Passes through a comma-seperated list of environment variables to the pulumi command
+
+For example, if you need to build docker images built by pulumi to target a specific architechure CPU architechure (eg `linux/amd64`), you can the add arguement `--envVars="DOCKER_DEFAULT_PLATFORM=linux/amd64"`
+
 ## Running deploy
 
 @wanews/nx-pulumi will add a `deploy` target to the selected project. This will start pulumi with a `--cwd` of the infrastructure project automatically

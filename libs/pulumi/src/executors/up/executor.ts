@@ -64,6 +64,15 @@ export default async function runUpExecutor(
         }
     }
 
+    const envObject: {
+        [key: string]: string
+    } = {}
+
+    options.envVars?.forEach((envVar) => {
+        const [key, value] = envVar.split('=')
+        envObject[key] = value
+    })
+
     const pulumiArgs = [
         'up',
         '--cwd',
@@ -83,8 +92,10 @@ export default async function runUpExecutor(
     ]
 
     console.log(`> pulumi ${pulumiArgs.join(' ')}`)
+    console.log(`${options.envVars}`)
     const pulumi = execa('pulumi', pulumiArgs, {
         stdio: [process.stdin, process.stdout, process.stderr],
+        env: envObject,
     })
     try {
         const res = await pulumi

@@ -13,4 +13,5 @@ export interface UpExecutorSchema {
     environment?: string
     stack?: string
     refresh?: boolean
+    envVars?: string[]
 }
