@@ -65,7 +65,9 @@ export default async function (host: Tree, options: NodeGeneratorSchema) {
         targets: {
             build: {
                 executor: '@wanews/nx-vite:build',
-                options: {},
+                options: {
+                    open: true,
+                },
             },
             serve: {
                 executor: '@wanews/nx-vite:serve',
