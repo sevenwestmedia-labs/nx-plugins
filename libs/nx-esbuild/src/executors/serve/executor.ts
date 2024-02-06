@@ -71,7 +71,7 @@ export default async function runExecutor(
 
     const serveProcess = customServeCommand
         ? execa.command(customServeCommand, {
-            stdio: [process.stdin, process.stdout, 'pipe'],
+            stdio: [process.stdin, process.stdout, process.stderr, 'pipe'],
             cwd: customServeCommandCwd,
         })
         : execa(
@@ -86,7 +86,7 @@ export default async function runExecutor(
                 options.outfile!,
             ],
             {
-                stdio: [process.stdin, process.stdout, 'pipe'],
+                stdio: [process.stdin, process.stdout, process.stderr, 'pipe'],
             },
         )
     await serveProcess
