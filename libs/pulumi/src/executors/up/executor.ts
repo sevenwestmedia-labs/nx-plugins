@@ -92,7 +92,10 @@ export default async function runUpExecutor(
     ]
 
     console.log(`> pulumi ${pulumiArgs.join(' ')}`)
-    console.log(`${options.envVars}`)
+    if (options.envVars) {
+        console.log(`${options.envVars}`)
+    }
+
     const pulumi = execa('pulumi', pulumiArgs, {
         stdio: [process.stdin, process.stdout, process.stderr],
         env: envObject,
