@@ -1,4 +1,5 @@
 {
+    "name": "typescript-project-references",
     "$schema": "../../node_modules/nx/schemas/project-schema.json",
     "sourceRoot": "libs/typescript-project-references/src",
     "projectType": "library",

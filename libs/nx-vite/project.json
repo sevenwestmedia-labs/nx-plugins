@@ -1,4 +1,5 @@
 {
+    "name": "nx-vite",
     "$schema": "../../node_modules/nx/schemas/project-schema.json",
     "sourceRoot": "libs/nx-vite/src",
     "projectType": "library",

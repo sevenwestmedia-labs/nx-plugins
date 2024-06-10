@@ -1,8 +1,4 @@
 {
-    "npmScope": "wanews",
-    "affected": {
-        "defaultBase": "master"
-    },
     "implicitDependencies": {
         "workspace.json": "*",
         "package.json": {
@@ -17,16 +13,25 @@
     "tasksRunnerOptions": {
         "default": {
             "runner": "@nx/workspace/tasks-runners/default",
-            "options": {
-                "cacheableOperations": ["build", "lint", "test", "e2e"],
-                "parallel": 1
-            }
+            "options": {}
         }
     },
     "$schema": "./node_modules/nx/schemas/nx-schema.json",
     "targetDefaults": {
         "build": {
-            "dependsOn": ["^build"]
+            "dependsOn": ["^build"],
+            "cache": true
+        },
+        "lint": {
+            "cache": true
+        },
+        "test": {
+            "cache": true
+        },
+        "e2e": {
+            "cache": true
         }
-    }
+    },
+    "parallel": 1,
+    "defaultBase": "master"
 }
