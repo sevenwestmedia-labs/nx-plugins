@@ -1,5 +1,11 @@
 # @wanews/nx-pulumi
 
+## 0.28.0
+
+### Minor Changes
+
+- [#102](https://github.com/sevenwestmedia-labs/nx-plugins/pull/102) [`6f3b3b3`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/6f3b3b3860f27184c45f88bbee3693bf79c2246a) Thanks [@catrielmuller](https://github.com/catrielmuller)! - Hide undefinded log when the env vars are not defined
+
 ## 0.27.0
 
 ### Minor Changes
