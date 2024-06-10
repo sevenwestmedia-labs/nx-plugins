@@ -33,13 +33,13 @@ describe('typescript-project-references e2e', () => {
 
         await runCommandAsyncHandlingError('npm install')
         await runNxCommandAsync(
-            `generate @nx/js:library --name=${libName} --no-interactive`,
+            `generate @nx/js:library --name=${libName} --directory=libs --no-interactive`,
         )
 
         console.debug(`4) Now let's generate lib2: '${lib2Name}'...`)
 
         await runNxCommandAsync(
-            `generate @nx/js:library --name=${lib2Name} --no-interactive`,
+            `generate @nx/js:library --name=${lib2Name} --directory=libs --no-interactive`,
         )
 
         console.debug(
@@ -49,7 +49,7 @@ describe('typescript-project-references e2e', () => {
         patchPackageJsonForPlugin('@wanews/nx-esbuild', 'libs/nx-esbuild')
         await runCommandAsyncHandlingError('npm install')
         await runCommandAsyncHandlingError(
-            `npx nx generate @wanews/nx-esbuild:node ${appName}`,
+            `npx nx generate @wanews/nx-esbuild:node ${appName} --directory=apps`,
         )
 
         console.debug(
@@ -75,7 +75,7 @@ describe('typescript-project-references e2e', () => {
         )
 
         updateFile(
-            `./${appName}/src/main.ts`,
+            `./apps/${appName}/src/main.ts`,
             `import { ${libName} } from '@proj/${libName}'
 
 console.log(${libName}())`,
@@ -86,14 +86,17 @@ console.log(${libName}())`,
         )
 
         // Update TS Project references so app -> lib
-        addTsConfigReference(`${appName}/tsconfig.json`, `../${libName}`)
+        addTsConfigReference(
+            `apps/${appName}/tsconfig.json`,
+            `../../libs/${libName}`,
+        )
 
         console.debug(
             `10) Now let's direct the ${libName} tsconfig.json to ${lib2Name}...`,
         )
 
         // Update TS Project references so lib -> lib2
-        addTsConfigReference(`${libName}/tsconfig.json`, `../${lib2Name}`)
+        addTsConfigReference(`libs/${libName}/tsconfig.json`, `../${lib2Name}`)
 
         console.debug(`11) Let's try to build them all now...`)
 
@@ -101,12 +104,12 @@ console.log(${libName}())`,
         await runCommandAsyncHandlingError('tsc -b')
 
         console.debug(
-            `12) Let's add a '${libName}.ts' to './${libName}/src/lib'...`,
+            `12) Let's add a '${libName}.ts' to './libs/${libName}/src/lib'...`,
         )
 
         // Update source of lib to import from lib2
         updateFile(
-            `./${libName}/src/lib/${libName}.ts`,
+            `./libs/${libName}/src/lib/${libName}.ts`,
             `import { ${lib2Name} } from '@proj/${lib2Name}'
 
 export function ${libName}(): string {
@@ -120,7 +123,7 @@ export function ${libName}(): string {
 
         // Update source of lib to return 'updated' string literal
         updateFile(
-            `./${lib2Name}/src/lib/${lib2Name}.ts`,
+            `./libs/${lib2Name}/src/lib/${lib2Name}.ts`,
             `export function ${lib2Name}(): string {
     return 'updated';
 }`,
@@ -130,7 +133,7 @@ export function ${libName}(): string {
             `14) Now let's update the '${libName}' library package json...`,
         )
 
-        updateLibraryPackageJson(libName, (packageJson) => ({
+        updateLibraryPackageJson('libs', libName, (packageJson) => ({
             ...packageJson,
             dependencies: {
                 ...(packageJson.dependencies || {}),
@@ -142,12 +145,12 @@ export function ${libName}(): string {
             `15) Now let's update the project config for ${libName}...`,
         )
 
-        updateProjectConfig(libName, (config) => {
+        updateProjectConfig('libs', libName, (config) => {
             config.targets.package = {
                 executor: '@wanews/nx-typescript-project-references:package',
                 options: {
-                    main: `${libName}/src/index.ts`,
-                    tsConfig: `${libName}/tsconfig.json`,
+                    main: `libs/${libName}/src/index.ts`,
+                    tsConfig: `libs/${libName}/tsconfig.json`,
                 },
             }
             return config
@@ -201,19 +204,25 @@ async function runCommandAsyncHandlingError(command: string) {
 }
 
 export function updateProjectConfig(
+    type: 'libs' | 'apps',
     project: string,
     callback: (json: { [key: string]: any }) => Object,
 ) {
-    const file = `${project}/project.json`
+    const file = `${type}/${project}/project.json`
     updateFile(file, JSON.stringify(callback(readJson(file)), null, 2))
 }
 
 export function updateLibraryPackageJson(
+    type: 'libs' | 'apps',
     libName: string,
     callback: (json: { [key: string]: any }) => Object,
 ) {
     updateFile(
-        `${libName}/package.json`,
-        JSON.stringify(callback(readJson(`${libName}/package.json`)), null, 2),
+        `${type}/${libName}/package.json`,
+        JSON.stringify(
+            callback(readJson(`${type}/${libName}/package.json`)),
+            null,
+            2,
+        ),
     )
 }

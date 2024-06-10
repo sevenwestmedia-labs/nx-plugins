@@ -32,12 +32,14 @@ describe('nx-vite e2e', () => {
             `4) Now let's generate a new nx-vite:react project with the id of: '${plugin}'...`,
         )
 
-        await runNxCommandAsync(`generate @wanews/nx-vite:react ${plugin}`)
+        await runNxCommandAsync(
+            `generate @wanews/nx-vite:react ${plugin} --directory=apps`,
+        )
 
         console.debug(`5) Create an example.spec.ts test file...`)
 
         updateFile(
-            `${plugin}/src/example.spec.ts`,
+            `apps/${plugin}/src/example.spec.ts`,
             `import { assert, expect, it } from 'vitest'
 
 it('passes', () => {
@@ -67,7 +69,7 @@ it('passes', () => {
         // Ensure bundle exists on disk
         await new Promise((resolve) => setTimeout(resolve, 100))
 
-        checkFilesExist(`${plugin}/dist/index.html`)
+        checkFilesExist(`apps/${plugin}/dist/index.html`)
 
         expect(result.stderr).toEqual('')
         expect(testResult.stderr).toEqual('')

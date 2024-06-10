@@ -30,13 +30,15 @@ describe('nx-esbuild e2e', () => {
             `4) Now let's generate a new nx-esbuild:node project with the id of: '${plugin}'...`,
         )
 
-        await runNxCommandAsync(`generate @wanews/nx-esbuild:node ${plugin}`)
+        await runNxCommandAsync(
+            `generate @wanews/nx-esbuild:node ${plugin} --directory=apps`,
+        )
 
         await runNxCommandAsync(`build ${plugin}`)
         // Ensure bundle exists on disk
         await new Promise((resolve) => setTimeout(resolve, 100))
 
-        checkFilesExist(`${plugin}/dist/bundle.js`)
+        checkFilesExist(`apps/${plugin}/dist/bundle.js`)
     }, 60000)
 })
 
