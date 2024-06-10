@@ -5,7 +5,7 @@
     "sourceRoot": "apps/nx-vite-e2e/src",
     "targets": {
         "e2e": {
-            "executor": "nx:run-commands",
+            "executor": "@nx/workspace:run-commands",
             "options": {
                 "commands": [
                     "npx nx run nx-vite:build",
