@@ -7,8 +7,8 @@ import {
     Tree,
     updateJson,
     writeJson,
-} from '@nrwl/devkit'
-import { createProjectGraphAsync } from '@nrwl/workspace/src/core/project-graph'
+} from '@nx/devkit'
+import { createProjectGraphAsync } from '@nx/workspace/src/core/project-graph'
 import { MigrateSchema } from './schema'
 
 export default async function (host: Tree, _options: MigrateSchema) {

@@ -1,9 +1,9 @@
-import { detectPackageManager, ExecutorContext } from '@nrwl/devkit'
-import { createProjectGraphAsync } from '@nrwl/workspace/src/core/project-graph'
+import { detectPackageManager, ExecutorContext } from '@nx/devkit'
 import {
     calculateProjectDependencies,
     updateBuildableProjectPackageJsonDependencies,
-} from '@nrwl/workspace/src/utilities/buildable-libs-utils'
+} from '@nx/js/src/utils/buildable-libs-utils'
+import { createProjectGraphAsync } from '@nx/workspace/src/core/project-graph'
 import execa from 'execa'
 import fs from 'node:fs'
 import { PackageExecutorSchema } from './schema'
@@ -27,7 +27,7 @@ export async function packageExecutor(
             ? 'yarn'
             : 'npx'
     const projGraph = await createProjectGraphAsync()
-    const libRoot = context.workspace.projects[context.projectName].root
+    const libRoot = context.workspace?.projects[context.projectName].root
     const { target, dependencies } = calculateProjectDependencies(
         projGraph,
         context.root,
@@ -35,6 +35,10 @@ export async function packageExecutor(
         context.targetName,
         context.configurationName || 'production',
     )
+
+    if (libRoot === undefined) {
+        throw new Error('Unable to find project root!')
+    }
 
     const packageJson = fs.existsSync(`${libRoot}/package.json`)
         ? JSON.parse(fs.readFileSync(`${libRoot}/package.json`).toString())

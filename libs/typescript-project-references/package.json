@@ -12,8 +12,12 @@
         "tsup": "^5.12.9"
     },
     "peerDependencies": {
-        "@nrwl/devkit": ">13.10.0",
-        "@nrwl/workspace": ">13.10.0",
-        "nx": ">13.10.0"
+        "@nx/devkit": "^19.2.2",
+        "@nx/js": "^19.2.2",
+        "@nx/workspace": "^19.2.2",
+        "nx": "^19.2.2"
+    },
+    "devDependencies": {
+        "@nx/js": "^19.2.2"
     }
 }

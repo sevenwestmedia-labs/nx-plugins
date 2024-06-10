@@ -1,4 +1,4 @@
-import { readProjectConfiguration, Tree, updateJson } from '@nrwl/devkit'
+import { readProjectConfiguration, Tree, updateJson } from '@nx/devkit'
 import path from 'path'
 import { execPulumi } from '../../helpers/exec-pulumi'
 import { getStackInfo } from '../../helpers/get-pulumi-args'

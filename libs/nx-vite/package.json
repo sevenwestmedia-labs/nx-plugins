@@ -11,8 +11,8 @@
         "execa": "^5.1.1"
     },
     "peerDependencies": {
-        "@nrwl/devkit": ">14.5.0",
-        "nx": ">14.5.0",
+        "@nx/devkit": "^19.2.2",
+        "nx": "^19.2.2",
         "vite": ">3.0.0",
         "vite-tsconfig-paths": ">3.0.0",
         "vitest": "^0.22.0"

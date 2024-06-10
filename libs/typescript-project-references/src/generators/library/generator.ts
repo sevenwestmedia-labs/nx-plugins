@@ -8,7 +8,8 @@ import {
     TargetConfiguration,
     Tree,
     updateJson,
-} from '@nrwl/devkit'
+} from '@nx/devkit'
+import { getNpmScope } from '@nx/js/src/utils/package-json/get-npm-scope'
 import * as path from 'path'
 import { LibraryGeneratorSchema } from './schema'
 
@@ -63,7 +64,7 @@ export default async function (host: Tree, options: LibraryGeneratorSchema) {
         [targetName: string]: TargetConfiguration
     } = {
         lint: {
-            executor: '@nrwl/linter:eslint',
+            executor: '@nx/eslint:lint',
             options: {
                 lintFilePatterns: [`${normalizedOptions.projectRoot}/**/*.ts`],
             },
@@ -101,8 +102,7 @@ export default async function (host: Tree, options: LibraryGeneratorSchema) {
 
         value.compilerOptions.paths = {
             ...existingPaths,
-            [options.packageName ||
-            `@${getWorkspaceLayout(host).npmScope}/${options.name}`]: [
+            [options.packageName || `@${getNpmScope(host)}/${options.name}`]: [
                 `${normalizedOptions.projectRoot}/src/index.ts`,
             ],
         }

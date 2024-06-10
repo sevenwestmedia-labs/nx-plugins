@@ -1,4 +1,4 @@
-import { readProjectConfiguration, Tree } from '@nrwl/devkit'
+import { readProjectConfiguration, Tree } from '@nx/devkit'
 import { Readable } from 'node:stream'
 import { getStackInfo } from '../../helpers/get-pulumi-args'
 import { BackupConfigGeneratorSchema } from './schema'

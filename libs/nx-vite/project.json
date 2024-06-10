@@ -4,18 +4,14 @@
     "projectType": "library",
     "targets": {
         "lint": {
-            "executor": "@nrwl/linter:eslint",
+            "executor": "@nx/eslint:lint",
             "options": {
-                "lintFilePatterns": [
-                    "libs/nx-vite/**/*.ts"
-                ]
+                "lintFilePatterns": ["libs/nx-vite/**/*.ts"]
             },
-            "outputs": [
-                "{options.outputFile}"
-            ]
+            "outputs": ["{options.outputFile}"]
         },
         "test": {
-            "executor": "@nrwl/workspace:run-commands",
+            "executor": "@nx/workspace:run-commands",
             "options": {
                 "command": "npx vitest --run --passWithNoTests",
                 "cwd": "libs/nx-vite"
