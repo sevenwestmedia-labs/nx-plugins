@@ -10,12 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@master
+        uses: actions/checkout@v4
 
       - name: Enable node
-        uses: actions/setup-node@master
+        uses: actions/setup-node@v4
         with:
-          node-version: 14.x
+          node-version: 18
 
       - name: Cache .pnpm-store
         uses: actions/cache@v1
