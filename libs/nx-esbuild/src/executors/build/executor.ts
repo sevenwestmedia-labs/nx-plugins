@@ -1,4 +1,4 @@
-import { ExecutorContext } from '@nrwl/devkit'
+import { ExecutorContext } from '@nx/devkit'
 import { build } from 'esbuild'
 import fs from 'node:fs'
 import { BuildExecutorSchema } from './schema'
@@ -10,7 +10,7 @@ export default async function runExecutor(
     if (!context.projectName) {
         throw new Error('No projectName')
     }
-    const appRoot = context.workspace.projects[context.projectName].root
+    const appRoot = context.workspace?.projects[context.projectName].root
 
     const packageJson = fs.existsSync(`${appRoot}/package.json`)
         ? JSON.parse(fs.readFileSync(`${appRoot}/package.json`).toString())

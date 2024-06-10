@@ -1,4 +1,4 @@
-import { detectPackageManager, ExecutorContext } from '@nrwl/devkit'
+import { detectPackageManager, ExecutorContext } from '@nx/devkit'
 import execa from 'execa'
 import { existsSync } from 'fs'
 import fs from 'fs/promises'
@@ -14,9 +14,12 @@ export default async function runExecutor(
         throw new Error('No projectName')
     }
     const packageManager = detectPackageManager()
-    const appRoot = context.workspace.projects[context.projectName].root
+    const appRoot = context.workspace?.projects[context.projectName].root
     const workspaceRoot = context.root
 
+    if (appRoot === undefined) {
+        throw new Error('Unable to find the appRoot')
+    }
     if (packageManager !== 'pnpm' && packageManager !== 'yarn') {
         throw new Error('Currently only pnpm and yarn are supported')
     }

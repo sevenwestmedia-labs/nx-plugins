@@ -4,7 +4,7 @@ import {
     runCommandAsync,
     runNxCommandAsync,
     uniq,
-} from '@nrwl/nx-plugin/testing'
+} from '@nx/plugin/testing'
 import { describe, it } from 'vitest'
 
 describe('nx-esbuild e2e', () => {

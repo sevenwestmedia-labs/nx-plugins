@@ -8,7 +8,7 @@ import {
     runNxCommandAsync,
     uniq,
     updateFile,
-} from '@nrwl/nx-plugin/testing'
+} from '@nx/plugin/testing'
 import { beforeAll, describe, it } from 'vitest'
 
 describe('typescript-project-references e2e', () => {
@@ -23,10 +23,10 @@ describe('typescript-project-references e2e', () => {
         )
         await runCommandAsyncHandlingError('npm install')
         await runNxCommandAsync(
-            `generate @nrwl/workspace:library --name=${libName} --no-interactive`,
+            `generate @nx/workspace:library --name=${libName} --no-interactive`,
         )
         await runNxCommandAsync(
-            `generate @nrwl/workspace:library --name=${lib2Name} --no-interactive`,
+            `generate @nx/workspace:library --name=${lib2Name} --no-interactive`,
         )
         patchPackageJsonForPlugin('@wanews/nx-esbuild', 'libs/nx-esbuild')
         await runCommandAsyncHandlingError('npm install')

@@ -5,7 +5,7 @@ import {
     runNxCommandAsync,
     uniq,
     updateFile,
-} from '@nrwl/nx-plugin/testing'
+} from '@nx/plugin/testing'
 import { describe, expect, it } from 'vitest'
 
 describe('nx-vite e2e', () => {

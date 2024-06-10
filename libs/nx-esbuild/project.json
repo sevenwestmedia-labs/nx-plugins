@@ -4,18 +4,14 @@
     "projectType": "library",
     "targets": {
         "lint": {
-            "executor": "@nrwl/linter:eslint",
+            "executor": "@nx/linter:eslint",
             "options": {
-                "lintFilePatterns": [
-                    "libs/nx-esbuild/**/*.ts"
-                ]
+                "lintFilePatterns": ["libs/nx-esbuild/**/*.ts"]
             },
-            "outputs": [
-                "{options.outputFile}"
-            ]
+            "outputs": ["{options.outputFile}"]
         },
         "test": {
-            "executor": "@nrwl/workspace:run-commands",
+            "executor": "@nx/workspace:run-commands",
             "options": {
                 "command": "npx vitest --run --root libs/nx-esbuild"
             }

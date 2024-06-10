@@ -4,7 +4,7 @@ import {
     readJson,
     runCommandAsync,
     uniq,
-} from '@nrwl/nx-plugin/testing'
+} from '@nx/plugin/testing'
 import { describe, expect, it } from 'vitest'
 
 describe('init e2e', () => {
@@ -42,7 +42,7 @@ describe('init e2e', () => {
             sourceRoot: `apps/${app}-infrastructure/src`,
             targets: {
                 lint: {
-                    executor: '@nrwl/linter:eslint',
+                    executor: '@nx/eslint:lint',
                     options: {
                         lintFilePatterns: [
                             `apps/${app}-infrastructure/**/*.ts`,
