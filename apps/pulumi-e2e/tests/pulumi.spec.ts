@@ -9,23 +9,47 @@ import { describe, expect, it } from 'vitest'
 
 describe('init e2e', () => {
     it('should create infrastructure project', async () => {
+        console.debug(`1) Beginning to build test variables...`)
+
         const app = uniq('app')
+
+        console.debug(`2) Test variables built, let's ensure nx project...`)
+
         ensureNxProject('@wanews/nx-esbuild', 'libs/nx-esbuild')
+
+        console.debug(
+            `3) Now let's npm install and generate nx-esbuild:node ${app}...`,
+        )
+
         await runCommandAsyncHandlingError('npm install')
         await runCommandAsyncHandlingError(
             `npx nx generate @wanews/nx-esbuild:node ${app}`,
         )
 
+        console.debug(`4) Patch the json for plugin...`)
+
         patchPackageJsonForPlugin('@wanews/nx-pulumi', 'libs/pulumi')
+
+        console.debug(`5) Re-run npm install, and nx-pulumi:init a ${app}...`)
+
         await runCommandAsyncHandlingError('npm install')
         await runCommandAsyncHandlingError(
             `npx nx generate @wanews/nx-pulumi:init --projectName ${app} --tags infrastructure`,
         )
+
+        console.debug(
+            `6) Now let's add esbuild, nodemon, dotenv to dev dependencies...`,
+        )
+
         await runCommandAsyncHandlingError(
             'npm add esbuild nodemon dotenv --dev',
         )
 
-        const appProjectJson = readJson(`apps/${app}/project.json`)
+        console.debug(
+            `7) Now let's do a few tests to compare the '${app}/project.json'...`,
+        )
+
+        const appProjectJson = readJson(`${app}/project.json`)
         expect(appProjectJson.targets).toMatchObject({
             deploy: {
                 executor: 'nx:run-commands',
@@ -34,26 +58,29 @@ describe('init e2e', () => {
                 },
             },
         })
+
+        console.debug(
+            `8) Now let's do a test to compare the '${app}-infrastructure/project.json'...`,
+        )
+
         const appInfrastructureProjectJson = readJson(
-            `apps/${app}-infrastructure/project.json`,
+            `${app}-infrastructure/project.json`,
         )
         expect(appInfrastructureProjectJson).toMatchObject({
             projectType: 'application',
-            sourceRoot: `apps/${app}-infrastructure/src`,
+            sourceRoot: `${app}-infrastructure/src`,
             targets: {
                 lint: {
                     executor: '@nx/eslint:lint',
                     options: {
-                        lintFilePatterns: [
-                            `apps/${app}-infrastructure/**/*.ts`,
-                        ],
+                        lintFilePatterns: [`${app}-infrastructure/**/*.ts`],
                     },
                 },
                 test: {
                     executor: 'nx:run-commands',
                     options: {
                         command: 'npx vitest --run',
-                        cwd: `apps/${app}-infrastructure`,
+                        cwd: `${app}-infrastructure`,
                     },
                 },
                 up: {
