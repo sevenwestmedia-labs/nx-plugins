@@ -14,7 +14,7 @@
     "peerDependencies": {
         "@nx/devkit": "^19.2.2",
         "dotenv": ">16.0.0",
-        "esbuild": ">0.15.0",
+        "esbuild": "^0.16.17",
         "nodemon": ">2.0.0"
     }
 }
