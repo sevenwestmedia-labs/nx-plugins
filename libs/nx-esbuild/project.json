@@ -12,13 +12,13 @@
             "outputs": ["{options.outputFile}"]
         },
         "test": {
-            "executor": "@nx/workspace:run-commands",
+            "executor": "nx:run-commands",
             "options": {
                 "command": "npx vitest --run --root libs/nx-esbuild"
             }
         },
         "build": {
-            "executor": "@nx/workspace:run-commands",
+            "executor": "nx:run-commands",
             "options": {
                 "commands": [
                     {

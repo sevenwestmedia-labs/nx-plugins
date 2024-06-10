@@ -28,7 +28,7 @@ describe('init e2e', () => {
         const appProjectJson = readJson(`apps/${app}/project.json`)
         expect(appProjectJson.targets).toMatchObject({
             deploy: {
-                executor: '@nx/workspace:run-commands',
+                executor: 'nx:run-commands',
                 options: {
                     commands: [`nx run ${app}-infrastructure:up`],
                 },
@@ -50,7 +50,7 @@ describe('init e2e', () => {
                     },
                 },
                 test: {
-                    executor: '@nx/workspace:run-commands',
+                    executor: 'nx:run-commands',
                     options: {
                         command: 'npx vitest --run',
                         cwd: `apps/${app}-infrastructure`,

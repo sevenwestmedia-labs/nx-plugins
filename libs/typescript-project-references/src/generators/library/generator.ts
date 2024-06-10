@@ -70,7 +70,7 @@ export default async function (host: Tree, options: LibraryGeneratorSchema) {
             },
         },
         test: {
-            executor: '@nx/workspace:run-commands',
+            executor: 'nx:run-commands',
             options: {
                 command: 'npx vitest --run',
                 cwd: `libs/${normalizedOptions.projectRoot}`,

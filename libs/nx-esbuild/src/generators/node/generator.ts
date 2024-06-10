@@ -105,7 +105,7 @@ export default async function (host: Tree, options: NodeGeneratorSchema) {
                 },
             },
             test: {
-                executor: '@nx/workspace:run-commands',
+                executor: 'nx:run-commands',
                 options: {
                     command: 'npx vitest --run',
                     cwd: normalizedOptions.projectRoot,

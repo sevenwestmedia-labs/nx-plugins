@@ -98,7 +98,7 @@ export default async function (host: Tree, options: PulumiGeneratorSchema) {
                 },
             },
             test: {
-                executor: '@nx/workspace:run-commands',
+                executor: 'nx:run-commands',
                 options: {
                     command: 'npx vitest --run',
                     cwd: `${normalizedOptions.projectRoot}`,
@@ -132,7 +132,7 @@ export default async function (host: Tree, options: PulumiGeneratorSchema) {
     )
     targetProjectConfig.targets = targetProjectConfig.targets || {}
     targetProjectConfig.targets.deploy = {
-        executor: '@nx/workspace:run-commands',
+        executor: 'nx:run-commands',
         options: {
             commands: [`nx run ${normalizedOptions.projectName}:up`],
         },

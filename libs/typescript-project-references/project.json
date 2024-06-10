@@ -14,14 +14,14 @@
             "outputs": ["{options.outputFile}"]
         },
         "test": {
-            "executor": "@nx/workspace:run-commands",
+            "executor": "nx:run-commands",
             "options": {
                 "command": "npx vitest --run",
                 "cwd": "libs/typescript-project-references"
             }
         },
         "build": {
-            "executor": "@nx/workspace:run-commands",
+            "executor": "nx:run-commands",
             "options": {
                 "commands": [
                     {
