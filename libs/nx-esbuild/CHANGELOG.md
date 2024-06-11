@@ -1,5 +1,11 @@
 # @wanews/nx-esbuild
 
+## 1.1.0
+
+### Minor Changes
+
+- [#104](https://github.com/sevenwestmedia-labs/nx-plugins/pull/104) [`df9cb5553f942359491c666f969a547513a3b7c3`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/df9cb5553f942359491c666f969a547513a3b7c3) Thanks [@DownUndaDev](https://github.com/DownUndaDev)! - Fixed usage of the deprecated context.workspace in the executors, and now utilise the context.projectsConfigurations
+
 ## 1.0.0
 
 ### Major Changes
