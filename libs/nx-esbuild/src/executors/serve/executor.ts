@@ -33,7 +33,8 @@ export default async function runExecutor(
             : packageManager === 'yarn'
             ? 'yarn'
             : 'npx'
-    const appRoot = context.workspace?.projects[context.projectName].root
+    const appRoot =
+        context.projectsConfigurations?.projects[context.projectName].root
 
     const packageJson = fs.existsSync(`${appRoot}/package.json`)
         ? JSON.parse(fs.readFileSync(`${appRoot}/package.json`).toString())

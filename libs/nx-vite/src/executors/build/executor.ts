@@ -11,7 +11,8 @@ export default async function runExecutor(
         throw new Error('No projectName')
     }
 
-    const appRoot = context.workspace?.projects[context.projectName].root
+    const appRoot =
+        context.projectsConfigurations?.projects[context.projectName].root
 
     const buildConfig: InlineConfig = {
         root: context.cwd + '/' + appRoot,

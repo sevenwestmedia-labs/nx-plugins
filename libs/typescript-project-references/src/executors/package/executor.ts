@@ -27,7 +27,8 @@ export async function packageExecutor(
             ? 'yarn'
             : 'npx'
     const projGraph = await createProjectGraphAsync()
-    const libRoot = context.workspace?.projects[context.projectName].root
+    const libRoot =
+        context.projectsConfigurations?.projects[context.projectName].root
     const { target, dependencies } = calculateProjectDependencies(
         projGraph,
         context.root,

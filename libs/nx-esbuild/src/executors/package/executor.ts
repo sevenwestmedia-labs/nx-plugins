@@ -14,7 +14,8 @@ export default async function runExecutor(
         throw new Error('No projectName')
     }
     const packageManager = detectPackageManager()
-    const appRoot = context.workspace?.projects[context.projectName].root
+    const appRoot =
+        context.projectsConfigurations?.projects[context.projectName].root
     const workspaceRoot = context.root
 
     if (appRoot === undefined) {
