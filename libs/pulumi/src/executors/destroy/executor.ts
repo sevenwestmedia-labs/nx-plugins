@@ -13,7 +13,7 @@ export default async function runUpExecutor(
     }
 
     const infrastructureRoot =
-        context.workspace?.projects[context.projectName]?.root
+        context.projectsConfigurations?.projects[context.projectName]?.root
 
     if (!infrastructureRoot) {
         console.error(`Error: Cannot find root for ${context.projectName}.`)
