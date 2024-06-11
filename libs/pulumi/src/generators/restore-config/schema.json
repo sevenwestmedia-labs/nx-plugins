@@ -17,9 +17,7 @@
         "environment": {
             "description": "",
             "type": "string",
-            "aliases": [
-                "env"
-            ]
+            "aliases": ["env"]
         },
         "stack": {
             "description": "Pulumi stack name",
@@ -29,8 +27,5 @@
             "type": "string"
         }
     },
-    "required": [
-        "projectName",
-        "environment"
-    ]
+    "required": ["projectName", "environment"]
 }

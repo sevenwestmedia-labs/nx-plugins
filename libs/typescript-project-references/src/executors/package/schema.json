@@ -37,10 +37,7 @@
         "buildableProjectDepsInPackageJsonType": {
             "type": "string",
             "description": "When updateBuildableProjectDepsInPackageJson is true, this adds dependencies to either `peerDependencies` or `dependencies`",
-            "enum": [
-                "dependencies",
-                "peerDependencies"
-            ],
+            "enum": ["dependencies", "peerDependencies"],
             "default": "dependencies"
         },
         "packageJson": {
@@ -54,7 +51,5 @@
             "type": "array"
         }
     },
-    "required": [
-        "tsConfig"
-    ]
+    "required": ["tsConfig"]
 }

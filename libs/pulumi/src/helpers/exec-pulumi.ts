@@ -6,4 +6,3 @@ export async function execPulumi(pulumiArgs: string[]) {
         stdio: [process.stdin, process.stdout, process.stderr],
     })
 }
-

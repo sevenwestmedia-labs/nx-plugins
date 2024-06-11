@@ -7,7 +7,7 @@ import {
     Tree,
     updateJson,
     updateProjectConfiguration,
-} from '@nrwl/devkit'
+} from '@nx/devkit'
 import * as path from 'path'
 import { PulumiGeneratorSchema } from './schema'
 
@@ -90,7 +90,7 @@ export default async function (host: Tree, options: PulumiGeneratorSchema) {
         sourceRoot: `${normalizedOptions.projectRoot}/src`,
         targets: {
             lint: {
-                executor: '@nrwl/linter:eslint',
+                executor: '@nx/eslint:lint',
                 options: {
                     lintFilePatterns: [
                         `${normalizedOptions.projectRoot}/**/*.ts`,

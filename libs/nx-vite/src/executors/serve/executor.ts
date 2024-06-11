@@ -1,4 +1,4 @@
-import { ExecutorContext } from '@nrwl/devkit'
+import { ExecutorContext } from '@nx/devkit'
 import execa from 'execa'
 import { getPackageManagerCommand } from 'nx/src/utils/package-manager'
 import { ServeExecutorSchema } from './schema'
@@ -11,7 +11,7 @@ export default async function runExecutor(
         throw new Error('No projectName')
     }
     const packageManager = getPackageManagerCommand()
-    const appRoot = context.workspace.projects[context.projectName].root
+    const appRoot = context.workspace?.projects[context.projectName].root
 
     const vite = execa(
         packageManager.exec,

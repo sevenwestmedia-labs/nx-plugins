@@ -1,4 +1,4 @@
-import { ExecutorContext, runExecutor } from '@nrwl/devkit'
+import { ExecutorContext, runExecutor } from '@nx/devkit'
 import execa from 'execa'
 import fs from 'fs'
 import { getStackInfo } from '../../helpers/get-pulumi-args'
@@ -13,7 +13,7 @@ export default async function runUpExecutor(
     }
 
     const infrastructureRoot =
-        context.workspace.projects[context.projectName]?.root
+        context.workspace?.projects[context.projectName]?.root
 
     if (!infrastructureRoot) {
         console.error(`Error: Cannot find root for ${context.projectName}.`)

@@ -1,21 +1,18 @@
 {
+    "name": "nx-esbuild",
     "$schema": "../../node_modules/nx/schemas/project-schema.json",
     "sourceRoot": "libs/nx-esbuild/src",
     "projectType": "library",
     "targets": {
         "lint": {
-            "executor": "@nrwl/linter:eslint",
+            "executor": "@nx/eslint:lint",
             "options": {
-                "lintFilePatterns": [
-                    "libs/nx-esbuild/**/*.ts"
-                ]
+                "lintFilePatterns": ["libs/nx-esbuild/**/*.ts"]
             },
-            "outputs": [
-                "{options.outputFile}"
-            ]
+            "outputs": ["{options.outputFile}"]
         },
         "test": {
-            "executor": "@nrwl/workspace:run-commands",
+            "executor": "nx:run-commands",
             "options": {
                 "command": "npx vitest --run --root libs/nx-esbuild"
             }

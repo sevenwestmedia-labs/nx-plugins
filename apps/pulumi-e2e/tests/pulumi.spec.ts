@@ -4,25 +4,49 @@ import {
     readJson,
     runCommandAsync,
     uniq,
-} from '@nrwl/nx-plugin/testing'
+} from '@nx/plugin/testing'
 import { describe, expect, it } from 'vitest'
 
 describe('init e2e', () => {
     it('should create infrastructure project', async () => {
+        console.debug(`1) Beginning to build test variables...`)
+
         const app = uniq('app')
+
+        console.debug(`2) Test variables built, let's ensure nx project...`)
+
         ensureNxProject('@wanews/nx-esbuild', 'libs/nx-esbuild')
-        await runCommandAsyncHandlingError('npm install')
-        await runCommandAsyncHandlingError(
-            `npx nx generate @wanews/nx-esbuild:node ${app}`,
+
+        console.debug(
+            `3) Now let's npm install and generate nx-esbuild:node ${app}...`,
         )
 
-        patchPackageJsonForPlugin('@wanews/nx-pulumi', 'libs/pulumi')
         await runCommandAsyncHandlingError('npm install')
         await runCommandAsyncHandlingError(
-            `npx nx generate @wanews/nx-pulumi:init --projectName ${app} --tags infrastructure`,
+            `npx nx generate @wanews/nx-esbuild:node ${app} --directory=apps`,
         )
+
+        console.debug(`4) Patch the json for plugin...`)
+
+        patchPackageJsonForPlugin('@wanews/nx-pulumi', 'libs/pulumi')
+
+        console.debug(`5) Re-run npm install, and nx-pulumi:init a ${app}...`)
+
+        await runCommandAsyncHandlingError('npm install')
+        await runCommandAsyncHandlingError(
+            `npx nx generate @wanews/nx-pulumi:init --projectName ${app} --directory=apps --tags infrastructure`,
+        )
+
+        console.debug(
+            `6) Now let's add esbuild, nodemon, dotenv to dev dependencies...`,
+        )
+
         await runCommandAsyncHandlingError(
             'npm add esbuild nodemon dotenv --dev',
+        )
+
+        console.debug(
+            `7) Now let's do a few tests to compare the '${app}/project.json'...`,
         )
 
         const appProjectJson = readJson(`apps/${app}/project.json`)
@@ -34,6 +58,11 @@ describe('init e2e', () => {
                 },
             },
         })
+
+        console.debug(
+            `8) Now let's do a test to compare the '${app}-infrastructure/project.json'...`,
+        )
+
         const appInfrastructureProjectJson = readJson(
             `apps/${app}-infrastructure/project.json`,
         )
@@ -42,7 +71,7 @@ describe('init e2e', () => {
             sourceRoot: `apps/${app}-infrastructure/src`,
             targets: {
                 lint: {
-                    executor: '@nrwl/linter:eslint',
+                    executor: '@nx/eslint:lint',
                     options: {
                         lintFilePatterns: [
                             `apps/${app}-infrastructure/**/*.ts`,

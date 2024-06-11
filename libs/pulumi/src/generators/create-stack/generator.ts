@@ -1,4 +1,4 @@
-import { readProjectConfiguration, Tree } from '@nrwl/devkit'
+import { readProjectConfiguration, Tree } from '@nx/devkit'
 import execa from 'execa'
 import { getStackInfo } from '../../helpers/get-pulumi-args'
 import { CreateStackGeneratorSchema } from './schema'

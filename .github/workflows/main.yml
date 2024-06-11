@@ -13,16 +13,16 @@ jobs:
       changes: ${{ steps.version.outputs.changes }} # map step output to job output
     steps:
       - name: Checkout
-        uses: actions/checkout@main
+        uses: actions/checkout@v4
         with:
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
           token: ${{ secrets.SERVICE_ACCOUNT_PAT }}
 
       - name: Enable node
-        uses: actions/setup-node@master
+        uses: actions/setup-node@v4
         with:
-          node-version: 14.x
+          node-version: 18
           registry-url: 'https://registry.npmjs.org'
           scope: '@wanews'
         env:
@@ -36,7 +36,9 @@ jobs:
 
       - name: Install pnpm
         run: |
-          npm i -g pnpm@6
+          npm i -g pnpm@9
+      - name: Set verify-store-integrity
+        run: |
           pnpm set verify-store-integrity false
 
       - name: pnpm install

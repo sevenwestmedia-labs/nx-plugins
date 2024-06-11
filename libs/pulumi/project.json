@@ -1,21 +1,18 @@
 {
+    "name": "pulumi",
     "$schema": "../../node_modules/nx/schemas/project-schema.json",
     "sourceRoot": "libs/pulumi/src",
     "projectType": "library",
     "targets": {
         "lint": {
-            "executor": "@nrwl/linter:eslint",
+            "executor": "@nx/eslint:lint",
             "options": {
-                "lintFilePatterns": [
-                    "libs/pulumi/**/*.ts"
-                ]
+                "lintFilePatterns": ["libs/pulumi/**/*.ts"]
             },
-            "outputs": [
-                "{options.outputFile}"
-            ]
+            "outputs": ["{options.outputFile}"]
         },
         "test": {
-            "executor": "@nrwl/workspace:run-commands",
+            "executor": "nx:run-commands",
             "options": {
                 "command": "npx vitest --run --passWithNoTests",
                 "cwd": "libs/pulumi"

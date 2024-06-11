@@ -5,7 +5,10 @@
     },
     "references": [
         {
-            "path": "libs/typescript-project-references"
+            "path": "apps/nx-esbuild-e2e"
+        },
+        {
+            "path": "apps/nx-vite-e2e"
         },
         {
             "path": "apps/typescript-project-references-e2e"
@@ -14,16 +17,13 @@
             "path": "libs/nx-esbuild"
         },
         {
-            "path": "apps/nx-esbuild-e2e"
-        },
-        {
             "path": "libs/nx-vite"
         },
         {
-            "path": "apps/nx-vite-e2e"
+            "path": "libs/pulumi"
         },
         {
-            "path": "libs/pulumi"
+            "path": "libs/typescript-project-references"
         }
     ]
 }
