@@ -1,6 +1,6 @@
 {
     "name": "nx-esbuild-e2e",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "main": "dist/index.js",
     "private": true,
     "peerDependencies": {
