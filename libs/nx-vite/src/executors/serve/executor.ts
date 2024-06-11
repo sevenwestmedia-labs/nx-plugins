@@ -12,10 +12,15 @@ export default async function runExecutor(
     }
     const packageManager = getPackageManagerCommand()
     const appRoot = context.workspace.projects[context.projectName].root
+    const args: string[] = [];
+
+    if (_options.open) {
+        args.push('--open');
+    }
 
     const vite = execa(
         packageManager.exec,
-        ['vite', `${context.cwd}/${appRoot}`, '--open'],
+        ['vite', `${context.cwd}/${appRoot}`, ...args],
         {
             stdio: [process.stdin, process.stdout, 'pipe'],
         },

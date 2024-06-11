@@ -1,6 +1,12 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "properties": {},
+    "properties": {
+        "open": {
+            "type": "boolean",
+            "default": false,
+            "description": "Automatically open the app in the browser on server start."
+        }
+    },
     "type": "object",
     "cli": "nx",
     "title": "Vite Serve Executor"
