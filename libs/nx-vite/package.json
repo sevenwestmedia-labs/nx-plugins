@@ -13,8 +13,8 @@
     "peerDependencies": {
         "@nx/devkit": "^19.2.2",
         "nx": "^19.2.2",
-        "vite": ">3.0.0",
-        "vite-tsconfig-paths": ">3.0.0",
-        "vitest": "^0.22.0"
+        "vite": "^3.2.10",
+        "vite-tsconfig-paths": "^4.3.2",
+        "vitest": "^1.6.0"
     }
 }
