@@ -8,7 +8,7 @@
     "generators": "./generators.json",
     "executors": "./executors.json",
     "dependencies": {
-        "@pnpm/make-dedicated-lockfile": "^0.3.19",
+        "@pnpm/make-dedicated-lockfile": "^0.3.24",
         "execa": "^5.1.1"
     },
     "peerDependencies": {
