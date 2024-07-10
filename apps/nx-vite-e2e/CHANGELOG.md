@@ -1,5 +1,11 @@
 # nx-vite-e2e
 
+## 1.1.0
+
+### Minor Changes
+
+- [#105](https://github.com/sevenwestmedia-labs/nx-plugins/pull/105) [`42087b8cf60f4ae26e0d04f05cf4517be2463d0d`](https://github.com/sevenwestmedia-labs/nx-plugins/commit/42087b8cf60f4ae26e0d04f05cf4517be2463d0d) Thanks [@DownUndaDev](https://github.com/DownUndaDev)! - Updated project dependencies up to the latest versions.
+
 ## 1.0.0
 
 ### Major Changes
