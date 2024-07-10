@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { detectPackageManager, ExecutorContext } from '@nx/devkit'
-import { build } from 'esbuild'
+import * as esbuild from 'esbuild'
 import execa from 'execa'
 import fs from 'node:fs'
+import { BuildOptions } from 'typescript'
 import { ServeExecutorSchema } from './schema'
 
 export default async function runExecutor(
@@ -50,24 +51,26 @@ export default async function runExecutor(
         }
     })
 
-    await build({
+    const { plugins, external, ...otherOptions } = options
+
+    await esbuild.build({
         bundle: true,
         sourcemap: true,
-        watch: true,
+        // watch: true,
         logLevel: 'info',
-        ...options,
-        external: [
-            ...(options.external || []),
-            ...Object.keys(packageJson?.dependencies || {}),
-            ...Object.keys(packageJson?.devDependencies || {}),
-        ],
-        plugins: options.plugins?.map((plugin) => {
+        ...(otherOptions as Omit<BuildOptions, 'plugins'>),
+        plugins: plugins?.map((plugin) => {
             // eslint-disable-next-line @typescript-eslint/no-var-requires
             const pluginPkg = require(plugin.package)
             return 'default' in pluginPkg
                 ? pluginPkg.default(plugin.args)
                 : pluginPkg(plugin.args)
         }),
+        external: [
+            ...(external || []),
+            ...Object.keys(packageJson?.dependencies || {}),
+            ...Object.keys(packageJson?.devDependencies || {}),
+        ],
     })
 
     const serveProcess = customServeCommand
