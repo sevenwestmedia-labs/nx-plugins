@@ -51,7 +51,8 @@ export default async function runExecutor(
         }
     })
 
-    const { plugins, external, ...otherOptions } = options
+    // split it out because we don't want it to build the watch parameter
+    const { plugins, external, watch, ...otherOptions } = options
 
     await esbuild.build({
         bundle: true,
