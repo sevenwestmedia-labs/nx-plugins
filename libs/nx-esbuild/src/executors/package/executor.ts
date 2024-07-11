@@ -42,15 +42,22 @@ export default async function runExecutor(
     if (!Array.isArray(entryPoints)) {
         throw new Error('Expecting entryPoints to be an array')
     }
+    // Entry point to verify that we're ONLY dealing with a string[]
+    if (
+        entryPoints.filter((point) => !(typeof point === 'string')).length > 0
+    ) {
+        throw new Error('Expecting entryPoints to be a string array')
+    }
 
+    const entryPointArray = entryPoints as string[]
     const result = await buildExecutor(options, context)
     if (!result.success) {
         return result
     }
 
-    const outbase = options.outbase || lowestCommonAncestor(...entryPoints)
+    const outbase = options.outbase || lowestCommonAncestor(...entryPointArray)
 
-    for (const entryPoint of entryPoints) {
+    for (const entryPoint of entryPointArray) {
         console.log(`> Packaging ${entryPoint}`)
         const entryPointDir = path.dirname(entryPoint)
         const dir = entryPointDir.replace(outbase || entryPointDir, '')

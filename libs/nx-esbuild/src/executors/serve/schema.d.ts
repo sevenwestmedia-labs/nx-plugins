@@ -5,4 +5,5 @@ export interface ServeExecutorSchema extends Omit<BuildOptions, 'plugins'> {
     plugins: Array<{ package: string; args: any }>
     serveCommand?: string
     serveCommandCwd?: string
+    watch?: boolean
 }
