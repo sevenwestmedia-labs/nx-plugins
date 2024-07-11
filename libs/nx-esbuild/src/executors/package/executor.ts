@@ -42,6 +42,12 @@ export default async function runExecutor(
     if (!Array.isArray(entryPoints)) {
         throw new Error('Expecting entryPoints to be an array')
     }
+    // Entry point to verify that we're ONLY dealing with a string[]
+    if (
+        entryPoints.filter((point) => !(typeof point === 'string')).length > 0
+    ) {
+        throw new Error('Expecting entryPoints to be a string array')
+    }
 
     const entryPointArray = entryPoints as string[]
     const result = await buildExecutor(options, context)
